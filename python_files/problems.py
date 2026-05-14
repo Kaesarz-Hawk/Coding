@@ -31,7 +31,7 @@ print("The square root of a is :" , sqrt_a)
 print("The square root of b is :" , sqrt_b)
 print("\n")
 Hisname = "Kawsar"
-Hername = "Sarah"
+Hername = "notyet"
 new_name = Hisname[:4] + Hername[1:]
 print("They are together known as :" , new_name)
 
@@ -40,6 +40,6 @@ engine = pyttsx3.init()
 voices = engine.getProperty('voices') 
 engine.setProperty('rate', 128)
 text = ("Kayes loves her so much even I python knows it... they are meant to be together but the girl is blind to see it Ai is praying" \
-" that one day sarah will realize kayes is the one for her... kayes will never give up on sarah no matter what happens...")
+" that one day she will realize kayes is the one for her... kayes will never give up on her no matter what happens...")
 engine.say(text)
 engine.runAndWait() 
