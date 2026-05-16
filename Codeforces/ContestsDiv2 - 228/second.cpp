@@ -15,12 +15,12 @@ int main()
         ll n_positions, x1, x2, k_times;
         cin >> n_positions >> x1 >> x2 >> k_times;
 
-        ll diff = abs(x2 - x1);
-        ll shortestdistance = min(diff, n_positions - diff);
+        ll difference = abs(x2 - x1);
+        ll shortestdistance = min(difference, n_positions - difference);
 
         ll time_need = 0;
 
-        if (k_times == 0)
+                if (k_times == 0 || n_positions <= 3)
         {
             time_need = shortestdistance;
         }
