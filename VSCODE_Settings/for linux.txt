@@ -1,0 +1,166 @@
+{
+  // For Linux (Ubuntu) by KH
+
+  // Font settings
+  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 20,
+  "editor.lineHeight": 24,
+  "editor.fontLigatures": true,
+  "editor.letterSpacing": 0.5,
+
+  // Editor visuals
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "smooth",
+  "editor.renderWhitespace": "selection",
+  "editor.minimap.enabled": false,
+
+  // Auto save
+  "files.autoSave": "afterDelay",
+
+  // Code Runner
+  "code-runner.runInTerminal": true,
+
+  "code-runner.executorMap": {
+
+    "javascript": "node",
+
+    "java": "cd \"$dir\" && javac \"$fileName\" && java \"$fileNameWithoutExt\"",
+
+    "c": "cd \"$dir\" && gcc \"$fileName\" -o \"$fileNameWithoutExt\" && ./$fileNameWithoutExt",
+
+    "cpp": "cd \"$dir\" && g++ -std=c++17 \"$fileName\" -o \"$fileNameWithoutExt\" && ./$fileNameWithoutExt",
+
+    "python": "cd \"$dir\" && python3 \"$fileName\"",
+
+    "zig": "zig run",
+
+    "objective-c": "cd \"$dir\" && gcc -framework Cocoa \"$fileName\" -o \"$fileNameWithoutExt\" && ./$fileNameWithoutExt",
+
+    "php": "php",
+    "perl": "perl",
+    "perl6": "perl6",
+    "ruby": "ruby",
+    "go": "go run",
+    "lua": "lua",
+    "groovy": "groovy",
+
+    "powershell": "pwsh -File",
+
+    "shellscript": "bash",
+
+    "fsharp": "fsi",
+    "csharp": "scriptcs",
+
+    "typescript": "ts-node",
+
+    "coffeescript": "coffee",
+    "scala": "scala",
+    "swift": "swift",
+    "julia": "julia",
+    "crystal": "crystal",
+    "ocaml": "ocaml",
+    "r": "Rscript",
+
+    "clojure": "lein exec",
+
+    "haxe": "haxe --cwd \"$dirWithoutTrailingSlash\" --run \"$fileNameWithoutExt\"",
+
+    "rust": "cd \"$dir\" && rustc \"$fileName\" && ./$fileNameWithoutExt",
+
+    "racket": "racket",
+    "scheme": "csi -script",
+
+    "dart": "dart",
+
+    "pascal": "cd \"$dir\" && fpc \"$fileName\" && ./$fileNameWithoutExt",
+
+    "d": "cd \"$dir\" && dmd \"$fileName\" && ./$fileNameWithoutExt",
+
+    "haskell": "runghc",
+
+    "nim": "nim compile --verbosity:0 --hints:off --run",
+
+    "lisp": "sbcl --script",
+
+    "kit": "kitc --run",
+
+    "v": "v run",
+
+    "sass": "sass --style expanded",
+    "scss": "scss --style expanded",
+
+    "less": "cd \"$dir\" && lessc \"$fileName\" \"$fileNameWithoutExt.css\"",
+
+    "FortranFreeForm": "cd \"$dir\" && gfortran \"$fileName\" -o \"$fileNameWithoutExt\" && ./$fileNameWithoutExt",
+
+    "fortran-modern": "cd \"$dir\" && gfortran \"$fileName\" -o \"$fileNameWithoutExt\" && ./$fileNameWithoutExt",
+
+    "fortran_fixed-form": "cd \"$dir\" && gfortran \"$fileName\" -o \"$fileNameWithoutExt\" && ./$fileNameWithoutExt",
+
+    "fortran": "cd \"$dir\" && gfortran \"$fileName\" -o \"$fileNameWithoutExt\" && ./$fileNameWithoutExt",
+
+    "sml": "cd \"$dir\" && sml \"$fileName\"",
+
+    "mojo": "mojo run",
+
+    "erlang": "escript",
+
+    "spwn": "spwn build",
+
+    "pkl": "cd \"$dir\" && pkl eval -f yaml \"$fileName\" -o \"$fileNameWithoutExt.yaml\"",
+
+    "gleam": "gleam run -m \"$fileNameWithoutExt\""
+  },
+
+  // Theme and icons
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Dark+",
+
+  // Debug
+  "debug.onTaskErrors": "debugAnyway",
+
+  "editor.codeActionsOnSave": {
+
+  },
+
+  "glassit.alpha": 220,
+
+  // Formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools"
+  },
+
+  // Linux terminal
+  "terminal.integrated.defaultProfile.linux": "bash",
+
+  // Compiler path
+  "C_Cpp.default.compilerPath": "/usr/bin/g++",
+
+  // Git OFF
+  "git.enabled": false,
+  "git.enableSmartCommit": false,
+  "git.blame.statusBarItem.enabled": false,
+
+  // GitLens OFF
+  "gitlens.codeLens.enabled": false,
+  "gitlens.codeLens.authors.enabled": false,
+  "gitlens.ai.model": "",
+  "gitlens.ai.vscode.model": "",
+
+  // Misc
+  "lldb.suppressUpdateNotifications": true,
+
+  "security.workspace.trust.untrustedFiles": "open",
+
+  "diffEditor.codeLens": true,
+
+  "redhat.telemetry.enabled": false,
+
+  "explorer.confirmDelete": false,
+
+  "geminicodeassist.inlineSuggestions.enableAuto": false,
+
+  "terminal.integrated.enableMultiLinePasteWarning": "never"
+}
