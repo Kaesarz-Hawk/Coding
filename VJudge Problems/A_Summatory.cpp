@@ -1,19 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
-int main()
-{
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        long long n;
-        cin >> n;
-
-                long long ans = 0;
-        for (long long i = 1; i <= n; i++)
-        {
-            ans += (i * (i + 1) / 2) * (i * (i + 1) / 2);
+#define ll long long
+const long long MOD = 1000000003;
+int main() {
+    int T; cin >> T;
+    while (T--) {
+        ll n; cin >> n;
+        ll ans = 0;
+        for (ll i = 1; i <= n; i++) {
+            ans = (ans + (ll)pow((i * (i + 1)) / 2.0, 2)) % MOD;
         }
         cout << ans << endl;
     }
+    return 0;
 }
