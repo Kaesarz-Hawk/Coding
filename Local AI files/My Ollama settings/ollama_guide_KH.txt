@@ -1,0 +1,75 @@
+==========================================================
+                OLLAMA COMPLETE MASTER GUIDE              
+==========================================================
+
+1. HOW TO INSTALL OLLAMA & THE MODEL (ON A NEW PC)
+----------------------------------------------------------
+Open your terminal, copy the 3 lines below, paste them, 
+and press Enter:
+
+cd "$(find /media /run/media /mnt -type d -name "KAWSAR" -print -quit 2>/dev/null)"
+chmod +x install_linux.sh
+./install_linux.sh
+
+
+==========================================================
+2. START CHAT (DAILY RUN)
+----------------------------------------------------------
+Once setup is complete, you can unplug your USB. 
+To start chatting with your AI anytime, open a terminal:
+
+ollama run qwen3-8b-coder
+
+
+==========================================================
+3. GET QUICK REPLIES (ONE-LINE FAST MODE)
+----------------------------------------------------------
+To get a rapid response without entering the chat mode:
+
+echo "your question here" | ollama run qwen3-8b-coder
+
+
+==========================================================
+4. INSIDE THE CHAT COMMANDS (Type when >>> is open)
+----------------------------------------------------------
+Exit and End Chat:
+  /bye
+
+Clear Chat Memory (Reset context):
+  /clear
+
+Show Performance Stats (See word generation speed):
+  /set verbose
+
+Pasting Multi-line Code Blocks:
+  """
+  paste your large code block here
+  """
+
+
+==========================================================
+5. STOP BACKGROUND SERVICE (FREE RAM & CPU)
+----------------------------------------------------------
+Ollama stays in the background after you exit. To kill it completely:
+
+sudo pkill ollama
+
+Check if it is fully closed (Should return nothing):
+  pgrep ollama
+
+Force Close (If it gets stuck):
+  sudo killall -9 ollama
+
+
+==========================================================
+6. SYSTEM MANAGEMENT
+----------------------------------------------------------
+View All Installed Models on this PC:
+  ollama list
+
+Start the Background Service Again Manually:
+  ollama serve &> /dev/null &
+
+Delete Model from PC to Clean Space:
+  ollama rm qwen3-8b-coder
+==========================================================

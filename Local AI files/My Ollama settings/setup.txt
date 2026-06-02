@@ -1,0 +1,17 @@
+==================================================
+1. HOW TO INSTALL OLLAMA & THE MODEL (ON A NEW PC)
+==================================================
+Open your terminal, copy the 3 lines below, paste them, and press Enter:
+
+cd "$(find /media /run/media /mnt -type d -name "KAWSAR" -print -quit 2>/dev/null)"
+chmod +x install_linux.sh
+./install_linux.sh
+
+
+==================================================
+2. HOW TO RUN THE AI ANYTIME (AFTER SETUP IS DONE)
+==================================================
+Once setup is complete, you can unplug your USB. 
+To start chatting with your AI anytime, just open a terminal and run:
+
+ollama run qwen3-8b-coder
