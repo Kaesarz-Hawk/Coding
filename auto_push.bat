@@ -15,27 +15,23 @@ set "RESET=%ESC%[0m"
 cls
 echo.
 echo.
-
-:: slow banner reveal line by line
 ping -n 2 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ██╗  ██╗██╗  ██╗    ██████╗ ██╗   ██╗███████╗██╗  ██╗%RESET%
+echo %CYAN%%BOLD%  ##   ##  ##  ##    #####  ##  ##  #####  ##  ##%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ██║ ██╔╝██║  ██║    ██╔══██╗██║   ██║██╔════╝██║  ██║%RESET%
+echo %CYAN%%BOLD%  ##  ##   ##  ##    ##  ## ##  ##  ##     ##  ##%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  █████╔╝ ███████║    ██████╔╝██║   ██║███████╗███████║%RESET%
+echo %CYAN%%BOLD%  #####    ######    #####  ##  ##  #####  ######%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ██╔═██╗ ██╔══██║    ██╔═══╝ ██║   ██║╚════██║██╔══██║%RESET%
+echo %CYAN%%BOLD%  ##  ##   ##  ##    ##      ####   ##     ##  ##%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ██║  ██╗██║  ██║    ██║     ╚██████╔╝███████║██║  ██║%RESET%
-ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝%RESET%
+echo %CYAN%%BOLD%  ##   ##  ##  ##    ##       ##    #####  ##  ##%RESET%
 ping -n 2 127.0.0.1 >nul
 echo.
-echo %DIM%  ────────────────────────────────────────────────%RESET%
+echo %DIM%  -----------------------------------------------%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %MAGENTA%            Git Auto Push  ^|  Kaesarz-Hawk%RESET%
+echo %MAGENTA%          Git Auto Push  ^|  Kaesarz-Hawk%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %DIM%  ────────────────────────────────────────────────%RESET%
+echo %DIM%  -----------------------------------------------%RESET%
 echo.
 ping -n 3 127.0.0.1 >nul
 
@@ -47,14 +43,14 @@ if errorlevel 1 (
     timeout /t 4 >nul
     exit /b
 )
-echo %GREEN%  [✓] Repository OK%RESET%
+echo %GREEN%  [+] Repository OK%RESET%
 echo.
 ping -n 2 127.0.0.1 >nul
 
 echo %CYAN%  [2/4] Staging all changes...%RESET%
 ping -n 2 127.0.0.1 >nul
 git add .
-echo %GREEN%  [✓] Staged%RESET%
+echo %GREEN%  [+] Staged%RESET%
 echo.
 ping -n 2 127.0.0.1 >nul
 
@@ -69,7 +65,7 @@ if %errorlevel%==0 (
     exit /b
 )
 git commit -m "Auto update"
-echo %GREEN%  [✓] Committed%RESET%
+echo %GREEN%  [+] Committed%RESET%
 echo.
 ping -n 2 127.0.0.1 >nul
 
@@ -95,14 +91,14 @@ if errorlevel 1 (
 
 echo.
 ping -n 2 127.0.0.1 >nul
-echo %GREEN%  [✓] Pushed successfully!%RESET%
+echo %GREEN%  [+] Pushed successfully!%RESET%
 echo.
 ping -n 2 127.0.0.1 >nul
-echo %DIM%  ────────────────────────────────────────────────%RESET%
+echo %DIM%  -----------------------------------------------%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %GREEN%%BOLD%       ✦  Done. The grind never stops.  ✦%RESET%
+echo %GREEN%%BOLD%       *  Done. The grind never stops.  *%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %DIM%  ────────────────────────────────────────────────%RESET%
+echo %DIM%  -----------------------------------------------%RESET%
 echo.
 ping -n 3 127.0.0.1 >nul
 timeout /t 3 >nul
