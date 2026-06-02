@@ -16,15 +16,15 @@ cls
 echo.
 echo.
 ping -n 2 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ##   ##  ##  ##    #####  ##  ##  #####  ##  ##%RESET%
+echo %CYAN%%BOLD%  ##  ##    ##  ##%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ##  ##   ##  ##    ##  ## ##  ##  ##     ##  ##%RESET%
+echo %CYAN%%BOLD%  ##  ##    ##  ##%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  #####    ######    #####  ##  ##  #####  ######%RESET%
+echo %CYAN%%BOLD%  #####     ######%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ##  ##   ##  ##    ##      ####   ##     ##  ##%RESET%
+echo %CYAN%%BOLD%  ##  ##    ##  ##%RESET%
 ping -n 1 127.0.0.1 >nul
-echo %CYAN%%BOLD%  ##   ##  ##  ##    ##       ##    #####  ##  ##%RESET%
+echo %CYAN%%BOLD%  ##  ##    ##  ##%RESET%
 ping -n 2 127.0.0.1 >nul
 echo.
 echo %DIM%  -----------------------------------------------%RESET%
@@ -71,8 +71,8 @@ ping -n 2 127.0.0.1 >nul
 
 echo %CYAN%  [4/4] Pushing to GitHub...%RESET%
 ping -n 2 127.0.0.1 >nul
-git pull --rebase origin main
-git push origin main
+git pull --rebase origin main >nul 2>&1
+git push origin main >nul 2>&1
 if errorlevel 1 (
     echo %YELLOW%  [~] Retrying with force-with-lease...%RESET%
     ping -n 2 127.0.0.1 >nul
