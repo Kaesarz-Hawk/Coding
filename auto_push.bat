@@ -14,19 +14,33 @@ set "RESET=%ESC%[0m"
 
 cls
 echo.
-echo %CYAN%%BOLD%  ██╗  ██╗██╗  ██╗    ██████╗ ██╗   ██╗███████╗██╗  ██╗%RESET%
-echo %CYAN%%BOLD%  ██║ ██╔╝██║  ██║    ██╔══██╗██║   ██║██╔════╝██║  ██║%RESET%
-echo %CYAN%%BOLD%  █████╔╝ ███████║    ██████╔╝██║   ██║███████╗███████║%RESET%
-echo %CYAN%%BOLD%  ██╔═██╗ ██╔══██║    ██╔═══╝ ██║   ██║╚════██║██╔══██║%RESET%
-echo %CYAN%%BOLD%  ██║  ██╗██║  ██║    ██║     ╚██████╔╝███████║██║  ██║%RESET%
-echo %CYAN%%BOLD%  ╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝%RESET%
-echo.
-echo %DIM%  ────────────────────────────────────────────────%RESET%
-echo %MAGENTA%            Git Auto Push  ^|  Kaesarz-Hawk%RESET%
-echo %DIM%  ────────────────────────────────────────────────%RESET%
 echo.
 
+:: slow banner reveal line by line
+ping -n 2 127.0.0.1 >nul
+echo %CYAN%%BOLD%  ██╗  ██╗██╗  ██╗    ██████╗ ██╗   ██╗███████╗██╗  ██╗%RESET%
+ping -n 1 127.0.0.1 >nul
+echo %CYAN%%BOLD%  ██║ ██╔╝██║  ██║    ██╔══██╗██║   ██║██╔════╝██║  ██║%RESET%
+ping -n 1 127.0.0.1 >nul
+echo %CYAN%%BOLD%  █████╔╝ ███████║    ██████╔╝██║   ██║███████╗███████║%RESET%
+ping -n 1 127.0.0.1 >nul
+echo %CYAN%%BOLD%  ██╔═██╗ ██╔══██║    ██╔═══╝ ██║   ██║╚════██║██╔══██║%RESET%
+ping -n 1 127.0.0.1 >nul
+echo %CYAN%%BOLD%  ██║  ██╗██║  ██║    ██║     ╚██████╔╝███████║██║  ██║%RESET%
+ping -n 1 127.0.0.1 >nul
+echo %CYAN%%BOLD%  ╚═╝  ╚═╝╚═╝  ╚═╝    ╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝%RESET%
+ping -n 2 127.0.0.1 >nul
+echo.
+echo %DIM%  ────────────────────────────────────────────────%RESET%
+ping -n 1 127.0.0.1 >nul
+echo %MAGENTA%            Git Auto Push  ^|  Kaesarz-Hawk%RESET%
+ping -n 1 127.0.0.1 >nul
+echo %DIM%  ────────────────────────────────────────────────%RESET%
+echo.
+ping -n 3 127.0.0.1 >nul
+
 echo %CYAN%  [1/4] Checking repository...%RESET%
+ping -n 2 127.0.0.1 >nul
 git rev-parse --is-inside-work-tree >nul 2>&1
 if errorlevel 1 (
     echo %RED%  [x] Not a git repo! Aborting.%RESET%
@@ -35,32 +49,41 @@ if errorlevel 1 (
 )
 echo %GREEN%  [✓] Repository OK%RESET%
 echo.
+ping -n 2 127.0.0.1 >nul
 
 echo %CYAN%  [2/4] Staging all changes...%RESET%
+ping -n 2 127.0.0.1 >nul
 git add .
 echo %GREEN%  [✓] Staged%RESET%
 echo.
+ping -n 2 127.0.0.1 >nul
 
 echo %CYAN%  [3/4] Checking for changes...%RESET%
+ping -n 2 127.0.0.1 >nul
 git diff --cached --quiet
 if %errorlevel%==0 (
     echo %YELLOW%  [~] Nothing to commit. Already up to date.%RESET%
     echo.
+    ping -n 2 127.0.0.1 >nul
     timeout /t 3 >nul
     exit /b
 )
 git commit -m "Auto update"
 echo %GREEN%  [✓] Committed%RESET%
 echo.
+ping -n 2 127.0.0.1 >nul
 
 echo %CYAN%  [4/4] Pushing to GitHub...%RESET%
+ping -n 2 127.0.0.1 >nul
 git pull --rebase origin main
 git push origin main
 if errorlevel 1 (
     echo %YELLOW%  [~] Retrying with force-with-lease...%RESET%
+    ping -n 2 127.0.0.1 >nul
     git push --force-with-lease origin main
     if errorlevel 1 (
         echo %RED%  [!] Trying force push...%RESET%
+        ping -n 2 127.0.0.1 >nul
         git push --force origin main
         if errorlevel 1 (
             echo %RED%  [x] Push failed. Check credentials or connection.%RESET%
@@ -71,10 +94,15 @@ if errorlevel 1 (
 )
 
 echo.
+ping -n 2 127.0.0.1 >nul
 echo %GREEN%  [✓] Pushed successfully!%RESET%
 echo.
+ping -n 2 127.0.0.1 >nul
 echo %DIM%  ────────────────────────────────────────────────%RESET%
+ping -n 1 127.0.0.1 >nul
 echo %GREEN%%BOLD%       ✦  Done. The grind never stops.  ✦%RESET%
+ping -n 1 127.0.0.1 >nul
 echo %DIM%  ────────────────────────────────────────────────%RESET%
 echo.
+ping -n 3 127.0.0.1 >nul
 timeout /t 3 >nul
