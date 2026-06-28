@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280" viewBox="0 0 280 280">
+  <defs>
+    <clipPath id="circle">
+      <circle cx="140" cy="140" r="130"/>
+    </clipPath>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0a1a"/>
+      <stop offset="50%" stop-color="#050510"/>
+      <stop offset="100%" stop-color="#0a0a1a"/>
+    </linearGradient>
+  </defs>
+  <circle cx="140" cy="140" r="130" fill="url(#bg)" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+  <g clip-path="url(#circle)">
+    <circle cx="140" cy="120" r="55" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+    <circle cx="140" cy="120" r="45" fill="rgba(0,102,255,0.1)" stroke="rgba(0,102,255,0.2)" stroke-width="1"/>
+    <path d="M70 230 Q140 160 210 230" fill="none" stroke="rgba(0,102,255,0.15)" stroke-width="1.5"/>
+    <text x="140" y="130" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="48" font-weight="700" fill="rgba(0,102,255,0.3)">KH</text>
+  </g>
+</svg>

@@ -1,0 +1,310 @@
+/* ============================================================
+   ANIMATIONS.CSS — All @keyframes and Transition Utilities
+   Kaesarz Portfolio | Kawsar Hoque
+   ============================================================ */
+
+/* ----- LOADER ANIMATIONS ----- */
+@keyframes loader-ring {
+  0% {
+    stroke-dashoffset: 283;
+    transform: rotate(0deg);
+  }
+  50% {
+    stroke-dashoffset: 70;
+  }
+  100% {
+    stroke-dashoffset: 283;
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-fill {
+  0% {
+    width: 0%;
+  }
+  60% {
+    width: 70%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+
+/* ----- CURSOR BLINK ----- */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+
+/* ----- GLOW PULSE ----- */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+
+/* ----- SCROLL BOUNCE ----- */
+@keyframes scroll-bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(8px);
+  }
+}
+
+
+/* ----- MORPHING ORB ----- */
+@keyframes morph-orb {
+  0%, 100% {
+    border-radius: 50%;
+    transform: rotate(0deg);
+  }
+  33% {
+    border-radius: 42% 58% 65% 35% / 45% 55% 45% 55%;
+  }
+  66% {
+    border-radius: 60% 40% 35% 65% / 55% 45% 55% 45%;
+  }
+}
+
+
+/* ----- PULSE DOT (status indicator) ----- */
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+
+
+/* ----- FLOAT ----- */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+
+/* ----- FADE IN ----- */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* ----- FADE UP ----- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ----- SCALE IN ----- */
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* ----- SLIDE IN LEFT ----- */
+@keyframes slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* ----- SLIDE IN RIGHT ----- */
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* ----- TEXT REVEAL (clip) ----- */
+@keyframes text-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+
+/* ----- ROTATE IN ----- */
+@keyframes rotate-in {
+  from {
+    opacity: 0;
+    transform: perspective(800px) rotateX(-20deg) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0deg) translateY(0);
+  }
+}
+
+
+/* ----- GLOW BORDER (animated border) ----- */
+@keyframes glow-border {
+  0%, 100% {
+    border-color: var(--border-glass);
+    box-shadow: 0 0 0px var(--glow-blue);
+  }
+  50% {
+    border-color: var(--accent-blue-dim);
+    box-shadow: 0 0 20px var(--glow-blue);
+  }
+}
+
+
+/* ----- PARTICLE DRIFT (for canvas particles) ----- */
+@keyframes particle-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(5px, -5px);
+  }
+  50% {
+    transform: translate(-3px, 3px);
+  }
+  75% {
+    transform: translate(4px, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+
+/* ----- AMBIENT GLOW (subtle background pulse) ----- */
+@keyframes ambient-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+
+/* ----- SHIMMER (for glass surfaces) ----- */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+
+/* ----- SUCCESS CHECK (stroke animation) ----- */
+@keyframes check-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+/* ----- CIRCLE GROW ----- */
+@keyframes circle-grow {
+  to {
+    r: 10;
+  }
+}
+
+
+/* ----- SPINNER ----- */
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* ----- GRADIENT BORDER ANIMATION ----- */
+@keyframes gradient-rotate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+
+/* ----- REVEAL CLIP (section entrance) ----- */
+@keyframes clip-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+
+/* ----- UTILITY: REDUCED MOTION ----- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
