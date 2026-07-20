@@ -1,29 +1,16 @@
+// Author  : Kaesarz
+// Date    : 20-07-2026
+// Time    : 21:41
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-#define ll long long
-#define ull unsigned long long
-#define ld long double
+#define ll      long long
 #define endl '\n'
-#define SpeedxKH ios::sync_with_stdio(false); cin.tie(nullptr);
+#define SpeedxKH ios_base::sync_with_stdio(false); cin.tie(NULL);
 
-template<typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-template<typename T>
-using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-const int MOD = 1e9 + 7;
-const int INF = 1e9;
-const ll LLINF = 1e18;
-const double EPS = 1e-9;
-
-
+const int MOD  = 1e9 + 7;
+const int INF  = 1e9;
+const ll  LLINF = 1e18;
 
 void solve() {
     
@@ -34,8 +21,9 @@ int main() {
 
     // int t;
     // cin >> t;
-    // while (t--) solve();
+    // while (t--){ solve(); }
 
+    // single test case
     solve();
 
     return 0;
