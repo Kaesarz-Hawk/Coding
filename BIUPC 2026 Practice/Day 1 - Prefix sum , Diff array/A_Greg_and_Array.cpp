@@ -20,14 +20,12 @@ void solve()
         cin >> a[i];
     }
 
-    // Read all operations
     vector<int> l(m), r(m), d(m);
     for (int i = 0; i < m; i++)
     {
         cin >> l[i] >> r[i] >> d[i];
     }
 
-    // Count how many times each operation is used
     vector<ll> op_count(m + 1, 0);
     for (int i = 0; i < k; i++)
     {
@@ -38,13 +36,13 @@ void solve()
         op_count[y]--;
     }
 
-    // Prefix Sum -> operation count
+    // Prefix Sum - operation count
     for (int i = 1; i < m; i++)
     {
         op_count[i] += op_count[i - 1];
     }
 
-    // Difference Array on original array
+    // Difference Array
     vector<ll> diff(n + 1, 0);
     for (int i = 0; i < m; i++)
     {
@@ -54,7 +52,6 @@ void solve()
         diff[r[i]] -= new_d;
     }
 
-    // Reconstruct
     ll cur = 0;
     for (int i = 0; i < n; i++)
     {
