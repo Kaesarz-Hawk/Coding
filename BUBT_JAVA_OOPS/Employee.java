@@ -24,8 +24,8 @@ public class Employee {
     }
 
     public static void main(String[] args) {
-        Employee e1 = new Employee("Ayesha Rahman", 101, 30000);
-        Employee e2 = new Employee("Rakib Hasan", 102, 45000);
+        Employee e1 = new Employee("Abir", 101, 60000);
+        Employee e2 = new Employee("Kawsar Hoque", 102, 70000);
 
         e1.displayEmployee();
         e2.displayEmployee();

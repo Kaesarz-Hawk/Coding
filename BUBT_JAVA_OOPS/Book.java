@@ -2,21 +2,18 @@ public class Book {
     private String title;
     private String author;
     private double price;
-
     // 1. Default constructor
     public Book() {
         this.title = "Unknown";
         this.author = "Unknown";
         this.price = 0;
     }
-
     // 2. Constructor with title and author only
     public Book(String title, String author) {
         this.title = title;
         this.author = author;
         this.price = 0;
     }
-
     // 3. Constructor with title, author, and price
     public Book(String title, String author, double price) {
         this.title = title;
@@ -30,12 +27,10 @@ public class Book {
         System.out.println("Price: " + price);
         System.out.println("-----------------------------");
     }
-
     public static void main(String[] args) {
         Book book1 = new Book();
-        Book book2 = new Book("The Alchemist", "Paulo Coelho");
-        Book book3 = new Book("Java Basics", "James Gosling", 750.50);
-
+        Book book2 = new Book("DSA with KH", "Kawsar Hoque" , 500.00);
+        Book book3 = new Book("Java Programming in Bangla", "Kawsar Hoque", 750.50);
         book1.displayBook();
         book2.displayBook();
         book3.displayBook();
