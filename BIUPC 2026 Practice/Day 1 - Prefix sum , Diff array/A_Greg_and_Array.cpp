@@ -36,13 +36,13 @@ void solve()
         op_count[y]--;
     }
 
-    // Prefix Sum - operation count
+
     for (int i = 1; i < m; i++)
     {
         op_count[i] += op_count[i - 1];
     }
 
-    // Difference Array
+
     vector<ll> diff(n + 1, 0);
     for (int i = 0; i < m; i++)
     {
