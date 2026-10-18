@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Database Systems Midterm Revision Book | 30/30 Target</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter, Hind Siliguri (Bangla), and Fira Code (Queries & Schema) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Hind Siliguri', 'sans-serif'],
+            bangla: ['Hind Siliguri', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b'
+            },
+            accent: {
+              cyan: '#06b6d4',
+              amber: '#f59e0b',
+              rose: '#f43f5e',
+              purple: '#8b5cf6',
+              indigo: '#6366f1'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Font sizing scaling for high readability on smartphones */
+    html { font-size: 17px; }
+    html.text-sm-mode { font-size: 15px; }
+    html.text-base-mode { font-size: 17px; }
+    html.text-lg-mode { font-size: 19px; }
+    html.text-xl-mode { font-size: 21px; }
+
+    pre code, pre {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.88em;
+      line-height: 1.5;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .dark .custom-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200 antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none" aria-label="Open Navigation">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-700 flex items-center justify-center text-white shadow-md shadow-emerald-500/20">
+            <i class="fa-solid fa-database text-xl"></i>
+          </div>
+          <div>
+            <h1 class="font-extrabold text-lg sm:text-xl tracking-tight leading-none text-slate-900 dark:text-white">DBMS <span class="text-brand-600 dark:text-brand-400">Midterm Book</span></h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-bangla mt-0.5">30/30 মাস্টার রিভিশন নোটস (By KH)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+        <input type="text" id="searchInput" placeholder="Search topics (e.g. DDL, Natural Join, Outer Join, Keys, RA, HAVING)..." 
+               class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/70 dark:bg-slate-800/70 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-brand-500 focus:outline-none transition-all">
+      </div>
+
+      <!-- Utilities: Font Scaler, Dark Mode, Quick Jump -->
+      <div class="flex items-center gap-2">
+        <!-- Font Scaler -->
+        <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 border border-slate-200 dark:border-slate-700">
+          <button onclick="changeFontSize(-1)" title="Smaller font" class="w-7 h-7 flex items-center justify-center text-xs font-bold rounded-lg hover:bg-white dark:hover:bg-slate-700 transition">A-</button>
+          <button onclick="resetFontSize()" title="Reset font" class="w-7 h-7 flex items-center justify-center text-xs font-bold rounded-lg hover:bg-white dark:hover:bg-slate-700 transition">A</button>
+          <button onclick="changeFontSize(1)" title="Larger font (Mobile)" class="w-7 h-7 flex items-center justify-center text-sm font-bold text-brand-600 dark:text-brand-400 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition">A+</button>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 border border-slate-200 dark:border-slate-700 transition" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon dark:hidden"></i>
+          <i class="fa-solid fa-sun hidden dark:inline"></i>
+        </button>
+
+        <a href="#exam-practice" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-sm hover:opacity-95 transition">
+          <i class="fa-solid fa-trophy text-amber-300"></i> Exam Hall
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Search Bar -->
+  <div class="md:hidden px-4 py-2.5 bg-slate-100/90 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="relative">
+      <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+      <input type="text" id="mobileSearchInput" placeholder="টপিক বা কুয়েরি খুঁজুন..." 
+             class="w-full pl-9 pr-3 py-1.5 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Sidebar Navigation -->
+      <aside id="sidebarDrawer" class="fixed inset-y-0 left-0 z-40 w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-5 transform -translate-x-full lg:translate-x-0 lg:static lg:w-72 lg:p-0 lg:bg-transparent lg:border-none transition-transform duration-300 ease-in-out flex flex-col justify-between shrink-0">
+        
+        <div class="space-y-4">
+          <div class="flex items-center justify-between lg:hidden pb-4 border-b border-slate-200 dark:border-slate-800">
+            <span class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-book-bookmark text-brand-600"></i> DBMS সূচিপত্র
+            </span>
+            <button id="closeDrawerBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white">
+              <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+          </div>
+
+          <div class="bg-gradient-to-r from-emerald-950 to-slate-900 border border-emerald-800/40 text-white p-4 rounded-2xl shadow-sm mb-4">
+            <div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-emerald-400">
+              <span>Database Midterm</span>
+              <span class="bg-emerald-600/40 px-2 py-0.5 rounded-md border border-emerald-400/30">Target 30/30</span>
+            </div>
+            <p class="text-sm font-bangla mt-1 font-medium">ক্লাসনোটস (Sec 7 & AK) + চ্যাপ্টার ১, ২, ৩ স্লাইডের ১০০% কমপ্লিট রিভিশন!</p>
+          </div>
+
+          <nav class="space-y-1 font-medium text-sm custom-scroll overflow-y-auto max-h-[calc(100vh-250px)] lg:max-h-[calc(100vh-160px)] pr-1">
+            <div class="px-2 pt-1 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Chapter 1: Architecture & Foundations</div>
+            <a href="#ch1-intro-purpose" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-database w-5 text-center text-slate-400"></i>
+              <span>1.1 DBMS vs File System (Drawbacks)</span>
+            </a>
+            <a href="#ch1-abstraction-schema" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-layer-group w-5 text-center text-slate-400"></i>
+              <span>1.2 3 Abstraction Levels & Schemas</span>
+            </a>
+            <a href="#ch1-ddl-dml-engine" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-gears w-5 text-center text-slate-400"></i>
+              <span>1.3 DDL vs DML & Query Engine</span>
+            </a>
+            <a href="#ch1-users-dba" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-users-gear w-5 text-center text-slate-400"></i>
+              <span>1.4 Database Users, DBA & 2/3-Tier</span>
+            </a>
+
+            <div class="px-2 pt-3 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Chapter 2: Relational Model & Keys</div>
+            <a href="#ch2-relational-keys" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-key w-5 text-center text-slate-400"></i>
+              <span>2.1 Super, Candidate, Primary & FK</span>
+            </a>
+            <a href="#ch2-schema-diagrams" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-diagram-project w-5 text-center text-slate-400"></i>
+              <span>2.2 Schema Diagrams (Student-Book)</span>
+            </a>
+
+            <div class="px-2 pt-3 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Chapter 2: Relational Algebra (RA)</div>
+            <a href="#ch2-ra-fundamental" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-square-root-variable w-5 text-center text-slate-400"></i>
+              <span>2.3 6 Fundamental Operators (σ, π, ∪, -, ×, ρ)</span>
+            </a>
+            <a href="#ch2-joins-deepdive" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-table-cells w-5 text-center text-slate-400"></i>
+              <span>2.4 Cartesian, Natural & Outer Joins</span>
+            </a>
+
+            <div class="px-2 pt-3 pb-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Chapter 3: SQL Mastery & Lab Queries</div>
+            <a href="#ch3-sql-ddl-dml" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-terminal w-5 text-center text-slate-400"></i>
+              <span>3.1 DDL (Create, Alter, Drop) & DML (Insert, Update, Delete)</span>
+            </a>
+            <a href="#ch3-sql-queries-filtering" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-filter w-5 text-center text-slate-400"></i>
+              <span>3.2 WHERE, IN, LIKE, String & Set Ops</span>
+            </a>
+            <a href="#ch3-sql-aggregates-advanced" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-calculator w-5 text-center text-slate-400"></i>
+              <span>3.3 Aggregates (COUNT, MAX), GROUP BY & HAVING</span>
+            </a>
+
+            <div class="pt-3 border-t border-slate-200 dark:border-slate-800 mt-2">
+              <a href="#exam-practice" class="flex items-center justify-between px-3 py-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold hover:bg-amber-100 dark:hover:bg-amber-900/40 transition">
+                <span class="flex items-center gap-2">
+                  <i class="fa-solid fa-trophy text-amber-500"></i>
+                  <span>🎯 Exam Hall (Sol. Bank)</span>
+                </span>
+                <span class="text-xs bg-amber-200 dark:bg-amber-800 px-2 py-0.5 rounded-full">Interactive</span>
+              </a>
+            </div>
+          </nav>
+        </div>
+
+        <div class="pt-4 text-xs text-slate-400 dark:text-slate-500 font-bangla border-t border-slate-200 dark:border-slate-800">
+          Prepared for CSE Database Midterm 2026. Made with ❤️ by KH.
+        </div>
+      </aside>
+
+      <!-- Drawer Backdrop -->
+      <div id="drawerBackdrop" class="fixed inset-0 bg-black/40 z-30 hidden lg:hidden"></div>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 min-w-0 space-y-12 pb-24">
+
+        <!-- Banner / Hero -->
+        <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-emerald-950 to-slate-900 text-white p-6 sm:p-8 shadow-xl border border-emerald-900/50">
+          <div class="relative z-10 max-w-2xl">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 mb-3">
+              <i class="fa-solid fa-shield-halved text-emerald-400"></i> Sec 7 Notes + AK Notes + Ch 1, 2, 3 Slides
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Database Systems Midterm Master Book</h2>
+            <p class="mt-2 text-slate-300 text-sm sm:text-base font-bangla leading-relaxed">
+              ক্লাসের নোটসের প্রতিটি কোড ও উদাহরণ, <strong>সহজ বাংলায় কনসেপ্ট ক্ল্যারিফিকেশন</strong>, <strong>রিলেশনাল অ্যালজেবরা ও SQL কুয়েরি তুলনা</strong>, <strong>সব ধরনের Join টেবিলের স্টেপ-বাই-স্টেপ ট্রেসিং</strong> এবং <strong>মিডটার্মের সম্ভাব্য প্রশ্ন ও ক্লিক করলেই ফুল সমাধান</strong> একসাথে!
+            </p>
+            <div class="mt-5 flex flex-wrap items-center gap-3">
+              <a href="#exam-practice" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+                <i class="fa-solid fa-pen-nib"></i> সরাসরি পরীক্ষার প্রশ্ন ও উত্তর
+              </a>
+              <a href="#ch2-joins-deepdive" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm backdrop-blur transition">
+                Natural & Outer Join ট্রেসিং
+              </a>
+            </div>
+          </div>
+          <div class="absolute -right-6 -bottom-10 opacity-10 text-white text-[160px] pointer-events-none font-bold">
+            SQL
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 1: INTRODUCTION & PURPOSE OF DATABASE SYSTEMS -->
+        <!-- ========================================================================= -->
+        <section id="ch1-intro-purpose" class="topic-section space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">1.1</span>
+              Database Basics & 7 Drawbacks of File Processing Systems
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Classnote P1 & Slide 1.6</span>
+          </div>
+
+          <!-- Bangla Summary Box -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-emerald-50/80 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-800/40">
+            <h4 class="font-bold text-emerald-900 dark:text-emerald-300 font-bangla flex items-center gap-2">
+              <i class="fa-solid fa-lightbulb text-emerald-500"></i> সহজ বাংলা সামারি (Core Definitions):
+            </h4>
+            <p class="text-sm font-bangla text-emerald-950 dark:text-emerald-200/90 mt-1.5 leading-relaxed">
+              • <strong>Database (DB):</strong> পরস্পর সম্পর্কযুক্ত তথ্যের সমাহার (Set of interrelated data)।
+              <br>• <strong>DBMS:</strong> এমন একটি সফটওয়্যার সিস্টেম যা ডাটাবেজ তৈরি, রক্ষণাবেক্ষণ ও ব্যবহারের সুযোগ দেয় (Insert, Delete, Update, Select)।
+              <br>• <strong>RDBMS:</strong> রিলেশনাল ডাটাবেজ সিস্টেম যেখানে ডাটা টেবিল (Relation / Entity set) আকারে Row (Tuple) ও Column (Attribute) হিসেবে সংরক্ষিত থাকে।
+            </p>
+          </div>
+
+          <!-- 7 Disadvantages of Traditional File Processing System (Direct Exam Question) -->
+          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla flex items-center gap-2">
+                <i class="fa-solid fa-triangle-exclamation text-rose-500"></i> ফাইল প্রসেসিং সিস্টেমের ৭টি মারাত্মক অসুবিধা (Why DBMS is needed?):
+              </h4>
+              <span class="text-xs px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 font-bold">5 Marks Question</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs font-bangla">
+              
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <strong class="text-rose-600 block mb-1">1. Data Redundancy:</strong>
+                একই ডাটা বিভিন্ন ফাইলে বারবার ডুপ্লিকেট হয়ে থাকা (Multiple copies of the same data), যা স্টোরেজ নষ্ট করে।
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <strong class="text-rose-600 block mb-1">2. Data Inconsistency:</strong>
+                এক ফাইলের ডাটা আপডেট হলেও অন্য ফাইলে আগের ডাটা থেকে যাওয়া। ফলে একই ব্যক্তির তথ্যে গরমিল বা অমিল তৈরি হয়।
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <strong class="text-rose-600 block mb-1">3. Data Isolation:</strong>
+                ডাটা বিভিন্ন ফরম্যাটে ভিন্ন ভিন্ন ফাইলে ছড়িয়ে-ছিটিয়ে থাকায় একাধিক ফাইল থেকে তথ্য একসাথে সংগ্রহ করা অত্যন্ত জটিল।
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <strong class="text-rose-600 block mb-1">4. Difficulty in Accessing Data:</strong>
+                প্রতিটি নতুন ধরনের রিকোয়ারমেন্টের জন্য ডেভেলপারকে সম্পূর্ণ নতুন প্রোগ্রামিং কোড লিখতে হয় (Ad-hoc query অসম্ভব)।
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <strong class="text-rose-600 block mb-1">5. Concurrent Access Anomalies:</strong>
+                একাধিক ইউজার একসাথে একই ফাইলে এডিট করতে গেলে ডাটা ওভাররাইট বা করাপ্ট হয়ে যায় (যেমন: দুইজন একসাথে ৫০ টাকা তুললে ব্যালেন্স ভুল হওয়া)।
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <strong class="text-rose-600 block mb-1">6. Atomicity Problems:</strong>
+                লেনদেনের মাঝপথে ক্র্যাশ করলে ডাটা অর্ধেক সেভ থাকে। "All or Nothing" নীতি বজায় থাকে না (যেমন: টাকা কাটলো কিন্তু অন্য একাউন্টে গেলো না)।
+              </div>
+
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 sm:col-span-2 lg:col-span-3">
+                <strong class="text-rose-600 block mb-1">7. Integrity & Security Problems:</strong>
+                ডাটাতে নতুন শর্ত (যেমন: <code class="font-mono">balance &gt; 0</code>) সরাসরি প্রোগ্রামের ভেতর হার্ডকোড করতে হয়। এছাড়া কোনো নির্দিষ্ট ইউজারের থেকে সংবেদনশীল কলাম লুকিয়ে রাখা ফাইল সিস্টেমে অসম্ভব।
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 1: DATA ABSTRACTION & SCHEMAS -->
+        <!-- ========================================================================= -->
+        <section id="ch1-abstraction-schema" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">1.2</span>
+              3 Levels of Data Abstraction, Schemas vs. Instances
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-cyan-50 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">Classnote P11 & Slide 1.13</span>
+          </div>
+
+          <!-- Data Abstraction Definition & Diagram -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla flex items-center gap-2">
+                <i class="fa-solid fa-eye-slash text-brand-600"></i> ডাটা অ্যাবস্ট্রাকশন (Data Abstraction):
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla leading-relaxed">
+                ইউজারের কাছ থেকে ডাটাবেজের জটিল ইন্টারনাল স্টোরেজ স্ট্রাকচার লুকিয়ে রেখে শুধুমাত্র প্রয়োজনীয় তথ্য প্রদর্শন করার প্রক্রিয়াকেই <strong>Data Abstraction</strong> বলে।
+              </p>
+              <div class="space-y-2 text-xs font-bangla pt-1">
+                <div class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800">
+                  <strong class="text-brand-600">1. View Level (Highest):</strong> বিভিন্ন ইউজারের সুবিধার জন্য কাস্টমাইজড ভিউ। অপ্রয়োজনীয় বা গোপন ডাটা (যেমন: শিক্ষকের স্যালারি) সাধারণ ইউজারদের থেকে আড়াল করা হয়।
+                </div>
+                <div class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800">
+                  <strong class="text-brand-600">2. Logical Level (Middle):</strong> ডাটাবেজে কী কী ডাটা সংরক্ষিত হবে এবং তাদের মধ্যে কী সম্পর্ক (Relationship) থাকবে তা বর্ণনা করে (টেবিলের স্কিমা, ডাটা টাইপ, কনস্ট্রেইন্ট)।
+                </div>
+                <div class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800">
+                  <strong class="text-brand-600">3. Physical Level (Lowest):</strong> হার্ডডিস্কে ডাটা আসলে কীভাবে বিট বা বাইট ফরম্যাটে ও কোন ব্লকে স্টোর হচ্ছে (B+ Tree, Hashing, Indexing) তা বর্ণনা করে।
+                </div>
+              </div>
+            </div>
+
+            <!-- Visual ASCII Architecture Diagram -->
+            <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 font-mono text-xs overflow-x-auto">
+              <div class="text-emerald-400 font-bold mb-2 font-sans text-sm">[ 3 Levels of Database Architecture ]</div>
+<pre>
+   ┌───────────────┐  ┌───────────────┐      ┌───────────────┐
+   │    View 1     │  │    View 2     │ ...  │    View n     │
+   │ (End Users)   │  │ (Department)  │      │ (Accounts)    │
+   └───────┬───────┘  └───────┬───────┘      └───────┬───────┘
+           │                  │                      │
+           └──────────────────┼──────────────────────┘
+                              ▼
+                 ┌─────────────────────────┐
+                 │      LOGICAL LEVEL      │
+                 │ (Tables, Fields, Types) │
+                 └────────────┬────────────┘
+                              ▼
+                 ┌─────────────────────────┐
+                 │     PHYSICAL LEVEL      │
+                 │ (Files, Disks, Blocks)  │
+                 └─────────────────────────┘
+</pre>
+              <div class="mt-2 text-slate-400 font-sans text-[11px] font-bangla">
+                💡 <strong>Physical Data Independence:</strong> লজিক্যাল স্কিমা পরিবর্তন না করেই নিচের ফিজিক্যাল স্টোরেজ (যেমন: নতুন SSD লাগানো বা ইনডেক্স বদলানো) পরিবর্তন করার ক্ষমতাই হলো ফিজিক্যাল ডাটা ইন্ডিপেন্ডেন্স।
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Schema vs Instance (Classnote P12 & Slide 1.15) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bangla">
+            <div class="p-4 rounded-xl bg-cyan-50/70 dark:bg-cyan-950/20 border border-cyan-200 dark:border-cyan-800/40 space-y-1.5">
+              <span class="font-bold text-sm text-cyan-950 dark:text-cyan-300 block mb-1">
+                <i class="fa-solid fa-compass-drafting mr-1"></i> Database Schema (স্কিমা):
+              </span>
+              <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                ডাটাবেজের সামগ্রিক লজিক্যাল ডিজাইন বা স্ট্রাকচার (The overall logical structure of the database)। এটি প্রোগ্রামিং ল্যাঙ্গুয়েজের <strong>Variable Type Definition</strong>-এর অনুরূপ। এটি সচরাচর পরিবর্তন হয় না।
+                <br><span class="font-mono text-[11px] text-cyan-700 dark:text-cyan-400 font-bold">যেমন: Student(ID, Name, Intake, Section, CGPA)</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40 space-y-1.5">
+              <span class="font-bold text-sm text-amber-950 dark:text-amber-300 block mb-1">
+                <i class="fa-solid fa-clock-rotate-left mr-1"></i> Database Instance (ইনস্ট্যান্স):
+              </span>
+              <p class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                যেকোনো নির্দিষ্ট মুহূর্তে ডাটাবেজে উপস্থিত বাস্তব তথ্যের স্ন্যাপশট (The actual content of the database at a particular point in time)। এটি ভ্যারিয়েবলের <strong>Value</strong>-র অনুরূপ, যা প্রতি ইনসার্ট বা আপডেটে পরিবর্তিত হয়।
+                <br><span class="font-mono text-[11px] text-amber-700 dark:text-amber-400 font-bold">যেমন: আজ বিকেলে Student টেবিলে মোট ৫০টি রো আছে।</span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 1: DDL VS DML & QUERY PROCESSING ENGINE -->
+        <!-- ========================================================================= -->
+        <section id="ch1-ddl-dml-engine" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">1.3</span>
+              DDL vs. DML Golden Identification Rule & Query Engine
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">Classnote P15 & Slide 1.26</span>
+          </div>
+
+          <!-- DDL vs DML Golden Rule (Handnote Page 15 & AK Page 5) -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+            <div class="flex items-center gap-2 font-bold text-sm text-brand-600 dark:text-brand-400">
+              <i class="fa-solid fa-code-compare"></i> পরীক্ষায় DDL নাকি DML চেনার শর্টকাট গোল্ডেন রুল (From Handnote):
+            </div>
+            
+            <div class="p-3 bg-slate-950 text-emerald-400 rounded-xl font-mono text-xs">
+              Rule: (Schema Definition Changed) ? DDL : DML;
+            </div>
+
+            <div class="overflow-x-auto text-xs font-bangla">
+              <table class="w-full text-left border border-slate-200 dark:border-slate-800">
+                <thead class="bg-slate-100 dark:bg-slate-800 text-brand-700 dark:text-brand-400 font-bold">
+                  <tr>
+                    <th class="p-2 border">ফিচার</th>
+                    <th class="p-2 border">Data Definition Language (DDL)</th>
+                    <th class="p-2 border">Data Manipulation Language (DML)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tr>
+                    <td class="p-2 font-semibold">মূল কাজ</td>
+                    <td>ডাটাবেজ বা টেবিলের কাঠামো/স্কিমা তৈরি ও পরিবর্তন করা।</td>
+                    <td>টেবিলের ভেতরে থাকা ডাটা নিয়ে কাজ করা (রিড, রাইট, আপডেট)।</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-semibold">স্কিমা পরিবর্তন?</td>
+                    <td class="text-rose-600 font-bold">হ্যাঁ, স্কিমার ডেফিনিশন বদলে যায়।</td>
+                    <td class="text-emerald-600 font-bold">না, স্কিমা অক্ষত থাকে, শুধু ডাটা পরিবর্তন হয়।</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-semibold">কমান্ডসমূহ</td>
+                    <td><code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">CREATE</code>, <code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">ALTER</code>, <code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">DROP</code>, <code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">TRUNCATE</code></td>
+                    <td><code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">SELECT</code>, <code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">INSERT</code>, <code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">UPDATE</code>, <code class="font-mono bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">DELETE</code></td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-semibold">পরীক্ষার ট্রিক প্রশ্ন</td>
+                    <td><code class="font-mono">ALTER TABLE Student DROP COLUMN NID;</code> &rarr; <strong>DDL</strong> (কলাম ডিলিট হওয়ায় স্কিমা বদলে গেছে)।</td>
+                    <td><code class="font-mono">DELETE FROM Student WHERE CGPA &lt; 3.40;</code> &rarr; <strong>DML</strong> (কলাম ঠিক আছে, শুধু ভেতরের রো ডিলিট হয়েছে)।</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Query Processing Pipeline Flowchart (Classnote P16 & Slide 1.26) -->
+          <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 font-mono text-xs overflow-x-auto space-y-2">
+            <div class="text-amber-400 font-bold font-sans text-sm">[ Query Processing Pipeline: 3 Core Phases (Slide 1.26 & Note P16) ]</div>
+<pre>
+   [ User Query (High-level SQL) ]
+                 │
+                 ▼
+     ┌───────────────────────┐
+     │  Parser & Translator  │ ──> Check Syntax, verify against Data Dictionary
+     └───────────┬───────────┘
+                 │ (Relational-Algebra Expression)
+                 ▼
+     ┌───────────────────────┐
+     │    Query Optimizer    │ ──> Consults Database Statistics & picks LOWEST COST plan
+     └───────────┬───────────┘
+                 │ (Execution Plan)
+                 ▼
+     ┌───────────────────────┐
+     │   Evaluation Engine   │ <── Accesses actual Data Files & Indices
+     └───────────┬───────────┘
+                 │
+                 ▼
+        [ Query Output ]
+</pre>
+            <div class="text-xs font-sans font-bangla text-slate-400 pt-1">
+              • <strong>Parser and Translator:</strong> SQL কুয়েরির সিনট্যাক্স এরর চেক করে এবং কুয়েরিকে রিলেশনাল অ্যালজেবরা এক্সপ্রেশনে কনভার্ট করে।
+              <br>• <strong>Optimizer:</strong> ডাটাবেজের স্ট্যাটিস্টিকস দেখে একাধিক এক্সিকিউশন প্ল্যানের মধ্যে সবচেয়ে কম খরচের (Lowest Cost) সেরা প্ল্যানটি বেছে নেয়।
+              <br>• <strong>Evaluation Engine:</strong> অপটিমাইজারের দেওয়া এক্সিকিউশন প্ল্যান অনুযায়ী ডাটাবেজ থেকে ডাটা রিড করে আউটপুট তৈরি করে।
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 1: DATABASE USERS, DBA & ARCHITECTURES -->
+        <!-- ========================================================================= -->
+        <section id="ch1-users-dba" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">1.4</span>
+              4 Database Users, DBA Duties & 2-Tier vs 3-Tier Architecture
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">Classnote P17 & Slide 1.30-1.32</span>
+          </div>
+
+          <!-- 4 Types of Users (Classnote P17) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <span class="font-bold text-brand-600 block mb-1">1. Naive Users</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">
+                অদক্ষ ব্যবহারকারী যারা কোনো কোড জানে না; শুধু রেডিমেড ইন্টারফেসে বাটনে ক্লিক করে কাজ সারে (যেমন: এটিএম বুথ বা ব্যাংকের টেলার)।
+              </p>
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <span class="font-bold text-brand-600 block mb-1">2. Application Programmers</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">
+                কম্পিউটার প্রফেশনাল যারা বিভিন্ন প্রোগ্রামিং ভাষায় (Java, C++, Python) ইউজারদের জন্য অ্যাপ্লিকেশন ও ফর্ম ইন্টারফেস ডিজাইন করেন।
+              </p>
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <span class="font-bold text-brand-600 block mb-1">3. Sophisticated Users</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">
+                অভিজ্ঞ ইউজার (যেমন: ডাটা অ্যানালিস্ট) যারা কোনো অ্যাপ ব্যবহার না করে সরাসরি কুয়েরি ল্যাঙ্গুয়েজ (SQL) লিখে রিপোর্ট ও এনালাইসিস তৈরি করেন।
+              </p>
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+              <span class="font-bold text-brand-600 block mb-1">4. Specialized Users</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">
+                যারা প্রথাগত ডাটাবেজের বাইরে বিশেষায়িত অ্যাপ্লিকেশনে কাজ করেন (যেমন: CAD সিস্টেম, জিওগ্রাফিক ইনফরমেশন/GIS, অডিও-ভিডিও ডাটাবেজ)।
+              </p>
+            </div>
+          </div>
+
+          <!-- DBA Responsibilities (Classnote P17-18 & Slide 1.32) -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla flex items-center gap-2">
+              <i class="fa-solid fa-user-shield text-emerald-600"></i> Database Administrator (DBA) এর প্রধান দায়িত্বসমূহ:
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bangla text-slate-700 dark:text-slate-300">
+              <div>• <strong>Schema Definition:</strong> মূল ডাটাবেজের স্কিমা তৈরি করা।</div>
+              <div>• <strong>Storage Structure Definition:</strong> হার্ডডিস্কে ডাটা স্টোরেজ ও এক্সেস মেথড নির্ধারণ।</div>
+              <div>• <strong>Granting Authorization:</strong> কোন ইউজার কোন টেবিলে এক্সেস পাবে সেই পারমিশন নিয়ন্ত্রণ।</div>
+              <div>• <strong>Periodic Backup:</strong> ডাটা হারানোর হাত থেকে বাঁচাতে নিয়মিত ব্যাকআপ নেওয়া।</div>
+              <div>• <strong>Routine Maintenance & Space:</strong> ডিস্ক স্পেস মনিটরিং ও পারফরম্যান্স অপটিমাইজ করা।</div>
+              <div>• <strong>Job Monitoring:</strong> ক্ষতিকর বা অতিরিক্ত লোড তৈরি করা ভারী কুয়েরি পর্যবেক্ষণ ও থামানো।</div>
+            </div>
+          </div>
+
+          <!-- 2-Tier vs 3-Tier Architecture (Slide 1.29-1.30) -->
+          <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs font-bangla flex flex-col sm:flex-row gap-4">
+            <div class="flex-1 space-y-1">
+              <strong class="text-brand-600 text-sm">Two-Tier Architecture:</strong>
+              <p class="text-slate-600 dark:text-slate-300">
+                অ্যাপ্লিকেশনটি সরাসরি ক্লায়েন্ট মেশিনে চলে এবং নেটওয়ার্কের মাধ্যমে ডাটাবেজ সার্ভারকে সরাসরি কল করে (যেমন: ODBC/JDBC ড্রাইভার)। ক্লায়েন্টে বিজনেস লজিক থাকে।
+              </p>
+            </div>
+            <div class="flex-1 space-y-1">
+              <strong class="text-brand-600 text-sm">Three-Tier Architecture:</strong>
+              <p class="text-slate-600 dark:text-slate-300">
+                ক্লায়েন্ট শুধু ব্রাউজার/UI দেখে (No direct DB calls)। ক্লায়েন্ট যোগাযোগ করে <strong>Application Server</strong>-এর সাথে, এবং অ্যাপ সার্ভার ডাটাবেজের সাথে যোগাযোগ করে। এটি অধিক নিরাপদ ও স্কেলেবল।
+              </p>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 2: RELATIONAL MODEL & KEYS -->
+        <!-- ========================================================================= -->
+        <section id="ch2-relational-keys" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">2.1</span>
+              Relational Model Terms & The 4 Master Keys
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Must For Exam</span>
+          </div>
+
+          <!-- Basic Terms -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+              <span class="font-bold text-brand-600 block">Relation / Table</span>
+              রো ও কলামের সমন্বয়ে গঠিত ডাটা সেট
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+              <span class="font-bold text-brand-600 block">Tuple / Record</span>
+              টেবিলের প্রতিটি অনুভূমিক সারি (Row)
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+              <span class="font-bold text-brand-600 block">Attribute / Field</span>
+              টেবিলের উল্লম্ব কলাম (Column Header)
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+              <span class="font-bold text-brand-600 block">Domain & Atomic</span>
+              একটি এট্রিবিউটে যেসব ভ্যালু গ্রহণযোগ্য। ভ্যালু অবিভাজ্য (Atomic) হতে হবে।
+            </div>
+          </div>
+
+          <!-- The 4 Keys Breakdown (Classnote P35-37 & Slide 2.7-2.10) -->
+          <div class="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-4">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-base text-slate-900 dark:text-white font-bangla flex items-center gap-2">
+                <i class="fa-solid fa-key text-amber-500"></i> ৪ প্রকার কি (Keys) ও তাদের সম্পর্ক:
+              </h4>
+              <span class="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">Student(ID, Email, Name, Dept_ID)</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bangla">
+              
+              <!-- Super Key -->
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
+                <strong class="text-amber-600 dark:text-amber-400 text-sm block">1. Super Key (সুপার কি):</strong>
+                এক বা একাধিক এট্রিবিউটের সেট যা টেবিলের প্রতিটি রো-কে এককভাবে চিহ্নিত করতে পারে। এতে অপ্রয়োজনীয় বাড়তি এট্রিবিউটও থাকতে পারে (May contain extra attributes)।
+                <br><span class="font-mono text-[11px] text-slate-500">{ID}, {Email}, {ID, Name}, {ID, Dept_ID}, {Email, Name}, {ID, Email, Name, Dept_ID}</span>
+              </div>
+
+              <!-- Candidate Key -->
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
+                <strong class="text-emerald-600 dark:text-emerald-400 text-sm block">2. Candidate Key (ক্যান্ডিডেট কি):</strong>
+                <strong>"Minimal Super Key"</strong>। যে সুপার কি থেকে কোনো এট্রিবিউট বাদ দিলে সেটি আর ইউনিক থাকে না। এতে কোনো অপ্রয়োজনীয় এট্রিবিউট থাকে না।
+                <br><strong class="text-cyan-600">সব Candidate Key-ই Super Key, কিন্তু সব Super Key ক্যান্ডিডেট কি নয়!</strong>
+                <br><span class="font-mono text-[11px] text-slate-500">{ID}, {Email}</span>
+              </div>
+
+              <!-- Primary Key -->
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
+                <strong class="text-brand-600 text-sm block">3. Primary Key (প্রাইমারি কি):</strong>
+                ক্যান্ডিডেট কি-গুলোর মধ্য থেকে ডাটাবেজ ডিজাইনার যাকে প্রধান আইডেন্টিফায়ার হিসেবে বেছে নেন। এটি অবশ্যই ইউনিক এবং <strong>কখনোই NULL হতে পারে না (Not Null)</strong>।
+                <br><span class="font-mono text-[11px] text-slate-500">Selected PK: {ID}</span>
+              </div>
+
+              <!-- Foreign Key -->
+              <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
+                <strong class="text-purple-600 dark:text-purple-400 text-sm block">4. Foreign Key (ফরেন কি):</strong>
+                এক টেবিলের এমন এট্রিবিউট যা অন্য একটি টেবিলের প্রাইমারি কি-কে রেফার করে। এটি দুই টেবিলের মাঝে সম্পর্ক স্থাপন করে এবং <strong>Referential Integrity</strong> রক্ষা করে।
+                <br><span class="font-mono text-[11px] text-slate-500">Student.Dept_ID references Department.Dept_ID</span>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 2: SCHEMA DIAGRAMS & RELATIONAL ALGEBRA -->
+        <!-- ========================================================================= -->
+        <section id="ch2-schema-diagrams" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">2.2</span>
+              Schema Diagram Design (Student, Books & Borrow System)
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">Classnote P18-19</span>
+          </div>
+
+          <!-- Classnote Schema Diagram Design Problem -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla">
+              <strong>ক্লাসনোটসের এক্সাম প্রবলেম:</strong> তিনটি টেবিল দেওয়া আছে &mdash; <code class="font-mono">Student(St_Id, Name, Age, Dept)</code>, <code class="font-mono">Books(isbn, title, Author, Publisher, Available_copy)</code>, এবং <code class="font-mono">Borrow(St_Id, isbn, date)</code>। এদের PK/FK বের করে স্কিমা ডায়াগ্রাম আঁকতে হবে:
+            </p>
+
+            <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 font-mono text-xs overflow-x-auto">
+              <div class="text-emerald-400 font-bold mb-2 font-sans text-sm">[ Library Schema Diagram with Referential Links ]</div>
+<pre>
+   ┌───────────────────────────┐                ┌───────────────────────────┐
+   │          Student          │                │           Books           │
+   ├───────────────────────────┤                ├───────────────────────────┤
+   │ PK: St_Id                 │◄─────┐  ┌─────►│ PK: isbn                  │
+   │     Name                  │      │  │      │     title                 │
+   │     Age                   │      │  │      │     Author                │
+   │     Dept                  │      │  │      │     Publisher             │
+   └───────────────────────────┘      │  │      │     Available_copy        │
+                                      │  │      └───────────────────────────┘
+                                      │  │
+                        ┌─────────────┴──┴──────────┐
+                        │          Borrow           │
+                        ├───────────────────────────┤
+                        │ PK: {St_Id, isbn} (Comp)  │
+                        │ FK: St_Id ──> Student     │
+                        │ FK: isbn  ──> Books       │
+                        │     date                  │
+                        └───────────────────────────┘
+</pre>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 2: 6 FUNDAMENTAL RELATIONAL ALGEBRA OPERATORS -->
+        <!-- ========================================================================= -->
+        <section id="ch2-ra-fundamental" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">2.3</span>
+              The 6 Fundamental Relational Algebra Operators
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-teal-50 dark:bg-teal-950 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">Classnote P19-27 & Slide 2.13</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+            
+            <!-- 1. Select -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 text-sm">1. Select ($\sigma$)</span>
+                <span class="font-mono bg-emerald-100 dark:bg-emerald-950 px-1.5 py-0.5 rounded text-emerald-800 dark:text-emerald-300">Row Filter</span>
+              </div>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">শর্ত অনুযায়ী নির্দিষ্ট রো (Tuples) ফিল্টার করে কিন্তু সব কলাম রাখে।</p>
+              <div class="p-2 bg-slate-100 dark:bg-slate-800 rounded font-mono text-[11px] text-slate-800 dark:text-slate-200">
+                RA: &sigma;<sub>dept_name="Physics"</sub>(Instructor)<br>
+                SQL: WHERE dept_name = 'Physics'
+              </div>
+            </div>
+
+            <!-- 2. Project -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 text-sm">2. Project ($\pi$)</span>
+                <span class="font-mono bg-cyan-100 dark:bg-cyan-950 px-1.5 py-0.5 rounded text-cyan-800 dark:text-cyan-300">Column Filter</span>
+              </div>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">নির্দিষ্ট কলামসমূহ প্রদর্শন করে এবং স্বয়ংক্রিয়ভাবে ডুপ্লিকেট রো বাদ দেয়।</p>
+              <div class="p-2 bg-slate-100 dark:bg-slate-800 rounded font-mono text-[11px] text-slate-800 dark:text-slate-200">
+                RA: &pi;<sub>ID, Name, Salary</sub>(Instructor)<br>
+                SQL: SELECT ID, Name, Salary
+              </div>
+            </div>
+
+            <!-- 3. Union -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 text-sm">3. Union ($\cup$)</span>
+                <span class="font-mono bg-amber-100 dark:bg-amber-950 px-1.5 py-0.5 rounded text-amber-800 dark:text-amber-300">Set Merge</span>
+              </div>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">দুই টেবিলের সমস্ত ইউনিক রো একত্রিত করে। (শর্ত: Same Arity & Compatible Domains).</p>
+              <div class="p-2 bg-slate-100 dark:bg-slate-800 rounded font-mono text-[11px] text-slate-800 dark:text-slate-200">
+                RA: &pi;<sub>Name</sub>(Actor) &cup; &pi;<sub>Name</sub>(Singer)<br>
+                SQL: (SELECT ...) UNION (SELECT ...)
+              </div>
+            </div>
+
+            <!-- 4. Set Difference -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 text-sm">4. Set Difference ($-$)</span>
+                <span class="font-mono bg-rose-100 dark:bg-rose-950 px-1.5 py-0.5 rounded text-rose-800 dark:text-rose-300">Minus</span>
+              </div>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">প্রথম টেবিলে আছে কিন্তু দ্বিতীয় টেবিলে নেই এমন রোগুলো খুঁজে বের করে।</p>
+              <div class="p-2 bg-slate-100 dark:bg-slate-800 rounded font-mono text-[11px] text-slate-800 dark:text-slate-200">
+                RA: &pi;<sub>Name</sub>(Actor) - &pi;<sub>Name</sub>(Singer)<br>
+                SQL: (SELECT ...) MINUS / EXCEPT (SELECT ...)
+              </div>
+            </div>
+
+            <!-- 5. Cartesian Product -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 text-sm">5. Cartesian Product ($\times$)</span>
+                <span class="font-mono bg-purple-100 dark:bg-purple-950 px-1.5 py-0.5 rounded text-purple-800 dark:text-purple-300">Cross Join</span>
+              </div>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">প্রতিটি রোর সাথে অন্য টেবিলের প্রতিটি রো গুণ করে ($n_1 \times n_2$ রো তৈরি করে)।</p>
+              <div class="p-2 bg-slate-100 dark:bg-slate-800 rounded font-mono text-[11px] text-slate-800 dark:text-slate-200">
+                RA: Student &times; Home<br>
+                SQL: SELECT * FROM Student, Home
+              </div>
+            </div>
+
+            <!-- 6. Rename -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 shadow-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 text-sm">6. Rename ($\rho$)</span>
+                <span class="font-mono bg-indigo-100 dark:bg-indigo-950 px-1.5 py-0.5 rounded text-indigo-800 dark:text-indigo-300">Alias</span>
+              </div>
+              <p class="font-bangla text-slate-600 dark:text-slate-400">একটি রিলেশনাল এক্সপ্রেশনের আউটপুটকে নতুন কোনো নাম দেয়।</p>
+              <div class="p-2 bg-slate-100 dark:bg-slate-800 rounded font-mono text-[11px] text-slate-800 dark:text-slate-200">
+                RA: &rho;<sub>T</sub>(Instructor)<br>
+                SQL: FROM Instructor AS T
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 2: COMPLETE JOINS LAB TRACE (HANDNOTE SPECIAL) -->
+        <!-- ========================================================================= -->
+        <section id="ch2-joins-deepdive" class="topic-section space-y-6 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">2.4</span>
+              Full Joins Masterclass: Cartesian, Natural & All Outer Joins
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">10 Marks Guaranteed</span>
+          </div>
+
+          <!-- Base Tables Display (Exact Classnote Data: Loan & Borrower) -->
+          <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla">
+              ক্লাসনোটসের মাস্টার টেবিল দুটি (Base Tables from Handnote P29 & AK P13):
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+              <div>
+                <span class="font-bold text-brand-600 block mb-1">Table 1: Loan</span>
+                <table class="w-full text-center border border-slate-200 dark:border-slate-700">
+                  <tr class="bg-slate-100 dark:bg-slate-800 font-bold"><th>L_no</th><th>b_name</th><th>amount</th></tr>
+                  <tr><td>L-11</td><td>RH</td><td>900</td></tr>
+                  <tr><td>L-14</td><td>DT</td><td>1500</td></tr>
+                  <tr><td>L-15</td><td>PR</td><td>1500</td></tr>
+                  <tr><td>L-16</td><td>PR</td><td>1300</td></tr>
+                  <tr><td>L-17</td><td>DT</td><td>1000</td></tr>
+                </table>
+              </div>
+              <div>
+                <span class="font-bold text-purple-600 block mb-1">Table 2: Borrower</span>
+                <table class="w-full text-center border border-slate-200 dark:border-slate-700">
+                  <tr class="bg-slate-100 dark:bg-slate-800 font-bold"><th>c_name</th><th>L_no</th></tr>
+                  <tr><td>Adams</td><td>L-16</td></tr>
+                  <tr><td>Smith</td><td>L-11</td></tr>
+                  <tr><td>Jones</td><td>L-93</td></tr>
+                  <tr><td>Jackson</td><td>L-14</td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Joins Grid with Exact Outputs -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+
+            <!-- 1. Natural Join -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 font-sans">1. Natural Join ($\bowtie$)</span>
+                <span class="text-[11px] px-2 py-0.5 bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 rounded">Common L_no Only</span>
+              </div>
+              <p class="font-bangla text-slate-500 font-sans text-xs">উভয় টেবিলে যে যে <code class="font-mono">L_no</code> মিলেছে শুধুমাত্র সেগুলোই আসবে।</p>
+              <table class="w-full text-center border border-slate-200 dark:border-slate-700">
+                <tr class="bg-slate-100 dark:bg-slate-800 font-bold"><th>L_no</th><th>b_name</th><th>amount</th><th>c_name</th></tr>
+                <tr><td>L-11</td><td>RH</td><td>900</td><td>Smith</td></tr>
+                <tr><td>L-14</td><td>DT</td><td>1500</td><td>Jackson</td></tr>
+                <tr><td>L-16</td><td>PR</td><td>1300</td><td>Adams</td></tr>
+              </table>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400">
+                SQL: <code class="text-brand-600">SELECT * FROM Loan NATURAL JOIN Borrower;</code><br>
+                RA: <code class="text-brand-600">Loan &bowtie; Borrower</code>
+              </div>
+            </div>
+
+            <!-- 2. Left Outer Join -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 font-sans">2. Left Outer Join ($\leftouterjoin$)</span>
+                <span class="text-[11px] px-2 py-0.5 bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 rounded">All Left + Right NULL</span>
+              </div>
+              <p class="font-bangla text-slate-500 font-sans text-xs">বাম টেবিলের (Loan) সব রো থাকবে; ডানের (Borrower) না মিললে NULL বসবে।</p>
+              <table class="w-full text-center border border-slate-200 dark:border-slate-700">
+                <tr class="bg-slate-100 dark:bg-slate-800 font-bold"><th>L_no</th><th>b_name</th><th>amount</th><th>c_name</th></tr>
+                <tr><td>L-11</td><td>RH</td><td>900</td><td>Smith</td></tr>
+                <tr><td>L-14</td><td>DT</td><td>1500</td><td>Jackson</td></tr>
+                <tr class="bg-cyan-50/50 dark:bg-cyan-950/30 font-bold text-cyan-600"><td>L-15</td><td>PR</td><td>1500</td><td>NULL</td></tr>
+                <tr><td>L-16</td><td>PR</td><td>1300</td><td>Adams</td></tr>
+                <tr class="bg-cyan-50/50 dark:bg-cyan-950/30 font-bold text-cyan-600"><td>L-17</td><td>DT</td><td>1000</td><td>NULL</td></tr>
+              </table>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400">
+                SQL: <code class="text-brand-600">SELECT * FROM Loan NATURAL LEFT OUTER JOIN Borrower;</code>
+              </div>
+            </div>
+
+            <!-- 3. Right Outer Join -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 font-sans">3. Right Outer Join ($\rightouterjoin$)</span>
+                <span class="text-[11px] px-2 py-0.5 bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 rounded">All Right + Left NULL</span>
+              </div>
+              <p class="font-bangla text-slate-500 font-sans text-xs">ডান টেবিলের (Borrower) সব রো থাকবে; বামের না মিললে NULL বসবে।</p>
+              <table class="w-full text-center border border-slate-200 dark:border-slate-700">
+                <tr class="bg-slate-100 dark:bg-slate-800 font-bold"><th>L_no</th><th>c_name</th><th>b_name</th><th>amount</th></tr>
+                <tr><td>L-16</td><td>Adams</td><td>PR</td><td>1300</td></tr>
+                <tr><td>L-11</td><td>Smith</td><td>RH</td><td>900</td></tr>
+                <tr class="bg-amber-50/50 dark:bg-amber-950/30 font-bold text-amber-600"><td>L-93</td><td>Jones</td><td>NULL</td><td>NULL</td></tr>
+                <tr><td>L-14</td><td>Jackson</td><td>DT</td><td>1500</td></tr>
+              </table>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400">
+                SQL: <code class="text-brand-600">SELECT * FROM Loan NATURAL RIGHT OUTER JOIN Borrower;</code>
+              </div>
+            </div>
+
+            <!-- 4. Full Outer Join -->
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-brand-600 font-sans">4. Full Outer Join ($\fullouterjoin$)</span>
+                <span class="text-[11px] px-2 py-0.5 bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 rounded">Both Sides + NULLs</span>
+              </div>
+              <p class="font-bangla text-slate-500 font-sans text-xs">উভয় টেবিলের সকল রো থাকবে; যার যার তথ্য নেই সেখানে NULL বসবে।</p>
+              <table class="w-full text-center border border-slate-200 dark:border-slate-700">
+                <tr class="bg-slate-100 dark:bg-slate-800 font-bold"><th>L_no</th><th>b_name</th><th>amount</th><th>c_name</th></tr>
+                <tr><td>L-11</td><td>RH</td><td>900</td><td>Smith</td></tr>
+                <tr><td>L-14</td><td>DT</td><td>1500</td><td>Jackson</td></tr>
+                <tr class="text-purple-500 font-bold"><td>L-15</td><td>PR</td><td>1500</td><td>NULL</td></tr>
+                <tr><td>L-16</td><td>PR</td><td>1300</td><td>Adams</td></tr>
+                <tr class="text-purple-500 font-bold"><td>L-17</td><td>DT</td><td>1000</td><td>NULL</td></tr>
+                <tr class="text-amber-500 font-bold"><td>L-93</td><td>NULL</td><td>NULL</td><td>Jones</td></tr>
+              </table>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400">
+                SQL: <code class="text-brand-600">SELECT * FROM Loan NATURAL FULL OUTER JOIN Borrower;</code>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 3: SQL DDL & DML COMPLETE COMMANDS -->
+        <!-- ========================================================================= -->
+        <section id="ch3-sql-ddl-dml" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">3.1</span>
+              SQL DDL & DML Syntax (From Lab 1 & 2 Tasks)
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Lab Practice</span>
+          </div>
+
+          <!-- Code blocks for Lab 1 & 2 Tasks -->
+          <div class="space-y-3 font-mono text-xs">
+            
+            <!-- Table Creation with PK and FK -->
+            <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 space-y-2">
+              <span class="text-emerald-400 font-bold font-sans text-sm block">1. CREATE TABLE with Primary Key & Foreign Key (Classnote P37 & AK P18):</span>
+<pre>
+<span class="text-purple-400">CREATE TABLE</span> Department (
+    dept_id <span class="text-cyan-400">VARCHAR</span>(10) <span class="text-amber-400">PRIMARY KEY</span>,
+    dept_name <span class="text-cyan-400">VARCHAR</span>(20),
+    location <span class="text-cyan-400">VARCHAR</span>(15)
+);
+
+<span class="text-purple-400">CREATE TABLE</span> Student (
+    St_ID <span class="text-cyan-400">INT</span>(5) <span class="text-amber-400">PRIMARY KEY</span>,
+    Name <span class="text-cyan-400">VARCHAR</span>(35) <span class="text-rose-400">NOT NULL</span>,
+    NID <span class="text-cyan-400">INT</span>(10),
+    Intake <span class="text-cyan-400">INT</span>(2),
+    Section <span class="text-cyan-400">INT</span>(1),
+    CGPA <span class="text-cyan-400">FLOAT</span>(3,2),
+    dept_id <span class="text-cyan-400">VARCHAR</span>(10),
+    <span class="text-amber-400">FOREIGN KEY</span> (dept_id) <span class="text-amber-400">REFERENCES</span> Department(dept_id)
+);
+</pre>
+            </div>
+
+            <!-- Alter Table Operations -->
+            <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 space-y-2">
+              <span class="text-amber-400 font-bold font-sans text-sm block">2. ALTER TABLE (Add Column, Position with AFTER, Drop Column):</span>
+<pre>
+<span class="text-slate-400">-- কলাম যোগ করা (Add Column)</span>
+<span class="text-purple-400">ALTER TABLE</span> Student <span class="text-purple-400">ADD COLUMN</span> Age <span class="text-cyan-400">INT</span>(2);
+
+<span class="text-slate-400">-- নির্দিষ্ট কলামের পর নতুন কলাম যোগ করা (AFTER keyword)</span>
+<span class="text-purple-400">ALTER TABLE</span> Course <span class="text-purple-400">ADD COLUMN</span> offered_semester <span class="text-cyan-400">VARCHAR</span>(10) <span class="text-rose-400">AFTER</span> Course_Title;
+
+<span class="text-slate-400">-- কলাম ডিলিট করা (Drop Column - DDL)</span>
+<span class="text-purple-400">ALTER TABLE</span> Student <span class="text-purple-400">DROP COLUMN</span> NID;
+
+<span class="text-slate-400">-- টেবিল তৈরির পর প্রাইমারি কি ডিফাইন করা</span>
+<span class="text-purple-400">ALTER TABLE</span> Department <span class="text-purple-400">ADD PRIMARY KEY</span> (dept_id);
+</pre>
+            </div>
+
+            <!-- DML Insert, Update, Delete -->
+            <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 space-y-2">
+              <span class="text-cyan-400 font-bold font-sans text-sm block">3. DML Operations (INSERT, UPDATE, DELETE):</span>
+<pre>
+<span class="text-slate-400">-- ডাটা ইনসার্ট করা</span>
+<span class="text-purple-400">INSERT INTO</span> Student <span class="text-purple-400">VALUES</span> (<span class="text-emerald-300">'Ashraful'</span>, 1, 102, 44, 1, 3.30, 21);
+
+<span class="text-slate-400">-- একাধিক শর্ত মিলিয়ে ডাটা আপডেট করা (Lab 1 Task 3)</span>
+<span class="text-purple-400">UPDATE</span> Faculty 
+<span class="text-purple-400">SET</span> Conduct_Semester = <span class="text-emerald-300">'Fall 2020'</span> 
+<span class="text-purple-400">WHERE</span> Name = <span class="text-emerald-300">'Nadia Afrin Ritu'</span> <span class="text-rose-400">AND</span> course_code = <span class="text-emerald-300">'CSE 351'</span>;
+
+<span class="text-slate-400">-- শর্তানুযায়ী নির্দিষ্ট রো ডিলিট করা (DML)</span>
+<span class="text-purple-400">DELETE FROM</span> Student <span class="text-purple-400">WHERE</span> CGPA &lt; 3.40;
+</pre>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 3: FILTERING, STRING FUNCTIONS & SET OPERATIONS -->
+        <!-- ========================================================================= -->
+        <section id="ch3-sql-queries-filtering" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">3.2</span>
+              Query Filtering: IN, NOT IN, LIKE, String Functions & Set Operations
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">Lab 2 & Slide 3.22</span>
+          </div>
+
+          <!-- Comparison Table: Relational Algebra vs SQL -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla flex items-center gap-2">
+              <i class="fa-solid fa-code text-cyan-600"></i> Relational Algebra বনাম SQL রূপান্তর টেবিল (From Handnote P20-23):
+            </h4>
+            <div class="overflow-x-auto text-xs font-mono">
+              <table class="w-full text-left border border-slate-200 dark:border-slate-800">
+                <thead class="bg-slate-100 dark:bg-slate-800 text-brand-600 font-bold">
+                  <tr>
+                    <th class="p-2 border">প্রশ্নের বিবরণ</th>
+                    <th class="p-2 border">Relational Algebra (RA)</th>
+                    <th class="p-2 border">SQL Query</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                  <tr>
+                    <td class="p-2 font-bangla">সকল কোর্সের টাইটেল দেখাও</td>
+                    <td class="p-2 text-cyan-600 font-bold">&pi;<sub>Course_Title</sub>(Course)</td>
+                    <td class="p-2">SELECT Course_Title FROM Course;</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bangla">যাদের CGPA &gt; 3.50 তাদের নাম</td>
+                    <td class="p-2 text-cyan-600 font-bold">&pi;<sub>Name</sub>(&sigma;<sub>CGPA &gt; 3.50</sub>(Student))</td>
+                    <td class="p-2">SELECT Name FROM Student WHERE CGPA &gt; 3.50;</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bangla">Age &gt; 22 এবং CGPA &gt; 3.50</td>
+                    <td class="p-2 text-cyan-600 font-bold">&pi;<sub>Name</sub>(&sigma;<sub>Age &gt; 22 &and; CGPA &gt; 3.50</sub>(Student))</td>
+                    <td class="p-2">SELECT Name FROM Student WHERE Age &gt; 22 AND CGPA &gt; 3.50;</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2 font-bangla">Intake 44 অথবা CGPA &lt; 3.40</td>
+                    <td class="p-2 text-cyan-600 font-bold">&pi;<sub>St_Id</sub>(&sigma;<sub>Intake=44 &or; CGPA &lt; 3.40</sub>(Student))</td>
+                    <td class="p-2">SELECT St_Id FROM Student WHERE Intake=44 OR CGPA &lt; 3.40;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- IN, NOT IN, LIKE, String Functions (From Handnote P22 & Slide 3.22) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+            
+            <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 space-y-2">
+              <span class="text-amber-400 font-bold font-sans text-sm block">IN, NOT IN & BETWEEN Predicates:</span>
+<pre>
+<span class="text-slate-400">-- একাধিক OR এর বিকল্প হিসেবে IN ক্লজ</span>
+<span class="text-purple-400">SELECT</span> St_Id <span class="text-purple-400">FROM</span> Student 
+<span class="text-purple-400">WHERE</span> CGPA <span class="text-rose-400">IN</span> (3.30, 3.50, 3.96);
+
+<span class="text-slate-400">-- তালিকায় না থাকলে NOT IN</span>
+<span class="text-purple-400">SELECT</span> St_Id <span class="text-purple-400">FROM</span> Student 
+<span class="text-purple-400">WHERE</span> CGPA <span class="text-rose-400">NOT IN</span> (3.30, 3.50, 3.96);
+
+<span class="text-slate-400">-- রেঞ্জ চেক করতে BETWEEN (>= 90000 AND &lt;= 100000)</span>
+<span class="text-purple-400">SELECT</span> name <span class="text-purple-400">FROM</span> Instructor 
+<span class="text-purple-400">WHERE</span> salary <span class="text-rose-400">BETWEEN</span> 90000 <span class="text-rose-400">AND</span> 100000;
+</pre>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 space-y-2">
+              <span class="text-cyan-400 font-bold font-sans text-sm block">LIKE Pattern & String Functions (Lab 2):</span>
+<pre>
+<span class="text-slate-400">-- '%' মানে যেকোনো সংখ্যক ক্যারেক্টার</span>
+<span class="text-slate-400">-- '_' মানে যেকোনো ১টি নির্দিষ্ট ক্যারেক্টার</span>
+<span class="text-purple-400">SELECT</span> name <span class="text-purple-400">FROM</span> Instructor <span class="text-purple-400">WHERE</span> name <span class="text-rose-400">LIKE</span> <span class="text-emerald-300">'%dar%'</span>;
+
+<span class="text-slate-400">-- স্ট্রিংয়ের দৈর্ঘ্য বের করা (LENGTH)</span>
+<span class="text-purple-400">SELECT</span> customer_name, <span class="text-cyan-400">LENGTH</span>(customer_name) <span class="text-purple-400">AS</span> Name_Len 
+<span class="text-purple-400">FROM</span> Customer;
+
+<span class="text-slate-400">-- প্রথম ৩টি অক্ষর সাবস্ট্রিং হিসেবে কাটা (SUBSTR)</span>
+<span class="text-purple-400">SELECT</span> customer_name, <span class="text-cyan-400">SUBSTR</span>(customer_name, 1, 3) 
+<span class="text-purple-400">FROM</span> Customer;
+</pre>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- CHAPTER 3: AGGREGATES, GROUP BY & HAVING -->
+        <!-- ========================================================================= -->
+        <section id="ch3-sql-aggregates-advanced" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">3.3</span>
+              Aggregate Functions, GROUP BY, HAVING vs. WHERE
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Classnote Lab 3 & Slide 3.30-3.34</span>
+          </div>
+
+          <!-- 5 Aggregate Functions Box -->
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-xs text-center font-mono">
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+              <span class="font-bold text-brand-600 block text-sm">COUNT()</span>
+              মোট রো সংখ্যা গোনে
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+              <span class="font-bold text-brand-600 block text-sm">SUM()</span>
+              সংখ্যার সমষ্টি বের করে
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+              <span class="font-bold text-brand-600 block text-sm">AVG()</span>
+              গড় মান হিসাব করে
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800">
+              <span class="font-bold text-brand-600 block text-sm">MIN()</span>
+              সর্বনিম্ন মান বের করে
+            </div>
+            <div class="p-3 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 col-span-2 sm:col-span-1">
+              <span class="font-bold text-brand-600 block text-sm">MAX()</span>
+              সর্বোচ্চ মান বের করে
+            </div>
+          </div>
+
+          <!-- WHERE vs HAVING Clarification -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla flex items-center gap-2">
+                <i class="fa-solid fa-code-compare text-amber-500"></i> WHERE বনাম HAVING এর পার্থক্য (Direct Exam Question):
+              </h4>
+              <span class="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 font-bold">5 Marks Theory</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-bangla">
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
+                <strong class="text-rose-600 text-sm block">WHERE Clause:</strong>
+                • গ্রুপ করার <strong>পূর্বে (Before Grouping)</strong> প্রতিটি একক রো-এর ওপর শর্ত প্রয়োগ করে।
+                <br>• এতে এগ্রিগেট ফাংশন সরাসরি ব্যবহার করা যায় না (যেমন: <code class="font-mono text-[11px] text-rose-500">WHERE AVG(salary) &gt; 50000</code> ভুল!)।
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1">
+                <strong class="text-emerald-600 text-sm block">HAVING Clause:</strong>
+                • গ্রুপ করার <strong>পরে (After Group Formation)</strong> সম্পূর্ণ গ্রুপের ওপর ফিল্টার করতে ব্যবহৃত হয়।
+                <br>• এতে এগ্রিগেট ফাংশন ব্যবহার বাধ্যতামূলক (যেমন: <code class="font-mono text-[11px] text-emerald-500">HAVING AVG(salary) &gt; 42000</code>)।
+              </div>
+            </div>
+          </div>
+
+          <!-- Relational Algebra Aggregation Syntax (From AK Classnote Page 19-20) -->
+          <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 font-mono text-xs overflow-x-auto space-y-2">
+            <div class="text-emerald-400 font-bold font-sans text-sm">[ Relational Algebra Aggregation Operator (&Gscr;) & Lab 3 Queries ]</div>
+<pre>
+<span class="text-slate-400">-- Relational Algebra-তে এগ্রিগেশন চিহ্ন হলো স্ক্রিপ্ট G (&Gscr;)</span>
+1. &Gscr;<sub>count(Customer_name) as Total_Customers</sub>(Customer)
+2. &Gscr;<sub>max(balance) as Max_Bal, min(balance) as Min_Bal, avg(balance) as Avg_Bal</sub>(Account)
+3. c_city &Gscr;<sub>count(Customer_name)</sub>(Customer)  <span class="text-slate-400">-- GROUP BY c_city</span>
+4. b_name &Gscr;<sub>count(L_no)</sub>(Loan)  <span class="text-slate-400">-- GROUP BY b_name</span>
+
+<span class="text-slate-400">-- এর সমতুল্য SQL Query:</span>
+<span class="text-purple-400">SELECT</span> dept_name, <span class="text-cyan-400">AVG</span>(salary) <span class="text-purple-400">AS</span> avg_salary
+<span class="text-purple-400">FROM</span> Instructor
+<span class="text-purple-400">GROUP BY</span> dept_name
+<span class="text-rose-400">HAVING</span> <span class="text-cyan-400">AVG</span>(salary) &gt; 42000;
+</pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MIDTERM 30/30 INTERACTIVE EXAM PRACTICE HALL -->
+        <!-- ========================================================================= -->
+        <section id="exam-practice" class="topic-section space-y-6 pt-12 border-t-2 border-brand-500">
+          
+          <div class="bg-gradient-to-r from-emerald-900 via-slate-900 to-teal-950 rounded-3xl p-6 sm:p-8 text-white shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                  <i class="fa-solid fa-trophy mr-1"></i> Interactive Exam Hall (30/30 Target)
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">মিডটার্মের কমন প্রশ্ন ও ধাপে ধাপে পূর্ণাঙ্গ সমাধান</h3>
+                <p class="text-slate-300 text-sm font-bangla mt-1">
+                  প্রশ্ন দেখে নিজে চেষ্টা করুন, তারপর <strong>"উত্তর দেখুন"</strong> বাটনে ক্লিক করে স্টেপ-বাই-স্টেপ সমাধান মিলিয়ে নিন!
+                </p>
+              </div>
+              <button onclick="revealAllAnswers()" class="self-start sm:self-center px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border border-white/20 transition flex items-center gap-2">
+                <i class="fa-solid fa-eye"></i> সবগুলো উত্তর উন্মোচন করুন
+              </button>
+            </div>
+          </div>
+
+          <!-- Question Category Filters -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2 text-xs font-semibold custom-scroll">
+            <button onclick="filterQuestions('all')" class="q-filter-btn active px-3.5 py-1.5 rounded-xl bg-brand-600 text-white shadow-sm">All Topics</button>
+            <button onclick="filterQuestions('joins')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">Joins & Tracing</button>
+            <button onclick="filterQuestions('ra')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">Relational Algebra</button>
+            <button onclick="filterQuestions('sql')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">SQL & Lab Queries</button>
+            <button onclick="filterQuestions('keys')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">Keys & Schema</button>
+            <button onclick="filterQuestions('theory')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">Core DBMS Theory</button>
+          </div>
+
+          <!-- QUESTIONS CONTAINER -->
+          <div class="space-y-4" id="questionsContainer">
+
+            <!-- EXAM Q1: FULL OUTER JOIN COMPUTATION -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="joins">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-800">10 Marks Math/Table</span>
+                    <span class="text-xs font-mono text-slate-400">Classnote P31-34 & AK P14-15</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q1. Given relations <code class="font-mono">Loan(L_no, b_name, amount)</code> and <code class="font-mono">Borrower(c_name, L_no)</code>. Trace and compute the resulting relation for: (a) Natural Join, (b) Left Outer Join, and (c) Full Outer Join. Also write the corresponding SQL and Relational Algebra expressions.
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-1')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-1-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-1" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3 font-mono text-xs">
+                <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl font-sans text-xs text-emerald-950 dark:text-emerald-200 space-y-2">
+                  <strong>💡 পূর্ণাঙ্গ ট্রেসিং এবং আউটপুট টেবিল:</strong>
+                  
+                  <div class="pt-1">
+                    <strong class="font-mono text-brand-600">(a) Natural Join (Loan &bowtie; Borrower):</strong>
+                    <br>উভয় টেবিলে কমন L_no হলো: L-11, L-14, L-16।
+                    <div class="overflow-x-auto mt-1 font-mono">
+                      <table class="w-full text-center border text-[11px]">
+                        <tr class="bg-slate-200 dark:bg-slate-800"><th>L_no</th><th>b_name</th><th>amount</th><th>c_name</th></tr>
+                        <tr><td>L-11</td><td>RH</td><td>900</td><td>Smith</td></tr>
+                        <tr><td>L-14</td><td>DT</td><td>1500</td><td>Jackson</td></tr>
+                        <tr><td>L-16</td><td>PR</td><td>1300</td><td>Adams</td></tr>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="pt-2 border-t border-emerald-200 dark:border-emerald-800/60">
+                    <strong class="font-mono text-cyan-600">(b) Left Outer Join (Loan &leftouterjoin; Borrower):</strong>
+                    <br>Loan টেবিলের L-15 এবং L-17 এর কোনো Borrower নেই, তাই c_name কলামে NULL বসবে।
+                    <div class="overflow-x-auto mt-1 font-mono">
+                      <table class="w-full text-center border text-[11px]">
+                        <tr class="bg-slate-200 dark:bg-slate-800"><th>L_no</th><th>b_name</th><th>amount</th><th>c_name</th></tr>
+                        <tr><td>L-11</td><td>RH</td><td>900</td><td>Smith</td></tr>
+                        <tr><td>L-14</td><td>DT</td><td>1500</td><td>Jackson</td></tr>
+                        <tr class="text-cyan-600 font-bold"><td>L-15</td><td>PR</td><td>1500</td><td>NULL</td></tr>
+                        <tr><td>L-16</td><td>PR</td><td>1300</td><td>Adams</td></tr>
+                        <tr class="text-cyan-600 font-bold"><td>L-17</td><td>DT</td><td>1000</td><td>NULL</td></tr>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="pt-2 border-t border-emerald-200 dark:border-emerald-800/60">
+                    <strong class="font-mono text-purple-600">(c) Full Outer Join (Loan &fullouterjoin; Borrower):</strong>
+                    <br>Loan এর L-15, L-17 (c_name NULL) এবং Borrower এর L-93 (Jones, যার b_name ও amount হলো NULL) উভয়ই অন্তর্ভুক্ত হবে।
+                    <div class="overflow-x-auto mt-1 font-mono">
+                      <table class="w-full text-center border text-[11px]">
+                        <tr class="bg-slate-200 dark:bg-slate-800"><th>L_no</th><th>b_name</th><th>amount</th><th>c_name</th></tr>
+                        <tr><td>L-11</td><td>RH</td><td>900</td><td>Smith</td></tr>
+                        <tr><td>L-14</td><td>DT</td><td>1500</td><td>Jackson</td></tr>
+                        <tr class="text-purple-500 font-bold"><td>L-15</td><td>PR</td><td>1500</td><td>NULL</td></tr>
+                        <tr><td>L-16</td><td>PR</td><td>1300</td><td>Adams</td></tr>
+                        <tr class="text-purple-500 font-bold"><td>L-17</td><td>DT</td><td>1000</td><td>NULL</td></tr>
+                        <tr class="text-amber-500 font-bold"><td>L-93</td><td>NULL</td><td>NULL</td><td>Jones</td></tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXAM Q2: RELATIONAL ALGEBRA VS SQL -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="ra">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-300 dark:border-cyan-800">Direct Note Problem</span>
+                    <span class="text-xs font-mono text-slate-400">Classnote P20-21 & AK P8-9</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q2. Write both Relational Algebra (RA) and SQL expressions for:
+                    <br>(a) Find the names and IDs of students whose CGPA is greater than 3.50 and Age is greater than 22.
+                    <br>(b) Find the names of instructors in the "Physics" department who earn more than $90,000.
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-2')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-2-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-2" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3 font-mono text-xs">
+                <div class="p-3 bg-slate-950 rounded-xl space-y-2 text-slate-300">
+                  <div>
+                    <span class="text-emerald-400 font-bold">(a) Student Query:</span><br>
+                    • <strong>SQL:</strong> <code class="text-cyan-300">SELECT Name, St_Id FROM Student WHERE CGPA &gt; 3.50 AND Age &gt; 22;</code><br>
+                    • <strong>Relational Algebra:</strong> <code class="text-amber-300">&pi;<sub>Name, St_Id</sub>(&sigma;<sub>CGPA &gt; 3.50 &and; Age &gt; 22</sub>(Student))</code>
+                  </div>
+                  <div class="border-t border-slate-800 pt-2">
+                    <span class="text-emerald-400 font-bold">(b) Instructor Query:</span><br>
+                    • <strong>SQL:</strong> <code class="text-cyan-300">SELECT name FROM Instructor WHERE dept_name = 'Physics' AND salary &gt; 90000;</code><br>
+                    • <strong>Relational Algebra:</strong> <code class="text-amber-300">&pi;<sub>name</sub>(&sigma;<sub>dept_name = 'Physics' &and; salary &gt; 90000</sub>(Instructor))</code>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXAM Q3: KEYS AND MINIMALITY -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="keys">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-800">5 Marks Theory</span>
+                    <span class="text-xs font-mono text-slate-400">Classnote P35-36 & Slide 2.8-2.9</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q3. Consider the relation <code class="font-mono">Student(St_Id, Email, Name, Dept_ID)</code> where both <code class="font-mono">St_Id</code> and <code class="font-mono">Email</code> are unique. List all possible Candidate Keys and Super Keys. Explain why "Every candidate key is a super key, but not every super key is a candidate key".
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-3')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-3-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-3" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2 font-bangla text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div class="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-xl space-y-2">
+                  <div>
+                    <strong>১. Candidate Keys:</strong>
+                    যেহেতু <code class="font-mono text-xs">St_Id</code> এবং <code class="font-mono text-xs">Email</code> এককভাবে প্রতিটি রো ইউনিকলি আইডেন্টিফাই করতে পারে এবং এদের মধ্যে কোনো অপ্রয়োজনীয় এট্রিবিউট নেই (Minimal), তাই ক্যান্ডিডেট কি হবে:
+                    <br><strong class="font-mono text-brand-600">{St_Id} এবং {Email}</strong> (মোট ২টি ক্যান্ডিডেট কি)।
+                  </div>
+                  <div>
+                    <strong>২. Super Keys:</strong>
+                    যেকোনো সেট যার মধ্যে ক্যান্ডিডেট কি বর্তমান থাকে:
+                    <br><span class="font-mono text-xs text-slate-600 dark:text-slate-400">{St_Id}, {Email}, {St_Id, Name}, {St_Id, Dept_ID}, {Email, Name}, {Email, Dept_ID}, {St_Id, Email}, {St_Id, Email, Name}, {St_Id, Name, Dept_ID}, {St_Id, Email, Name, Dept_ID}</span> ইত্যাদি।
+                  </div>
+                  <div class="border-t border-amber-200 dark:border-amber-800/60 pt-1.5">
+                    <strong>ব্যাখ্যা (Justification):</strong>
+                    ক্যান্ডিডেট কি হলো একটি মিনিমাল সুপার কি। যেহেতু যেকোনো ক্যান্ডিডেট কি রো ইউনিকলি চিহ্নিত করে, তাই সে সংজ্ঞাগতভাবেই একটি সুপার কি। কিন্তু একটি সুপার কি-তে অতিরিক্ত অপ্রয়োজনীয় এট্রিবিউট (যেমন: <code class="font-mono text-xs">{St_Id, Name}</code>) থাকতে পারে, যা মিনিমালিটির শর্ত ভঙ্গ করে। তাই প্রতিটি সুপার কি ক্যান্ডিডেট কি হতে পারে না!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXAM Q4: DDL VS DML TRICK QUESTIONS -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="sql">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-800">Tricky Viva & Midterm</span>
+                    <span class="text-xs font-mono text-slate-400">Classnote P15 & AK P5</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q4. Classify each of the following SQL statements into DDL or DML with justification:
+                    <br>1. <code class="font-mono text-xs">ALTER TABLE Student DROP COLUMN NID;</code>
+                    <br>2. <code class="font-mono text-xs">DELETE FROM Student WHERE CGPA &lt; 3.40;</code>
+                    <br>3. <code class="font-mono text-xs">UPDATE Faculty SET Short_Code = 'NAF' WHERE Name = 'Nadia';</code>
+                    <br>4. <code class="font-mono text-xs">ALTER TABLE Course ADD COLUMN offered_semester VARCHAR(10) AFTER Course_Title;</code>
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-4')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-4-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-4" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2 font-bangla text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div class="p-3 bg-purple-50 dark:bg-purple-950/30 rounded-xl space-y-1.5">
+                  <div><strong>1. ALTER TABLE ... DROP COLUMN:</strong> &rarr; <span class="text-rose-600 font-bold font-mono">DDL</span> (টেবিল থেকে কলাম মুছে ফেলায় টেবিলের স্কিমা ডেফিনিশন পরিবর্তিত হয়েছে)।</div>
+                  <div><strong>2. DELETE FROM Student ...:</strong> &rarr; <span class="text-emerald-600 font-bold font-mono">DML</span> (স্কিমার কলাম অপরিবর্তিত থাকে, কেবলমাত্র ভেতরের নির্দিষ্ট কিছু রো মুছে ফেলা হয়)।</div>
+                  <div><strong>3. UPDATE Faculty SET ...:</strong> &rarr; <span class="text-emerald-600 font-bold font-mono">DML</span> (স্কিমার কোনো পরিবর্তন হয় না, শুধুমাত্র একটি ফিল্ডের ভ্যালু আপডেট হয়)।</div>
+                  <div><strong>4. ALTER TABLE ... ADD COLUMN ... AFTER:</strong> &rarr; <span class="text-rose-600 font-bold font-mono">DDL</span> (নতুন কলাম যুক্ত হয়ে স্কিমা সম্প্রসারিত হয়েছে)।</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXAM Q5: QUERY PROCESSOR ARCHITECTURE -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="theory">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">5 Marks Flowchart</span>
+                    <span class="text-xs font-mono text-slate-400">Slide 1.26 & Note P16</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q5. Draw the architectural flowchart of Query Processing in DBMS. Explain the role of Query Optimizer and Evaluation Engine.
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-5')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-5-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-5" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2 font-bangla text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl space-y-2">
+                  <p>
+                    <strong>Query Processing-এর ৩টি ধাপ:</strong>
+                    <br>১. <strong>Parsing & Translation:</strong> SQL কুয়েরির সিনট্যাক্স এরর চেক করা হয় এবং কুয়েরিকে রিলেশনাল অ্যালজেবরা এক্সপ্রেশনে অনুবাদ করা হয়।
+                    <br>২. <strong>Optimization:</strong> একটি কুয়েরি সম্পন্ন করার একাধিক সম্ভাব্য পথ বা এক্সিকিউশন প্ল্যান থাকে। ডাটাবেজে সংরক্ষিত স্ট্যাটিস্টিকস (যেমন: কোন টেবিলে কত রো আছে) বিশ্লেষণ করে <strong>Query Optimizer</strong> সর্বনিম্ন এক্সিকিউশন সময়ের <strong>Lowest Cost Plan</strong> নির্বাচন করে।
+                    <br>৩. <strong>Evaluation Engine:</strong> অপটিমাইজারের দেওয়া এক্সিকিউশন প্ল্যানটি এক্সিকিউট করে হার্ডডিস্ক থেকে ডাটা নিয়ে এসে আউটপুট তৈরি করে।
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- EXAM Q6: GROUP BY AND HAVING -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="sql">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-800">Advanced SQL</span>
+                    <span class="text-xs font-mono text-slate-400">Slide 3.32-3.34 & Note Lab 3</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q6. Write an SQL query to find the department names and their average instructor salaries for all departments where the average salary exceeds $42,000. Why does replacing <code class="font-mono text-xs">HAVING</code> with <code class="font-mono text-xs">WHERE</code> generate an error?
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-6')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-6-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-6" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2 font-mono text-xs">
+                <div class="p-3 bg-slate-950 text-slate-200 rounded-xl space-y-2">
+<pre>
+<span class="text-purple-400">SELECT</span> dept_name, <span class="text-cyan-400">AVG</span>(salary) <span class="text-purple-400">AS</span> avg_salary
+<span class="text-purple-400">FROM</span> Instructor
+<span class="text-purple-400">GROUP BY</span> dept_name
+<span class="text-rose-400">HAVING</span> <span class="text-cyan-400">AVG</span>(salary) &gt; 42000;
+</pre>
+                  <p class="font-bangla text-xs text-slate-400 leading-relaxed font-sans">
+                    <strong>ব্যাখ্যা:</strong> <code class="font-mono text-amber-400">WHERE</code> ক্লজ গ্রুপ তৈরি করার পূর্বে প্রতিটি একক রো ফিল্টার করে। রো ফিল্টারিংয়ের সময়ে কোনো ডিপার্টমেন্টের গড় (AVG) স্যালারি হিসাবই হয় না। অন্যদিকে <code class="font-mono text-emerald-400">HAVING</code> ক্লজ ডিপার্টমেন্ট অনুযায়ী গ্রুপ তৈরির পর সম্পূর্ণ গ্রুপের ওপর এগ্রিগেট ফাংশন দিয়ে ফিল্টার করে। তাই <code class="font-mono text-amber-400">WHERE AVG(salary) &gt; 42000</code> লিখলে সিনট্যাক্স এরর হয়!
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="copyToast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <i class="fa-solid fa-check text-emerald-400"></i>
+    <span>কপি করা সম্পন্ন হয়েছে!</span>
+  </div>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    // Theme Switcher with localStorage
+    const themeToggleBtn = document.getElementById('themeToggle');
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    });
+
+    // Mobile Drawer Navigation
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const sidebarDrawer = document.getElementById('sidebarDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+    function openDrawer() {
+      sidebarDrawer.classList.remove('-translate-x-full');
+      drawerBackdrop.classList.remove('hidden');
+    }
+    function closeDrawer() {
+      sidebarDrawer.classList.add('-translate-x-full');
+      drawerBackdrop.classList.add('hidden');
+    }
+
+    mobileMenuBtn.addEventListener('click', openDrawer);
+    closeDrawerBtn.addEventListener('click', closeDrawer);
+    drawerBackdrop.addEventListener('click', closeDrawer);
+
+    // Close drawer on link click on mobile
+    document.querySelectorAll('.nav-item').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 1024) closeDrawer();
+      });
+    });
+
+    // Font Scaler for High Readability on Phones
+    const fontSizes = ['text-sm-mode', 'text-base-mode', 'text-lg-mode', 'text-xl-mode'];
+    let currentFontIndex = 1;
+
+    function updateFontClass() {
+      const html = document.documentElement;
+      fontSizes.forEach(cls => html.classList.remove(cls));
+      html.classList.add(fontSizes[currentFontIndex]);
+    }
+
+    function changeFontSize(dir) {
+      currentFontIndex = Math.max(0, Math.min(fontSizes.length - 1, currentFontIndex + dir));
+      updateFontClass();
+    }
+
+    function resetFontSize() {
+      currentFontIndex = 1;
+      updateFontClass();
+    }
+
+    // Toggle Single Answer
+    function toggleAnswer(id) {
+      const el = document.getElementById(id);
+      const btn = document.getElementById(id + '-btn');
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        if (btn) btn.textContent = 'লুকান';
+      } else {
+        el.classList.add('hidden');
+        if (btn) btn.textContent = 'উত্তর দেখুন';
+      }
+    }
+
+    // Reveal All Answers in Exam Hall
+    let allRevealed = false;
+    function revealAllAnswers() {
+      const answers = document.querySelectorAll('#questionsContainer [id^="ans-"]');
+      allRevealed = !allRevealed;
+      answers.forEach(ans => {
+        const btn = document.getElementById(ans.id + '-btn');
+        if (allRevealed) {
+          ans.classList.remove('hidden');
+          if (btn) btn.textContent = 'লুকান';
+        } else {
+          ans.classList.add('hidden');
+          if (btn) btn.textContent = 'উত্তর দেখুন';
+        }
+      });
+    }
+
+    // Filter Exam Questions by Category
+    function filterQuestions(category) {
+      document.querySelectorAll('.q-filter-btn').forEach(b => {
+        b.classList.remove('bg-brand-600', 'text-white');
+        b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      });
+      event.target.classList.add('bg-brand-600', 'text-white');
+      event.target.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+
+      const cards = document.querySelectorAll('.q-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-cat') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Live search filter across all sections
+    function setupSearch(inputId) {
+      const input = document.getElementById(inputId);
+      input.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const sections = document.querySelectorAll('.topic-section');
+        sections.forEach(sec => {
+          const text = sec.innerText.toLowerCase();
+          if (text.includes(query)) {
+            sec.style.display = 'block';
+          } else {
+            sec.style.display = 'none';
+          }
+        });
+      });
+    }
+    setupSearch('searchInput');
+    setupSearch('mobileSearchInput');
+  </script>
+</body>
+</html>

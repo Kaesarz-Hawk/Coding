@@ -1,0 +1,3261 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>Java OOP Midterm 30/30 Master Revision Book — by KH</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Hind Siliguri', 'sans-serif'],
+            bangla: ['Hind Siliguri', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --base-font: 18px;
+      --code-font: 15.5px;
+    }
+    html {
+      font-size: var(--base-font);
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', 'Hind Siliguri', sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    .bangla-text {
+      font-family: 'Hind Siliguri', 'Inter', sans-serif;
+      line-height: 1.8;
+    }
+    pre, code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .code-block {
+      font-size: var(--code-font);
+      line-height: 1.65;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.6);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(99, 102, 241, 0.9);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade {
+      animation: fadeIn 0.22s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white transition-colors duration-200">
+
+  <!-- TOP STICKY APP BAR -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-900/95 border-b border-slate-800 shadow-lg">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2">
+      <!-- Brand / Title -->
+      <div class="flex items-center gap-2.5">
+        <button id="mobileMenuBtn" type="button" class="lg:hidden p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-400 border border-slate-700" aria-label="Toggle Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center font-extrabold text-white shadow-md shadow-indigo-500/20 text-lg shrink-0">
+          KH
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-white via-indigo-200 to-amber-200 bg-clip-text text-transparent">
+              Java OOP Master Book
+            </h1>
+            <span class="hidden sm:inline-block px-2 py-0.5 text-xs font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+              Midterm 30/30 Edition
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 bangla-text">ক্লাস স্লাইড + হ্যান্ডনোট + TpointTech • C++ থেকে Java পূর্ণাঙ্গ গাইড</p>
+        </div>
+      </div>
+
+      <!-- Controls: Search, Font Size, Bangla Toggle, Progress -->
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+        <!-- Search Input -->
+        <div class="relative w-36 sm:w-56">
+          <input id="globalSearchInput" type="text" placeholder="Search topic, code, Q&A..." class="w-full pl-8 pr-7 py-1.5 text-xs sm:text-sm rounded-xl bg-slate-800/90 border border-slate-700 text-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-500" />
+          <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <button id="clearSearchBtn" type="button" class="hidden absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs font-bold">✕</button>
+        </div>
+
+        <!-- Font Size Controls (Phone-Friendly Big Fonts) -->
+        <div class="flex items-center bg-slate-800 rounded-xl p-0.5 border border-slate-700" title="Adjust Reading Font Size">
+          <button id="fontDecBtn" type="button" class="px-2 py-1 text-xs font-bold rounded-lg hover:bg-slate-700 text-slate-300" title="Smaller Text">A-</button>
+          <span id="fontLabel" class="px-1.5 text-xs font-semibold text-indigo-300">XL</span>
+          <button id="fontIncBtn" type="button" class="px-2 py-1 text-xs font-bold rounded-lg hover:bg-slate-700 text-amber-300" title="Bigger Text for Phone">A+</button>
+        </div>
+
+        <!-- Bangla Explanation Toggle -->
+        <button id="langToggleBtn" type="button" class="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 bangla-text transition">
+          🇧🇩 বাংলা: ON
+        </button>
+
+        <!-- Light/Dark Theme Toggle -->
+        <button id="themeToggleBtn" type="button" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700" title="Switch Contrast Mode">
+          <span id="themeIcon">☀️</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Horizontal Quick-Jump Topic Bar (Mobile & Desktop) -->
+    <div class="bg-slate-900/80 border-t border-slate-800/80 px-2 sm:px-6 py-1.5 overflow-x-auto no-scrollbar">
+      <div id="topTopicPills" class="flex items-center gap-1.5 min-w-max"></div>
+    </div>
+  </header>
+
+  <!-- MAIN LAYOUT -->
+  <div class="max-w-7xl mx-auto px-3 sm:px-6 py-5 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+    <!-- LEFT SIDEBAR NAVIGATION (Desktop Sticky + Mobile Drawer) -->
+    <aside id="sidebarDrawer" class="fixed inset-y-0 left-0 z-50 w-80 bg-slate-900 border-r border-slate-800 p-4 transform -translate-x-full lg:translate-x-0 lg:static lg:w-auto lg:col-span-3 lg:bg-transparent lg:border-0 lg:p-0 transition-transform duration-200 overflow-y-auto">
+      <div class="lg:sticky lg:top-28 space-y-4">
+        <div class="flex items-center justify-between lg:hidden pb-3 border-b border-slate-800">
+          <span class="font-bold text-indigo-300">📚 Chapters & Topics</span>
+          <button id="closeDrawerBtn" type="button" class="p-1.5 rounded-lg bg-slate-800 text-slate-300">✕</button>
+        </div>
+
+        <!-- Progress Card -->
+        <div class="p-4 rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950/60 to-slate-900 border border-indigo-500/30 shadow-lg">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-indigo-300">Midterm Readiness</span>
+            <span id="progressText" class="text-sm font-extrabold text-emerald-400">0 / 10 Modules</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden mb-3">
+            <div id="progressBar" class="h-full bg-gradient-to-r from-indigo-500 via-emerald-400 to-amber-400 transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-300 bangla-text">
+            <span>🎯 টার্গেট: ৩০/৩০ মার্কস</span>
+            <button id="resetProgressBtn" type="button" class="text-xs text-rose-400 hover:underline">Reset</button>
+          </div>
+        </div>
+
+        <!-- Module List -->
+        <nav id="sidebarNav" class="space-y-1.5"></nav>
+
+        <!-- Quick Cheat Sheet Card -->
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2 text-xs">
+          <div class="font-bold text-amber-300 flex items-center gap-1.5">
+            <span>⚡</span> <span>Midterm Golden Rules</span>
+          </div>
+          <ul class="space-y-1.5 text-slate-300 bangla-text">
+            <li>• <code class="text-pink-400">this()</code> ও <code class="text-pink-400">super()</code> অবশ্যই constructor-এর <b>১ম লাইনে (1st statement)</b> হতে হবে।</li>
+            <li>• শুধু <b>return type</b> বদলে Method Overloading করা যায় না (Compile Error)।</li>
+            <li>• Interface-এর মেথড অটোমেটিক <code class="text-emerald-400">public abstract</code> এবং ভ্যারিয়েবল <code class="text-emerald-400">public static final</code> হয়।</li>
+            <li>• UML Diagram-এ <code class="text-rose-400">-</code> মানে private, <code class="text-emerald-400">+</code> মানে public, <code class="text-amber-400">#</code> মানে protected।</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MOBILE BACKDROP -->
+    <div id="drawerBackdrop" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden"></div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="lg:col-span-9 space-y-6">
+
+      <!-- HERO BANNER / OVERVIEW -->
+      <section class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-950 via-slate-900 to-purple-950 border border-indigo-500/30 p-5 sm:p-7 shadow-xl">
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold">
+              <span>🔥 10x Upgraded Edition • Compiled by KH</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+              Complete Java OOP Midterm Revision & Practice Book
+            </h2>
+            <p class="text-slate-300 text-sm sm:text-base bangla-text">
+              ক্লাসের ১০টি PDF স্লাইড, ৪৬ পৃষ্ঠার খাতার নোট (<code class="text-indigo-300">Java classnote_s7.pdf</code>), এবং ৫টি TpointTech ওয়েবসাইটের প্রতিটি টপিক, ডায়াগ্রাম, কোড এবং পরীক্ষার প্রশ্নোত্তর এক জায়গায়। যেকোনো প্রশ্নে ক্লিক করলেই উত্তর ও বাংলা ব্যাখ্যা খুলে যাবে!
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row md:flex-col gap-2 shrink-0">
+            <button id="jumpToQuizBtn" type="button" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-sm shadow-lg shadow-amber-500/20 transition">
+              🎯 Practice 35+ Exam Q&A
+            </button>
+            <button id="expandAllAnswersBtn" type="button" class="px-4 py-2 rounded-2xl bg-slate-800/90 hover:bg-slate-700 text-indigo-200 font-semibold text-xs border border-slate-700 transition">
+              👁️ Show All Answers in View
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW MODE TABS -->
+      <div class="flex flex-wrap items-center justify-between gap-2 bg-slate-900/90 p-2 rounded-2xl border border-slate-800">
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <button type="button" data-view="single" class="view-mode-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow">
+            📖 Chapter-by-Chapter View
+          </button>
+          <button type="button" data-view="all" class="view-mode-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:bg-slate-800">
+            📚 Full Book Scroll (All 10 Chapters)
+          </button>
+          <button type="button" data-view="exam" class="view-mode-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-amber-300 hover:bg-slate-800">
+            🏆 30/30 Exam Question Bank
+          </button>
+        </div>
+        <div class="text-xs text-slate-400 px-2 bangla-text">
+          📱 ফোনে পড়ার জন্য উপরে <b>A+</b> চাপলে লেখা আরও বড় হবে
+        </div>
+      </div>
+
+      <!-- DYNAMIC CONTENT CONTAINER -->
+      <div id="contentContainer" class="space-y-8"></div>
+
+      <!-- CHAPTER FOOTER NAVIGATION (Prev / Mark Complete / Next) -->
+      <div id="chapterFooterNav" class="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+        <button id="prevChapterBtn" type="button" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-sm border border-slate-700 transition">
+          ← Previous Topic
+        </button>
+        <button id="toggleCompleteBtn" type="button" class="px-5 py-2.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 font-bold text-sm border border-emerald-500/40 transition">
+          ✓ Mark Topic Completed
+        </button>
+        <button id="nextChapterBtn" type="button" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition">
+          Next Topic →
+        </button>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden px-4 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-xl">
+    Copied to clipboard!
+  </div>
+
+  <script>
+    // ============================================================================
+    // COMPLETE CURRICULUM DATA (All 10 PDFs + Classnote_s7 + 5 TpointTech Links)
+    // ============================================================================
+    const MODULES = [
+      {
+        id: "mod-1",
+        number: "01",
+        shortTitle: "JVM, JRE, JDK & GC",
+        title: "Java Architecture (JVM, JRE, JDK), Features, Syntax & Garbage Collection",
+        badge: "Midterm Theory Must-Know",
+        sources: "OOP_Lecture 1.pdf • Class object constructor & Garrbage collection.pdf • Classnote pp. 1–9, 28",
+        cppBridge: {
+          title: "C++ vs Java: Architecture & Memory Bridge",
+          points: [
+            "In C++, compiler generates platform-specific machine code (.exe), making it platform-dependent. In Java, `javac` generates platform-independent **Bytecode (.class)** which any OS's **JVM** can run.",
+            "In C++, you manually free memory using `delete ptr;` and destructors (`~Class()`). In Java, there is no `delete` keyword — **JVM's Garbage Collector (GC)** automatically frees unreferenced objects!"
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. What is Java & Its Core Features (Lecture 1)",
+            en: "Java is a high-level, general-purpose, object-oriented programming language originally developed by **James Gosling** at **Sun Microsystems** and released in **1995** (J2SE 1.0). Editions include **J2SE** (Standard), **J2EE** (Enterprise Applications), and **J2ME** (Mobile Applications).",
+            bn: "জাভা একটি উচ্চ-স্তরের (High-level) অবজেক্ট অরিয়েন্টেড প্রোগ্রামিং ল্যাঙ্গুয়েজ, যা ১৯৯৫ সালে Sun Microsystems-এর James Gosling তৈরি করেন। এন্টারপ্রাইজ অ্যাপের জন্য J2EE এবং মোবাইল অ্যাপের জন্য J2ME ব্যবহৃত হয়।",
+            bullets: [
+              "<b>Object Oriented:</b> Everything in Java is an Object based on 4 pillars: <i>Abstraction, Encapsulation, Inheritance, Polymorphism</i>.",
+              "<b>Platform Independent (Write Once, Run Anywhere):</b> Java source code (<code>.java</code>) is compiled into platform-independent <b>Bytecode (<code>.class</code>)</b>, which runs on any OS (Windows, Linux, Mac) that has a JVM.",
+              "<b>Robust:</b> Eliminates error-prone situations via strong compile-time checking, runtime exception checking, and automatic Garbage Collection (খাতার নোট: <i>Robust = error finding easy</i>).",
+              "<b>Secure & Architecture-Neutral:</b> No explicit pointers; authentication uses public-key encryption; bytecode runs on any processor with a Java runtime.",
+              "<b>Portable, Multithreaded, Interpreted & High Performance:</b> Uses <b>JIT (Just-In-Time)</b> compiler to translate bytecode into native machine code on the fly."
+            ]
+          },
+          {
+            heading: "2. JVM vs JRE vs JDK + Official Class Diagram",
+            en: "Your teacher specifically highlighted **JVM, JVM Diagram, JRE, and JDK** for the midterm theory section. Memorize both the definitions and the visual diagrams below:",
+            bn: "মিডটার্ম থিওরির জন্য স্যার/ম্যাডাম বিশেষভাবে **JVM, JVM Diagram, JRE এবং JDK** পড়তে বলেছেন। নিচের তুলনা এবং ডায়াগ্রাম দুটি হুবহু খাতায় আঁকলে ফুল মার্কস পাবে:",
+            bullets: [
+              "<b>JVM (Java Virtual Machine):</b> An abstract/virtual machine (it <i>does not physically exist</i>). The <code>javac</code> compiler translates <code>Main.java</code> (source code) into <code>Main.class</code> (bytecode). The machine language for JVM is <b>bytecode</b>. JVM executes bytecode to produce output and makes Java <b>platform-independent</b> (though JVM itself is platform-dependent because Windows, Mac, and Linux each have their own JVM).",
+              "<b>JRE (Java Runtime Environment):</b> The physical implementation of JVM (it <i>physically exists</i>). It provides the runtime environment and contains <b>JVM + Set of Libraries (e.g., <code>rt.jar</code>) + Other supporting files</b>.",
+              "<b>JDK (Java Development Kit):</b> The complete software development package used to develop and run Java applications. Formula: <b>JDK = JRE + Development Tools</b> (<code>javac</code> compiler, <code>java</code> interpreter/loader, <code>jar</code> archiver, <code>javadoc</code> generator)."
+            ],
+            diagramHtml: `
+              <div class="my-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- JVM Execution Flow Diagram -->
+                <div class="p-4 rounded-2xl bg-slate-950 border border-indigo-500/40">
+                  <div class="text-xs font-bold uppercase tracking-wider text-indigo-300 mb-3 text-center">📊 Diagram 1: How JVM Makes Java Platform Independent (Slide 11 & Note p.1)</div>
+                  <div class="flex flex-col items-center space-y-2 text-xs sm:text-sm font-semibold">
+                    <div class="px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-400 text-amber-200">Java Source Code (<code>Main.java</code>)</div>
+                    <div class="text-indigo-400 font-bold">↓</div>
+                    <div class="px-5 py-2 rounded-full bg-indigo-500/30 border border-indigo-400 text-indigo-100">JAVAC Compiler (<code>javac Main.java</code>)</div>
+                    <div class="text-indigo-400 font-bold">↓</div>
+                    <div class="px-4 py-2 rounded-xl bg-purple-500/20 border border-purple-400 text-purple-200">Platform-Independent Byte Code (<code>Main.class</code>)</div>
+                    <div class="text-emerald-400 font-bold">↙ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↓ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↘</div>
+                    <div class="grid grid-cols-3 gap-2 w-full text-center">
+                      <div class="p-2 rounded-lg bg-emerald-500/20 border border-emerald-400 text-emerald-200">JVM<br><span class="text-[11px] text-slate-300">↕ Windows</span></div>
+                      <div class="p-2 rounded-lg bg-emerald-500/20 border border-emerald-400 text-emerald-200">JVM<br><span class="text-[11px] text-slate-300">↕ Linux</span></div>
+                      <div class="p-2 rounded-lg bg-emerald-500/20 border border-emerald-400 text-emerald-200">JVM<br><span class="text-[11px] text-slate-300">↕ Mac</span></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- JDK / JRE / JVM Box Diagram -->
+                <div class="p-4 rounded-2xl bg-slate-950 border border-emerald-500/40 flex flex-col justify-between">
+                  <div class="text-xs font-bold uppercase tracking-wider text-emerald-300 mb-3 text-center">📦 Diagram 2: JDK vs JRE vs JVM Hierarchy (Slide 13 & Note p.2)</div>
+                  <div class="p-3 rounded-2xl bg-indigo-950/50 border-2 border-indigo-400 space-y-2">
+                    <div class="text-xs font-extrabold text-indigo-300 flex justify-between">
+                      <span>JDK (Whole Complete Package)</span>
+                      <span>= JRE + Dev Tools</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 items-center">
+                      <div class="sm:col-span-2 p-3 rounded-xl bg-amber-500/10 border-2 border-amber-400/70 space-y-2">
+                        <div class="text-xs font-bold text-amber-300">JRE (Physically Exists)</div>
+                        <div class="flex items-center gap-2">
+                          <div class="px-3 py-3 rounded-full border-2 border-dashed border-slate-300 bg-slate-800 text-white font-extrabold text-xs text-center shrink-0">
+                            JVM<br><span class="text-[10px] font-normal text-slate-300">(Virtual)</span>
+                          </div>
+                          <div class="text-amber-300 font-bold">+</div>
+                          <div class="space-y-1 flex-1 text-[11px]">
+                            <div class="p-1.5 rounded bg-pink-500/20 border border-pink-400/40 text-pink-200">Set of Libraries (<code>rt.jar</code> etc.)</div>
+                            <div class="p-1.5 rounded bg-pink-500/20 border border-pink-400/40 text-pink-200">Other Runtime Files</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-400/50 text-[11px] text-emerald-200 space-y-1">
+                        <div class="font-bold text-emerald-300">+ Dev Tools</div>
+                        <div>• <code>javac</code> (compiler)</div>
+                        <div>• <code>java</code> (loader)</div>
+                        <div>• <code>jar</code> (archiver)</div>
+                        <div>• <code>javadoc</code></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-[11px] text-slate-400 text-center mt-2 bangla-text">খাতার নোট (পৃষ্ঠা ২): "Whole complete package is JDK"</div>
+                </div>
+              </div>
+            `
+          },
+          {
+            heading: "3. Program Structure, Identifiers & Naming Rules (Lecture 1 Slides 15–26)",
+            en: "Every Java program has at most **one `public` class per `.java` file**, and the file name must strictly match the `public` class name (case-sensitive).",
+            bn: "একটি জাভা ফাইলে যেকোনো সংখ্যক ক্লাস থাকতে পারে, কিন্তু **সর্বোচ্চ একটি `public` ক্লাস** থাকতে পারবে এবং ফাইলের নাম অবশ্যই ওই public ক্লাসের নামের সাথে হুবহু মিলতে হবে। এবং খেয়াল রাখবে: `System`, `String`, `Scanner` এগুলোর প্রথম অক্ষর `S` সবসময় বড় হাতের (Capital) হবে!",
+            bullets: [
+              "<code>public</code>: Makes <code>main</code> accessible from outside the class so JVM can call it.",
+              "<code>static</code>: Allows JVM to run <code>main()</code> directly <b>without creating an object</b> of the class.",
+              "<code>void</code>: Means <code>main()</code> does not return any value.",
+              "<code>String[] args</code>: Receives command-line arguments as an array of Strings.",
+              "<b>Naming Conventions:</b> Class names start with Uppercase (PascalCase: <code>HelloWorld</code>). Method & variable names start with lowercase (camelCase: <code>myMethodName()</code>, <code>smallNumber</code>).",
+              "<b>Identifiers Rules:</b> Must begin with a letter (<code>A-Z</code>, <code>a-z</code>), currency sign (<code>$</code>), or underscore (<code>_</code>). Cannot start with a digit or contain spaces/hyphens. <span class='text-emerald-300'>Legal:</span> <code>age</code>, <code>$salary</code>, <code>_value</code>, <code>__1_value</code>. <span class='text-rose-400'>Illegal:</span> <code>123abc</code>, <code>-salary</code>, <code>int num ber</code>."
+            ]
+          },
+          {
+            heading: "4. Automatic Garbage Collection in Java (Slides 17–18, 26–27 & Classnote p. 28)",
+            en: "In Java, an object created on the Heap via `new` stays alive as long as at least one reference variable points to it. When an object has **no reference variable pointing to it**, it becomes unreachable (**garbage**) and becomes a candidate for **Automatic Garbage Collection** by the JVM.",
+            bn: "জাভায় যখন কোনো অবজেক্টের দিকে আর কোনো রেফারেন্স ভ্যারিয়েবল পয়েন্ট করে থাকে না, তখন সেই অবজেক্টটি ভবিষ্যতে আর ব্যবহার করা যায় না। একে **Garbage** বলা হয় এবং **JVM স্বয়ংক্রিয়ভাবে (Periodically)** মেমরি থেকে এটি মুছে ফেলে মেমরি খালি করে দেয়।",
+            diagramHtml: `
+              <div class="my-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-2xl bg-slate-950 border border-rose-500/40 space-y-2">
+                  <div class="text-xs font-bold text-rose-300 uppercase">Way 1: Reassigning Reference (<code>c1 = c2</code> or <code>c2 = c1</code>)</div>
+                  <pre class="text-xs font-mono text-slate-200 bg-slate-900 p-2.5 rounded-xl">Circle c1 = new Circle(); // Object #1
+Circle c2 = new Circle(); // Object #2
+c1 = c2; // Now both c1 & c2 point to Object #2!</pre>
+                  <p class="text-xs text-slate-300 bangla-text">
+                    এখানে <code>c1 = c2;</code> লেখার পর <code>c1</code> এবং <code>c2</code> দুটোই ২য় অবজেক্টকে পয়েন্ট করছে। ফলে ১ম অবজেক্টটির কোনো রেফারেন্স নেই—এটি <b>Garbage</b> হয়ে গেছে! (আবার যদি <code>c2 = c1;</code> লিখি, তবে <code>c2</code>-এর আগের অবজেক্টটি Garbage হবে—খাতার পৃষ্ঠা ২৮)।
+                  </p>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-950 border border-amber-500/40 space-y-2">
+                  <div class="text-xs font-bold text-amber-300 uppercase">Way 2: Assigning <code>null</code> Explicitly (<code>c1 = null</code>)</div>
+                  <pre class="text-xs font-mono text-slate-200 bg-slate-900 p-2.5 rounded-xl">Circle c1 = new Circle(); // Object #1
+c1 = null; // Link broken! Object #1 has 0 references</pre>
+                  <p class="text-xs text-slate-300 bangla-text">
+                    যখন কোনো অবজেক্টের আর প্রয়োজন নেই, তখন <code>c1 = null;</code> করে দিলে রেফারেন্স লিংক কেটে যায় এবং JVM স্বয়ংক্রিয়ভাবে মেমরি রিলিজ করে দেয়।
+                  </p>
+                </div>
+              </div>
+            `
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: Scanner Input (Int, Char, String) & Even Number Summation (Classnote pp. 3, 5, 8)",
+            code: `import java.util.Scanner; // S in Scanner is always Capital
+
+public class BasicDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); // For taking user input
+
+        // 1. Taking Integer, Word, Full Line & Character Input (Lab-1 Note p. 8)
+        System.out.print("Enter an integer: ");
+        int num = sc.nextInt();
+
+        System.out.print("Enter a single word: ");
+        String word = sc.next(); // reads until space
+
+        sc.nextLine(); // consume leftover newline
+        System.out.print("Enter a full sentence: ");
+        String line = sc.nextLine(); // reads entire line
+
+        System.out.print("Enter a single character: ");
+        char ch = sc.next().charAt(0); // 0th index char of input token
+
+        System.out.println("You entered: " + num + ", " + word + ", " + line + ", char=" + ch);
+
+        // 2. Classnote p. 5 Task: Print (1-100) Even Number Summation
+        int s = 0;
+        for (int i = 1; i <= 100; i++) {
+            if (i % 2 == 0) {
+                s += i;
+            }
+        }
+        System.out.println("Sum of even numbers (1 to 100): " + s);
+    }
+}`,
+            output: `Enter an integer: 25
+Enter a single word: BUBT
+Enter a full sentence: Java OOP Midterm
+Enter a single character: A
+You entered: 25, BUBT, Java OOP Midterm, char=A
+Sum of even numbers (1 to 100): 2550`,
+            explanationEn: "Demonstrates `Scanner` methods from Lecture 1 Slide 18 and Classnote p. 8 (`nextInt()`, `next()`, `nextLine()`, and `next().charAt(0)` for character input), followed by the 1-to-100 even sum loop (`s += i` when `i % 2 == 0`) from Classnote p. 5.",
+            explanationBn: "খাতার ৩, ৫ এবং ৮ নং পৃষ্ঠার সব বেসিক এক কোডে দেওয়া হলো: পূর্ণসংখ্যার জন্য `nextInt()`, এক শব্দের জন্য `next()`, পুরো লাইনের জন্য `nextLine()`, এবং একটি অক্ষর (char) ইনপুট নেওয়ার জন্য `sc.next().charAt(0)`। শেষে ১ থেকে ১০০ পর্যন্ত জোড় সংখ্যার যোগফল (`2550`) নির্ণয় করা হয়েছে।"
+          }
+        ],
+        questions: [
+          {
+            type: "Theory (Midterm High-Probability)",
+            q: "Why is Java called a Platform-Independent language? Explain with the JVM diagram.",
+            qBn: "জাভাকে কেন প্ল্যাটফর্ম ইন্ডিপেন্ডেন্ট (Platform-Independent) ভাষা বলা হয়? JVM ডায়াগ্রামসহ ব্যাখ্যা করো।",
+            a: `<p class="mb-2"><b>Model Answer:</b> Unlike C/C++ which compile source code directly into OS-specific machine code, the Java compiler (<code>javac</code>) compiles a <code>.java</code> source file into an intermediate, architecture-neutral format called <b>Bytecode (<code>.class</code> file)</b>.</p>
+                <p class="mb-2">This bytecode is the machine language for the <b>Java Virtual Machine (JVM)</b>. Any operating system (Windows, Linux, or Mac) that has a JVM installed can interpret and execute the exact same <code>.class</code> file without recompilation. Therefore, <b>JVM is the component that makes Java platform-independent</b>.</p>
+                <p class="text-indigo-300 text-xs"><i>(Draw Diagram 1 above: Java Code (.java) → JAVAC compiler → Byte Code (.class) → JVM for Windows / Linux / Mac).</i></p>`,
+            aBn: "পরীক্ষায় অবশ্যই সংজ্ঞার সাথে `Java Code (.java) -> JAVAC compiler -> Byte Code (.class) -> Windows/Linux/Mac JVM` ছকটি এঁকে দেবে।"
+          },
+          {
+            type: "Theory Comparison",
+            q: "Differentiate between JDK, JRE, and JVM with a neat diagram.",
+            qBn: "JDK, JRE এবং JVM-এর মধ্যে পার্থক্য চিত্রসহ লেখো।",
+            a: `<div class="overflow-x-auto"><table class="w-full text-left border-collapse text-xs sm:text-sm my-2">
+                  <thead><tr class="bg-slate-800 text-indigo-300"><th class="p-2 border border-slate-700">Feature</th><th class="p-2 border border-slate-700">JVM</th><th class="p-2 border border-slate-700">JRE</th><th class="p-2 border border-slate-700">JDK</th></tr></thead>
+                  <tbody>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Full Form</td><td class="p-2 border border-slate-700">Java Virtual Machine</td><td class="p-2 border border-slate-700">Java Runtime Environment</td><td class="p-2 border border-slate-700">Java Development Kit</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Existence</td><td class="p-2 border border-slate-700">Virtual (does not physically exist)</td><td class="p-2 border border-slate-700">Physically exists</td><td class="p-2 border border-slate-700">Physically exists</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Components</td><td class="p-2 border border-slate-700">Bytecode interpreter & JIT runtime</td><td class="p-2 border border-slate-700">JVM + Libraries (<code>rt.jar</code>) + Other files</td><td class="p-2 border border-slate-700">JRE + Development tools (<code>javac</code>, <code>java</code>, <code>jar</code>, <code>javadoc</code>)</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Purpose</td><td class="p-2 border border-slate-700">Executes bytecode (<code>.class</code>)</td><td class="p-2 border border-slate-700">Provides environment to run Java apps</td><td class="p-2 border border-slate-700">Complete package to develop & run Java apps</td></tr>
+                  </tbody>
+                </table></div>`,
+            aBn: "মনে রাখার শর্টকাট সূত্র: **JRE = JVM + Libraries**, আর **JDK = JRE + Development Tools (`javac`, `java`)**।"
+          },
+          {
+            type: "Concept & Memory Tracing",
+            q: "What is Garbage Collection in Java? Show two code scenarios where an object becomes a candidate for garbage collection.",
+            qBn: "জাভায় Garbage Collection কী? কোডের মাধ্যমে দুটি উদাহরণ দাও যেখানে একটি অবজেক্ট Garbage হিসেবে গণ্য হয়।",
+            a: `<p class="mb-2"><b>Answer:</b> When an object in Java heap memory no longer has any reference variable pointing to it, it cannot be accessed in the future and is called <b>garbage</b>. The JVM automatically reclaims this memory periodically via <b>Automatic Garbage Collection</b>.</p>
+                <pre class="bg-slate-950 p-3 rounded-xl text-xs text-emerald-300 font-mono">// Scenario 1: Reassigning reference variable
+Circle c1 = new Circle(); // Object A
+Circle c2 = new Circle(); // Object B
+c1 = c2; // Object A now has NO reference -> Candidate for Garbage Collection!
+
+// Scenario 2: Assigning null explicitly
+Circle c3 = new Circle(); // Object C
+c3 = null; // Object C now has NO reference -> Candidate for Garbage Collection!</pre>`,
+            aBn: "খাতার পৃষ্ঠা ২৮ ও স্লাইড ২৬-২৭ অনুযায়ী দুটি উপায়: (১) একটি রেফারেন্স ভ্যারিয়েবলে অন্য অবজেক্ট অ্যাসাইন করা (`c1 = c2;`) এবং (২) রেফারেন্স ভ্যারিয়েবলে `null` অ্যাসাইন করা (`c1 = null;`)।"
+          },
+          {
+            type: "Viva / Short Question",
+            q: "Explain the meaning of each word in `public static void main(String[] args)`.",
+            qBn: "`public static void main(String[] args)` লাইনের প্রতিটি শব্দের কাজ ব্যাখ্যা করো।",
+            a: `<ul class="list-disc pl-5 space-y-1 text-sm">
+                  <li><b><code>public</code>:</b> Access modifier making the method accessible from everywhere so the JVM (outside the class) can invoke it.</li>
+                  <li><b><code>static</code>:</b> Keyword allowing the JVM to call <code>main()</code> directly without instantiating/creating an object of the class.</li>
+                  <li><b><code>void</code>:</b> Return type indicating <code>main()</code> does not return any value.</li>
+                  <li><b><code>main</code>:</b> The reserved entry-point method name from which JVM starts program execution.</li>
+                  <li><b><code>String[] args</code>:</b> Accepts command-line arguments passed as an array of <code>String</code> objects.</li>
+                </ul>`,
+            aBn: "বিশেষ করে `static` কেন দেওয়া হয় এই প্রশ্নটি খুব আসে: কারণ প্রোগ্রাম শুরুতে কোনো অবজেক্ট তৈরি থাকে না, তাই অবজেক্ট তৈরি ছাড়াই যেন JVM সরাসরি `main()` কল করতে পারে।"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 2: CLASSES, OBJECTS, METHODS & PASSING OBJECTS
+      // ========================================================================
+      {
+        id: "mod-2",
+        number: "02",
+        shortTitle: "Classes, Objects & Methods",
+        title: "Classes, Objects, 3 Ways to Initialize, Method Categories & Object Passing",
+        badge: "Classnote + Slides Core",
+        sources: "Class Object Constructor.pdf • Class object constructor & Garrbage collection.pdf • Classnote pp. 4, 6–7, 10–12, 33–37",
+        cppBridge: {
+          title: "C++ vs Java: Objects & References",
+          points: [
+            "In C++, `Dog d;` allocates an actual `Dog` object on the stack. In Java, `Dog d;` **only declares a reference variable** (no memory for the object is allocated yet!). You MUST use `d = new Dog();` to allocate memory on the heap.",
+            "In Java, objects are passed to methods by **reference value** (no `*` pointers or `&` syntax needed like C++)."
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. Object vs Class & The Blueprint Analogy (Slides 2–6)",
+            en: "An **Object** is a runtime entity that encapsulates **data (state / fields / instance variables)** and **behavior (instance methods)**. A **Class** is a blueprint or template that describes the state and behavior that objects of its type support (e.g., iPod blueprint creates iPod #1, #2, #3; `Point` class creates `Point` objects).",
+            bn: "**Class** হলো একটি নকশা বা ছাঁচ (Blueprint/Template), আর **Object** হলো সেই নকশা থেকে তৈরি বাস্তব বস্তু (Instance of a class)। যেমন `House`, `Car`, `Dog`, বা `Student` হলো ক্লাস, যার ভেতর বৈশিষ্ট্য বা ডেটা থাকে (**State / Instance Variables**) এবং কাজ করার ফাংশন থাকে (**Behavior / Methods**)।",
+            bullets: [
+              "<b>Two-step Object Creation:</b><br>1) <code>Circle c;</code> → Declares reference variable only (<b>no memory allocated</b> for object).<br>2) <code>c = new Circle();</code> → Instantiates object and <b>allocates memory</b> on the heap.",
+              "<b>3 Categories of Methods (Slide 9):</b><br>• <b>Accessor (Getter):</b> Examines object state without modifying it; usually has a non-<code>void</code> return type (e.g., <code>distance()</code>, <code>getName()</code>).<br>• <b>Mutator (Setter):</b> Modifies an object's state (e.g., <code>setLocation(x, y)</code>, <code>translate(dx, dy)</code>).<br>• <b>Helper:</b> Assists another method internally; usually declared <code>private</code> so outside clients cannot call it."
+            ]
+          },
+          {
+            heading: "2. Three Ways to Initialize an Object in Java (Classnote p. 10)",
+            en: "In your handwritten class notes (page 10), your teacher listed the **3 ways to initialize an object in Java**:",
+            bn: "খাতার ১০ নং পৃষ্ঠায় অবজেক্টে ভ্যালু ইনপুট বা ইনিশিয়ালাইজ করার **৩টি পদ্ধতি** লেখানো হয়েছে:",
+            bullets: [
+              "<b>1. By Reference Variable:</b> Assigning values using the dot operator (e.g., <code>s1.name = \"Sohan\"; s1.id = 20255103246L;</code>). <i>Slide 20 note: Using dot operator directly is not the best approach for large classes; constructors are preferred.</i>",
+              "<b>2. By Method:</b> Calling a setter/initializer method (e.g., <code>s1.setData(101, \"Sohan\");</code>).",
+              "<b>3. By Constructor:</b> Passing initial values right at creation time (e.g., <code>Employee emp1 = new Employee(101, \"Sohan\", \"Developer\", 25000);</code>)."
+            ]
+          },
+          {
+            heading: "3. Passing Objects to Methods & Returning Objects (Classnote pp. 33–37)",
+            en: "Just like primitive types (`int`, `double`), you can pass an object of a class as a parameter to a method (e.g., `void compareArea(Rectangle r)` or `void function(Student ob)`) and return an object from a method (e.g., `return this;`).",
+            bn: "আমরা মেথডের প্যারামিটার হিসেবেও একটি পুরো অবজেক্ট পাঠাতে পারি (যেমন একটি Rectangle-এর ভেতর আরেকটি Rectangle পাঠিয়ে দুটির ক্ষেত্রফল তুলনা করা)। তখন `this` নির্দেশ করে যে অবজেক্টটি মেথড কল করেছে তাকে, আর প্যারামিটারের অবজেক্টটি নির্দেশ করে যাকে পাঠানো হয়েছে তাকে!"
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: Employee Class with Annual Salary Calculation (Classnote pp. 10–12)",
+            code: `class Employee {
+    int employeeID;
+    String name;
+    String designation;
+    int monthlySalary;
+
+    // Initializing by Constructor using 'this'
+    Employee(int employeeID, String name, String designation, int monthlySalary) {
+        this.employeeID = employeeID;
+        this.name = name;
+        this.designation = designation;
+        this.monthlySalary = monthlySalary;
+    }
+
+    // Accessor method calculating annual salary
+    int calculateAnnualSalary() {
+        return monthlySalary * 12;
+    }
+
+    void display() {
+        System.out.println("Employee ID: " + employeeID);
+        System.out.println("Name: " + name);
+        System.out.println("Designation: " + designation);
+        System.out.println("Monthly Salary: " + monthlySalary);
+        System.out.println("Annual Salary: " + calculateAnnualSalary());
+        System.out.println("---------------------------");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Employee emp1 = new Employee(101, "Sohan", "Developer", 25000);
+        Employee emp2 = new Employee(203, "Resalat", "HR", 30000);
+
+        emp1.display();
+        emp2.display();
+    }
+}`,
+            output: `Employee ID: 101
+Name: Sohan
+Designation: Developer
+Monthly Salary: 25000
+Annual Salary: 300000
+---------------------------
+Employee ID: 203
+Name: Resalat
+Designation: HR
+Monthly Salary: 30000
+Annual Salary: 360000
+---------------------------`,
+            explanationEn: "Exact problem from Classnote pp. 10–12 (marked 20/20 in notebook!). `Employee` encapsulates 4 attributes, initializes them via a parameterized constructor, computes `monthlySalary * 12` in `calculateAnnualSalary()`, and prints everything in `display()`.",
+            explanationBn: "খাতার ১০-১২ পৃষ্ঠার ২০/২০ পাওয়া ক্লাস টাস্ক! এখানে কনস্ট্রাক্টরের মাধ্যমে দুটি অবজেক্ট (`emp1` ও `emp2`) ইনিশিয়ালাইজ করা হয়েছে এবং `calculateAnnualSalary()` মেথডে মাসিক বেতনকে ১২ দিয়ে গুণ করে বার্ষিক বেতন রিটার্ন করা হয়েছে।"
+          },
+          {
+            title: "Example 2: Object Passing — Comparing Areas of Two Rectangles (Classnote pp. 34–35)",
+            code: `class Rectangle {
+    double width;
+    double length;
+
+    Rectangle(double width, double length) {
+        this.width = width;
+        this.length = length;
+    }
+
+    double area() {
+        return length * width;
+    }
+
+    // Passing another Rectangle object 'r' as a parameter!
+    void compareArea(Rectangle r) {
+        if (this.area() > r.area()) {
+            System.out.println("Rectangle 1 has greater area.");
+        } else if (this.area() < r.area()) {
+            System.out.println("Rectangle 2 has greater area.");
+        } else {
+            System.out.println("Both have the same area.");
+        }
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Rectangle r1 = new Rectangle(10, 5);
+        Rectangle r2 = new Rectangle(20, 5);
+
+        System.out.println("Area of Rectangle 1: " + r1.area());
+        System.out.println("Area of Rectangle 2: " + r2.area());
+
+        // r1 is 'this', r2 is parameter 'r'
+        r1.compareArea(r2);
+    }
+}`,
+            output: `Area of Rectangle 1: 50.0
+Area of Rectangle 2: 100.0
+Rectangle 2 has greater area.`,
+            explanationEn: "When `r1.compareArea(r2)` is called, inside `compareArea`, `this.area()` calculates `r1`'s area (`50.0`) and `r.area()` calculates `r2`'s area (`100.0`).",
+            explanationBn: "খাতার ৩৪-৩৫ পৃষ্ঠার অত্যন্ত গুরুত্বপূর্ণ প্রোগ্রাম: যখন আমরা `r1.compareArea(r2)` কল করি, তখন মেথডের ভেতরে `this` মানে হলো `r1` (যার ক্ষেত্রফল ৫০) এবং প্যারামিটার `r` মানে হলো `r2` (যার ক্ষেত্রফল ১০০)।"
+          },
+          {
+            title: "Example 3: EBook Class — Returning `this` & `static` Object Counter (Classnote pp. 36–37)",
+            code: `class EBook {
+    int pagesRead;
+    int totalPages;
+    static int totalEBooks = 0; // Shared across all EBook objects
+
+    EBook(int pagesRead, int totalPages) {
+        this.pagesRead = pagesRead;
+        this.totalPages = totalPages;
+        totalEBooks++; // Increments every time a new EBook is created
+    }
+
+    EBook incrementRead(int p) {
+        pagesRead = pagesRead + p;
+        return this; // Returns current EBook object
+    }
+
+    EBook decrementRead(int p) {
+        pagesRead = pagesRead - p;
+        return this;
+    }
+
+    EBook remainingPages() {
+        int remaining = totalPages - pagesRead;
+        System.out.println("Total remaining pages: " + remaining);
+        return this;
+    }
+
+    static int getTotalEBooks() {
+        return totalEBooks;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        EBook e1 = new EBook(20, 300);
+        EBook e2 = new EBook(50, 350);
+
+        e1.incrementRead(10);
+        e1.remainingPages(); // 300 - 30 = 270
+        e1.decrementRead(5);
+        e1.remainingPages(); // 300 - 25 = 275
+
+        e2.incrementRead(15);
+        e2.remainingPages(); // 350 - 65 = 285
+        e2.decrementRead(7);
+        e2.remainingPages(); // 350 - 58 = 292
+
+        // Calling static method using Class name directly
+        System.out.println("Total EBook Objects: " + EBook.getTotalEBooks());
+    }
+}`,
+            output: `Total remaining pages: 270
+Total remaining pages: 275
+Total remaining pages: 285
+Total remaining pages: 292
+Total EBook Objects: 2`,
+            explanationEn: "From Classnote pp. 36–37: Shows how `static int totalEBooks = 0;` counts total objects created across the class, how `return this;` returns the current object instance, and how `EBook.getTotalEBooks()` is called using the class name.",
+            explanationBn: "খাতার ৩৬-৩৭ পৃষ্ঠার প্রোগ্রাম: এখানে `static int totalEBooks = 0;` ভ্যারিয়েবলটি প্রতিটি নতুন অবজেক্ট তৈরির সময় ১ করে বাড়ে (`totalEBooks++`)। আর মেথডের রিটার্ন টাইপ `EBook` দিয়ে `return this;` লেখার কারণে বর্তমান অবজেক্টটিই রিটার্ন হয়।"
+          }
+        ],
+        questions: [
+          {
+            type: "Theory (Slide 9)",
+            q: "What are the 3 categories of methods in a Java class? Give an example of each.",
+            qBn: "জাভা ক্লাসে মেথডের ৩টি ক্যাটাগরি কী কী? উদাহরণসহ লেখো।",
+            a: `<ul class="list-disc pl-5 space-y-1.5 text-sm">
+                  <li><b>Accessor Method (Getter):</b> Lets clients examine/read the object's state without changing it. Often has a non-<code>void</code> return type (e.g., <code>getArea()</code>, <code>distance()</code>).</li>
+                  <li><b>Mutator Method (Setter):</b> Modifies/updates the object's internal state (e.g., <code>setLocation(x, y)</code>, <code>translate(dx, dy)</code>).</li>
+                  <li><b>Helper Method:</b> Assists another method inside the class in performing its task. Often declared as <code>private</code> so outside classes cannot call it directly.</li>
+                </ul>`,
+            aBn: "`Class Object Constructor.pdf`-এর ৯ নং স্লাইডের হুবহু পয়েন্ট: Accessor (ডেটা রিড করে), Mutator (ডেটা পরিবর্তন করে), এবং Helper (ক্লাসের ভেতরে অন্য মেথডকে সাহায্য করে, সাধারণত `private` হয়)।"
+          },
+          {
+            type: "Output Tracing (Classnote p. 33)",
+            q: "Trace the output of the following object-passing code from Classnote page 33:\n`class Student { int marks; void function(Student ob) { int m = this.marks + ob.marks; System.out.println(\"The updated marks: \" + m); } }` when `s1.marks = 10; s2.marks = 20; s1.function(s2);`",
+            qBn: "খাতার ৩৩ নং পৃষ্ঠার কোডটির আউটপুট কী হবে যখন `s1.marks = 10; s2.marks = 20; s1.function(s2);` কল করা হবে?",
+            a: `<p class="mb-2"><b>Output:</b> <code>The updated marks: 30</code></p>
+                <p class="text-sm"><b>Why:</b> Since <code>function</code> is called on <code>s1</code> with argument <code>s2</code>, inside the method <code>this.marks</code> refers to <code>s1.marks</code> (10) and <code>ob.marks</code> refers to <code>s2.marks</code> (20). Thus <code>10 + 20 = 30</code>.</p>`,
+            aBn: "`s1.function(s2)` কল করায় `this` হলো `s1` (১০) এবং `ob` হলো `s2` (২০)। তাই যোগফল হবে `30`।"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 3: CONSTRUCTORS & THIS KEYWORD
+      // ========================================================================
+      {
+        id: "mod-3",
+        number: "03",
+        shortTitle: "Constructors & this Keyword",
+        title: "Constructors (Rules, Types, Private Constructor) & The 6 Usages of `this` Keyword",
+        badge: "TpointTech + Slides Core",
+        sources: "Class Object Constructor.pdf (Slides 10–19) • TpointTech Constructors & this Keyword • Classnote pp. 13, 36",
+        cppBridge: {
+          title: "C++ vs Java: Constructors & `this`",
+          points: [
+            "In C++, `this` is a pointer (`this->x = x`). In Java, `this` is a **reference variable** (`this.x = x`) — Java has no `->` operator!",
+            "In C++, the compiler provides a default Copy Constructor automatically. In Java, **there is no automatic copy constructor**, though you can write your own `Student(Student s)` constructor manually.",
+            "In C++, constructor chaining uses initializer lists (`Point() : Point(0,0) {}`). In Java, you call `this(0, 0);` as the **very first line** inside the constructor body."
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. What is a Constructor & Rules for Writing Constructors (Slides 10–15 & TpointTech)",
+            en: "A **Constructor** is a special block of code (resembling an instance method without a return type) that initializes a newly created object immediately after memory is allocated by `new`.",
+            bn: "**Constructor** হলো একটি বিশেষ ব্লক অব কোড যা অবজেক্ট তৈরি হওয়ার সাথে সাথে (`new` কিওয়ার্ড ব্যবহারের সময়) মেমরি বরাদ্দের ঠিক পরপরই অটোমেটিক কল হয় এবং অবজেক্টের ভ্যারিয়েবলগুলোকে ইনিশিয়ালাইজ করে।",
+            bullets: [
+              "<b>Rule 1:</b> Constructor name <b>must be the exact same as the class name</b> in which it resides.",
+              "<b>Rule 2:</b> Must have <b>NO explicit return type</b> (not even <code>void</code>! If you write <code>void Student()</code>, Java treats it as an ordinary method, not a constructor).",
+              "<b>Rule 3:</b> A constructor <b>cannot be <code>abstract</code>, <code>final</code>, <code>static</code>, or <code>synchronized</code></b>.",
+              "<b>Rule 4:</b> Access modifiers (<code>public</code>, <code>protected</code>, <code>default</code>, <code>private</code>) <b>can</b> be used to control which classes can create objects.",
+              "<b>Why does a constructor have no return type? (Slide 14):</b> Because a constructor is <i>not called directly by your code</i>—it is called automatically by the memory allocation and object initialization code in the runtime. Its machine-level return value (the new object reference) is opaque/fuzzy to the user. Also, a constructor's purpose is to <i>initialize an object's state</i>, whereas a method's purpose is to <i>perform a task</i>.",
+              "<b>Can a constructor be <code>private</code>? (Slide 15):</b> <b>Yes!</b> When a class wants to <b>prevent outside callers from creating objects</b> (e.g., Singleton pattern or utility classes), declaring the constructor <code>private</code> causes a Compile-Time Error if someone writes <code>new ClassName()</code> outside that class."
+            ]
+          },
+          {
+            heading: "2. Types of Constructors & Constructor vs Method Table (TpointTech)",
+            en: "If you do not write any constructor in your class, the Java compiler automatically provides a **default no-argument constructor** behind the scenes that initializes fields to default values (`0`, `0.0`, `false`, `null`). However, if you write *any* parameterized constructor, the compiler no longer auto-generates the default no-arg constructor!",
+            bn: "তুমি ক্লাসে কোনো কনস্ট্রাক্টর না লিখলে জাভা কম্পাইলার নিজে থেকে একটি **Default Constructor** তৈরি করে দেয় যা ভ্যারিয়েবলগুলোতে ডিফল্ট মান (`0`, `0.0`, `null`) বসায়। তিন ধরনের কনস্ট্রাক্টর রয়েছে: **(1) Default (No-arg) Constructor**, **(2) Parameterized Constructor**, এবং **(3) Copy Constructor** (`Student(Student s)`)।",
+            diagramHtml: `
+              <div class="overflow-x-auto my-3">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm rounded-xl overflow-hidden">
+                  <thead>
+                    <tr class="bg-indigo-950 text-indigo-200">
+                      <th class="p-3 border border-slate-700">Java Constructor</th>
+                      <th class="p-3 border border-slate-700">Java Method</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-slate-900/90">
+                    <tr><td class="p-2.5 border border-slate-800">1. Used to <b>initialize the state</b> of an object.</td><td class="p-2.5 border border-slate-800">1. Used to <b>expose the behavior</b> of an object.</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800">2. Must <b>not have a return type</b> (not even <code>void</code>).</td><td class="p-2.5 border border-slate-800">2. Must <b>have a return type</b> (or <code>void</code>).</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800">3. Invoked <b>implicitly</b> by the <code>new</code> keyword.</td><td class="p-2.5 border border-slate-800">3. Invoked <b>explicitly</b> by the programmer.</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800">4. Compiler provides a <b>default constructor</b> if none is written.</td><td class="p-2.5 border border-slate-800">4. Compiler <b>never</b> provides any method automatically.</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800">5. Name <b>must be the same</b> as the class name.</td><td class="p-2.5 border border-slate-800">5. Name may or may not be the same as the class name.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `
+          },
+          {
+            heading: "3. All 6 Usages of `this` Keyword in Java (TpointTech + Slides 16–18)",
+            en: "`this` is a reference variable that refers to the **current object** (the implicit parameter on which a method or constructor was called). Printing `System.out.println(this)` inside a method prints the exact same reference ID (`ClassName@hash`) as `System.out.println(obj)` in `main()`!",
+            bn: "`this` কিওয়ার্ডটি বর্তমান অবজেক্টকে (Current Object) নির্দেশ করে। TpointTech ওয়েবসাইট এবং ক্লাস স্লাইড অনুযায়ী `this`-এর **৬টি ব্যবহার** নিচে দেওয়া হলো:",
+            bullets: [
+              "<b>1. Refer to current class instance variable (<code>this.field</code>):</b> Resolves ambiguity when parameter names are identical to instance variable names. Without <code>this</code>, writing <code>rollno = rollno;</code> assigns the local parameter to itself and prints <code>0 null 0.0</code>!",
+              "<b>2. Invoke current class method (<code>this.method()</code>):</b> Calls another method of the same class. If you write <code>m();</code> inside <code>n()</code>, the compiler automatically converts it to <code>this.m();</code>.",
+              "<b>3. Invoke current class constructor (<code>this(args)</code> — Explicit Constructor Invocation / Chaining):</b> Calls another constructor in the same class to avoid duplicate code. <b>Rule:</b> <code>this(...)</code> MUST be the <b>first statement</b> in the constructor, and only a constructor (never a method) can call <code>this()</code>.",
+              "<b>4. Pass as an argument in a method call (<code>m(this)</code>):</b> Sends the current object to another method.",
+              "<b>5. Pass as an argument in a constructor call (<code>new B(this)</code>):</b> Shares the current object with another class's constructor.",
+              "<b>6. Return the current class instance (<code>return this;</code>):</b> Allows method chaining like <code>new A().getA().msg();</code> or the <code>EBook</code> class methods."
+            ]
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: Constructor Chaining with `this()` (Classnote p. 13, Slide 17 & TpointTech)",
+            code: `// Part A: Classnote p. 13 & TpointTech Output Tracing Favorite!
+class A {
+    A() {
+        this(5); // Calls parameterized constructor A(int x) FIRST!
+        System.out.println("hello a");
+    }
+
+    A(int x) {
+        System.out.println(x);
+    }
+}
+
+// Part B: Real-life Constructor Chaining to Avoid Redundancy (TpointTech)
+class Student {
+    int rollno;
+    String name, course;
+    float fee;
+
+    Student(int rollno, String name, String course) {
+        this.rollno = rollno;
+        this.name = name;
+        this.course = course;
+    }
+
+    Student(int rollno, String name, String course, float fee) {
+        this(rollno, name, course); // MUST be the 1st statement! Reuses 3-arg constructor
+        this.fee = fee;
+    }
+
+    void display() {
+        System.out.println(rollno + " " + name + " " + course + " " + fee);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("--- Output of new A() ---");
+        A a = new A();
+
+        System.out.println("--- Output of Student Chaining ---");
+        Student s1 = new Student(111, "Ankit", "Java");
+        Student s2 = new Student(112, "Sumit", "Java", 6000f);
+        s1.display();
+        s2.display();
+    }
+}`,
+            output: `--- Output of new A() ---
+5
+hello a
+--- Output of Student Chaining ---
+111 Ankit Java 0.0
+112 Sumit Java 6000.0`,
+            explanationEn: "Look closely at `new A()`: `A()` starts, immediately calls `this(5)` on line 1, which prints `5`, and then control returns to `A()` to print `hello a`! In `Student`, the 4-arg constructor reuses the 3-arg constructor via `this(rollno, name, course);`.",
+            explanationBn: "খাতার ১৩ নং পৃষ্ঠার কোডটি খেয়াল করো: `new A()` কল করলে ডিফল্ট কনস্ট্রাক্টর `A()`-তে ঢুকে প্রথমেই `this(5);` কল হয়। তাই আগে `5` প্রিন্ট হয়, তারপর ফিরে এসে `hello a` প্রিন্ট হয়! আর মনে রাখবে: `this(...)` যদি প্রথম লাইনে না লিখে দ্বিতীয় লাইনে লেখো, তাহলে **Compile Time Error** আসবে!"
+          },
+          {
+            title: "Example 2: Copy Constructor & Constructor Overloading (TpointTech)",
+            code: `class Student {
+    int id;
+    String name;
+    int age;
+
+    // 1. Two-arg Constructor
+    Student(int i, String n) {
+        id = i;
+        name = n;
+    }
+
+    // 2. Three-arg Constructor (Constructor Overloading)
+    Student(int i, String n, int a) {
+        id = i;
+        name = n;
+        age = a;
+    }
+
+    // 3. Copy Constructor (copies state from another Student object)
+    Student(Student s) {
+        id = s.id;
+        name = s.name;
+        age = s.age;
+    }
+
+    void display() {
+        System.out.println(id + " " + name + " " + age);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Student s1 = new Student(111, "Karan");
+        Student s2 = new Student(222, "Aryan", 25);
+        Student s3 = new Student(s2); // Calls Copy Constructor
+
+        s1.display();
+        s2.display();
+        s3.display();
+    }
+}`,
+            output: `111 Karan 0
+222 Aryan 25
+222 Aryan 25`,
+            explanationEn: "Demonstrates both Constructor Overloading (`Student(int, String)` vs `Student(int, String, int)`) and copying an object's values via a Copy Constructor (`Student(Student s)`).",
+            explanationBn: "একই ক্লাসে প্যারামিটার আলাদা রেখে একাধিক কনস্ট্রাক্টর লেখাকে **Constructor Overloading** বলে। এখানে `s1`-এ `age` দেওয়া হয়নি বলে ডিফল্ট মান `0` প্রিন্ট হয়েছে, আর `s3`-তে `s2` অবজেক্ট পাঠিয়ে কপি কনস্ট্রাক্টরের কাজ দেখানো হয়েছে।"
+          }
+        ],
+        questions: [
+          {
+            type: "Theory (Slide 14 — High Priority)",
+            q: "Why does a constructor have no return type in Java?",
+            qBn: "জাভায় কনস্ট্রাক্টরের কোনো return type থাকে না কেন?",
+            a: `<p class="mb-2"><b>Answer (from Class Object Constructor.pdf Slide 14):</b></p>
+                <ol class="list-decimal pl-5 space-y-1 text-sm">
+                  <li>When an object is created with <code>new</code>, the constructor is <b>not called directly by your code</b>; it is called automatically by the <b>memory allocation and object initialization code in the runtime</b>.</li>
+                  <li>Its return value at the machine-code level is <b>opaque (fuzzy) to the user</b>, so you cannot specify it.</li>
+                  <li>The purpose of a constructor is to <b>initialize the newly created object</b> of a class, whereas the purpose of a method is to perform a task by executing Java code. (If you add a return type like <code>void</code>, the compiler treats it as a normal method rather than a constructor).</li>
+                </ol>`,
+            aBn: "স্লাইড ১৪-এর লাল কালির লাইনটি অবশ্যই লিখবে: *'Because it's not called directly by your code, it's called by the memory allocation and object initialization code in the runtime.'*"
+          },
+          {
+            type: "Spot the Error (TpointTech + Slide 18)",
+            q: "Find the error in this constructor and fix it:\n`Student(int r, String n, float f) { this.fee = f; this(r, n); }`",
+            qBn: "উপরের কনস্ট্রাক্টর কোডটিতে ভুল কোথায় এবং কীভাবে ঠিক করবে?",
+            a: `<p class="mb-2 text-rose-400 font-bold">Compile-Time Error: Call to <code>this()</code> must be the first statement in the constructor!</p>
+                <p class="mb-2 text-sm">In the given code, <code>this(r, n);</code> is placed on the second line after <code>this.fee = f;</code>. To fix it, move <code>this(r, n);</code> to the very first line:</p>
+                <pre class="bg-slate-950 p-2.5 rounded-xl text-xs text-emerald-300 font-mono">Student(int r, String n, float f) {
+    this(r, n);      // 1st statement (Correct!)
+    this.fee = f;    // 2nd statement
+}</pre>`,
+            aBn: "`this(...)` অবশ্যই কনস্ট্রাক্টরের **প্রথম লাইন** হতে হবে, নাহলে কম্পাইল টাইম এরর দেবে।"
+          },
+          {
+            type: "Output Prediction (TpointTech)",
+            q: "What will be the output if we forget the `this` keyword when parameter names and instance variable names are the same?\n`class Student { int id; String name; Student(int id, String name) { id = id; name = name; } }`",
+            qBn: "প্যারামিটার এবং ইনস্ট্যান্স ভ্যারিয়েবলের নাম একই হলে যদি আমরা `this` ব্যবহার না করে `id = id; name = name;` লিখি, তবে `display()` করলে কী আউটপুট আসবে?",
+            a: `<p class="mb-2"><b>Output:</b> <code>0 null</code></p>
+                <p class="text-sm"><b>Explanation:</b> Because local parameters shadow the instance variables, <code>id = id;</code> simply assigns the parameter <code>id</code> to itself! The instance variables <code>this.id</code> and <code>this.name</code> remain untouched with their default values (<code>0</code> and <code>null</code>).</p>`,
+            aBn: "`this` না দিলে প্যারামিটার নিজের মান নিজের মধ্যেই রাখে, অবজেক্টের আসল ভ্যারিয়েবলে মান পৌঁছায় না। ফলে ডিফল্ট মান `0` এবং `null` প্রিন্ট হয়!"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 4: ENCAPSULATION, ACCESS MODIFIERS & INNER CLASSES
+      // ========================================================================
+      {
+        id: "mod-4",
+        number: "04",
+        shortTitle: "Encapsulation & Modifiers",
+        title: "Encapsulation, Access Modifiers Table, Non-Access Modifiers (`static`, `final`) & Inner Classes",
+        badge: "Slides + Lab Problem",
+        sources: "Encapsulation and Access_modifier.pdf • Classnote pp. 5, 19, 28–31, 42",
+        cppBridge: {
+          title: "C++ vs Java: Access Specifiers & Packages",
+          points: [
+            "In C++, access specifiers use colons (`private:`, `public:`) for blocks of members. In Java, you write the modifier before each field/method (`private int x;`), and if you omit it, the default access is **package-private (`default`)** (unlike C++ where class default is `private`).",
+            "In Java, `protected` is accessible inside the same package AND in subclasses outside the package (through inheritance only)."
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. Encapsulation (Capsule Analogy — Slide 2 & Classnote pp. 29–31)",
+            en: "**Encapsulation** refers to bundling data (variables) and the methods that operate on that data within a single unit (a `class`), while hiding internal state (`private` fields) and controlling access through `public` **getter** (retrieves attribute) and **setter** (changes attribute) methods.",
+            bn: "**Encapsulation** হলো ডেটা (Variables) এবং মেথডগুলোকে ক্যাপসুলের মতো একটি একক ইউনিটে (`class`-এর ভেতর) আবদ্ধ করা। এতে ভ্যারিয়েবলগুলোকে `private` করে লুকিয়ে রাখা হয় যেন বাইরে থেকে কেউ সরাসরি পরিবর্তন করতে না পারে, এবং ডেটা পড়া ও শর্তসাপেক্ষে আপডেট করার জন্য `public` **getter** ও **setter** মেথড ব্যবহার করা হয়।"
+          },
+          {
+            heading: "2. The 4 Access Modifiers Visibility Table (Slides 3–14 & Classnote p. 5)",
+            en: "Java has two categories of modifiers: **Access Modifiers** (`private`, `default`, `protected`, `public` — ordered from Most Restrictive to Least Restrictive) and **Non-Access Modifiers** (`static`, `final`, `abstract`, `synchronized`, `volatile`, `transient`, `native`).",
+            bn: "মিডটার্মের জন্য নিচের **Access Modifiers Table** (স্লাইড ৪ ও ৫) খুবই গুরুত্বপূর্ণ। বাম থেকে ডানে গেলে রেস্ট্রিকশন কমে (`private` সবচেয়ে বেশি সীমাবদ্ধ, আর `public` সবার জন্য উন্মুক্ত):",
+            diagramHtml: `
+              <div class="overflow-x-auto my-3">
+                <table class="w-full text-center border-collapse text-xs sm:text-sm rounded-xl overflow-hidden">
+                  <thead>
+                    <tr class="bg-indigo-950 text-indigo-200">
+                      <th class="p-2.5 border border-slate-700 text-left">Visibility / Scope</th>
+                      <th class="p-2.5 border border-slate-700 text-rose-300">private<br><span class="text-[10px] font-normal">(Most Restrictive)</span></th>
+                      <th class="p-2.5 border border-slate-700 text-amber-300">default<br><span class="text-[10px] font-normal">(No Keyword)</span></th>
+                      <th class="p-2.5 border border-slate-700 text-sky-300">protected</th>
+                      <th class="p-2.5 border border-slate-700 text-emerald-300">public<br><span class="text-[10px] font-normal">(Least Restrictive)</span></th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-slate-900/90 font-semibold">
+                    <tr><td class="p-2.5 border border-slate-800 text-left">1. Inside Same Class</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800 text-left">2. Same Package Class (Non-Subclass)</td><td class="p-2.5 border border-slate-800 text-rose-400">No (N)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800 text-left">3. Same Package Sub-Class</td><td class="p-2.5 border border-slate-800 text-rose-400">No (N)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800 text-left">4. Other Package Sub-Class</td><td class="p-2.5 border border-slate-800 text-rose-400">No (N)</td><td class="p-2.5 border border-slate-800 text-rose-400">No (N)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (through inheritance)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800 text-left">5. Other Package Non-Subclass</td><td class="p-2.5 border border-slate-800 text-rose-400">No (N)</td><td class="p-2.5 border border-slate-800 text-rose-400">No (N)</td><td class="p-2.5 border border-slate-800 text-rose-400">No (N)</td><td class="p-2.5 border border-slate-800 text-emerald-400">Yes (Y)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `,
+            bullets: [
+              "<b><code>private</code>:</b> Accessible ONLY inside the same class. Making a constructor <code>private</code> prevents creating objects outside the class.",
+              "<b><code>default</code>:</b> When no modifier is written, it is <code>default</code>. Accessible <b>only within the same package</b>. (খাতার নোট পৃষ্ঠা ৫: <i>same package থেকে access করতে পারবে, অন্য package হলে পারবে না</i>).",
+              "<b><code>protected</code>:</b> Accessible within the same package AND outside the package <b>through inheritance (child class) only</b>. Note: <code>protected</code> can be applied to fields, methods, and constructors, <b>NOT to an outer class</b>.",
+              "<b><code>public</code>:</b> Accessible everywhere (widest scope)."
+            ]
+          },
+          {
+            heading: "3. Non-Access Modifiers (`static`, `final`) & Inner Classes (Classnote pp. 19, 29, 42)",
+            en: "From your handwritten notes on pages 19, 29, and 42:",
+            bn: "খাতার ১৯, ২৯ এবং ৪২ নং পৃষ্ঠার বিশেষ নোট:",
+            bullets: [
+              "<b><code>static</code> keyword (Note p. 19):</b> যদি কোনো মেম্বার <code>static</code> হিসেবে ডিফাইন করা হয়, তাহলে <code>main</code> ফাংশনে সেটাকে কল করার জন্য কোনো অবজেক্ট তৈরি করতে হবে না—সরাসরি <b>Class-এর নাম দিয়ে</b> মেথড/অ্যাট্রিবিউট কল করা যাবে (যেমন: <code>A.cube(3)</code> বা <code>EBook.getTotalEBooks()</code>)।",
+              "<b><code>final</code> keyword (Note p. 29):</b> <code>final</code> লিখলে সেটা কখনো আপডেট বা পরিবর্তন করা যাবে না (যেমন <code>final int a = 5;</code>)। এছাড়া <code>final</code> মেথড ওভাররাইড করা যায় না এবং <code>final</code> ক্লাস ইনহেরিট করা যায় না।",
+              "<b>Inner Class / Nested Class (Note p. 42):</b> একটি ক্লাসের ভেতরে আরেকটি ক্লাস থাকলে তাকে Inner Class বলে। Inner class-এর অবজেক্ট তৈরি করতে হলে আগে Outer class-এর অবজেক্ট তৈরি করতে হয়:<br><code>OuterClass myOuter = new OuterClass();</code><br><code>OuterClass.InnerClass myInner = myOuter.new InnerClass();</code>"
+            ]
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: Encapsulation with Validation (`Student` Class — Classnote pp. 29–31)",
+            code: `class Student {
+    // 1. Private fields (Data Hiding)
+    private String name;
+    private long id;
+    private int age;
+    private double cgpa;
+
+    // 2. Public Getters & Setters with Lab Q.1 Validation (Note p. 29)
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        if (age >= 18 && age <= 30) {
+            this.age = age;
+        } else {
+            System.out.println("Invalid Age! Must be between 18 and 30.");
+        }
+    }
+
+    public double getCgpa() {
+        return cgpa;
+    }
+    public void setCgpa(double cgpa) {
+        if (cgpa >= 0.0 && cgpa <= 4.0) {
+            this.cgpa = cgpa;
+        } else {
+            System.out.println("Invalid CGPA! Must be between 0.0 and 4.0.");
+        }
+    }
+}
+
+public class TestEncapsulation {
+    public static void main(String[] args) {
+        Student s = new Student();
+        s.setName("Sohan");
+        s.setId(20255103246L);
+        s.setAge(21);
+        s.setCgpa(3.85);
+
+        System.out.println("Name: " + s.getName());
+        System.out.println("ID: " + s.getId());
+        System.out.println("Age: " + s.getAge());
+        System.out.println("CGPA: " + s.getCgpa());
+    }
+}`,
+            output: `Name: Sohan
+ID: 20255103246
+Age: 21
+CGPA: 3.85`,
+            explanationEn: "Combines Classnote pp. 29, 30, and 31: `name`, `id`, `age`, and `cgpa` are `private` so outside code cannot corrupt them. The setters enforce the lab rules (`18 <= age <= 30` and `0.0 <= cgpa <= 4.0`).",
+            explanationBn: "খাতার ২৯-৩১ পৃষ্ঠার প্রোগ্রাম: এখানে ভ্যারিয়েবলগুলোকে `private` রাখা হয়েছে (যাতে সরাসরি `s.age = -5` দেওয়া না যায়) এবং `setAge()` ও `setCgpa()` মেথডে শর্ত (`18 <= age <= 30` এবং `0.0 <= cgpa <= 4.0`) চেক করে ডেটা সেট করা হয়েছে।"
+          },
+          {
+            title: "Example 2: Inner / Nested Class Object Creation (Classnote p. 42)",
+            code: `class OuterClass {
+    int x = 10;
+
+    class InnerClass {
+        int y = 5;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Step 1: Create object of OuterClass
+        OuterClass myOuter = new OuterClass();
+
+        // Step 2: Use myOuter.new InnerClass() to instantiate InnerClass
+        OuterClass.InnerClass myInner = myOuter.new InnerClass();
+
+        System.out.println("Sum (myInner.y + myOuter.x) = " + (myInner.y + myOuter.x));
+    }
+}`,
+            output: `Sum (myInner.y + myOuter.x) = 15`,
+            explanationEn: "Exact code from Classnote p. 42: To instantiate a non-static member `InnerClass`, you must qualify `new InnerClass()` with an instance of the outer class (`myOuter.new InnerClass()`).",
+            explanationBn: "খাতার ৪২ নং পৃষ্ঠার কোড: যদি একটি ক্লাসের ভেতরে আরেকটি ক্লাস থাকে (Inner Class), তবে তার অবজেক্ট বানানোর সিনট্যাক্সটি মুখস্থ রাখবে: `OuterClass.InnerClass myInner = myOuter.new InnerClass();`।"
+          }
+        ],
+        questions: [
+          {
+            type: "Find the Error (Slides 7, 8, 10, 12)",
+            q: "Why does `Second.java` in `package mypack` fail to compile when accessing `class A { void msg() {} }` in `package pack`, even after writing `import pack.*;`? How does `protected` solve this?",
+            qBn: "`package pack`-এর ভেতর `class A { void msg() {} }` লেখা আছে। অন্য প্যাকেজ `mypack` থেকে `import pack.*;` লেখার পরও কেন Compile Time Error আসে?",
+            a: `<p class="mb-2"><b>Answer:</b> Because neither <code>class A</code> nor <code>void msg()</code> has an explicit access modifier, so both have <b><code>default</code> (package-private)</b> access. A <code>default</code> class or method cannot be accessed from outside its own package, even if imported!</p>
+                <p class="text-sm"><b>Fix with <code>protected</code> (Slide 12):</b> Make the parent class <code>public class First</code> and the method <code>protected void msg()</code>. Then in <code>package mypack</code>, make <code>class Second extends First</code> and call <code>Second obj = new Second(); obj.msg();</code> — because <code>protected</code> members are accessible outside the package <b>through inheritance</b>.</p>`,
+            aBn: "কোনো modifier না লিখলে সেটি `default` হয়ে যায়, যা অন্য প্যাকেজ থেকে অ্যাক্সেস করা যায় না। অন্য প্যাকেজের সাবক্লাস থেকে অ্যাক্সেস করতে চাইলে মেথডটিকে `protected` (বা `public`) করতে হবে এবং ক্লাসকে `extends` করতে হবে।"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 5: INHERITANCE, DIAMOND PROBLEM & SUPER KEYWORD
+      // ========================================================================
+      {
+        id: "mod-5",
+        number: "05",
+        shortTitle: "Inheritance & super Keyword",
+        title: "Inheritance (`extends`, IS-A, Types, Diamond Problem) & The 3 Usages of `super` Keyword",
+        badge: "Midterm Core + Problem 1",
+        sources: "Inheritance.pdf • Super keyword & Dynamic method dispatch.pdf • TpointTech Inheritance • Classnote pp. 14–15, 19, 21, 26–27, 42",
+        cppBridge: {
+          title: "C++ vs Java: Inheritance & `super`",
+          points: [
+            "In C++, you write `class Child : public Parent` and C++ allows multiple class inheritance (`class C : public A, public B`). In Java, you use **`extends`** (`class Child extends Parent`) and **multiple inheritance through classes is strictly forbidden** to avoid the Diamond Problem!",
+            "In C++, to call a parent method/constructor you write `Parent::display()`. In Java, you use the **`super`** keyword (`super()`, `super.display()`, `super.num`)."
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. What is Inheritance & IS-A Relationship (`Inheritance.pdf` Slides 2–6)",
+            en: "**Inheritance** in Java is a mechanism in which one object/class (**subclass / child class / derived class**) acquires all the properties and behaviors of a parent object/class (**superclass / parent class / base class**) using the **`extends`** keyword — **except for the `private` properties of the superclass**.",
+            bn: "**Inheritance** হলো এমন একটি প্রক্রিয়া যার মাধ্যমে একটি ক্লাস (**Subclass / Child Class**) অন্য একটি ক্লাসের (**Superclass / Parent Class**) সমস্ত বৈশিষ্ট্য (Variables) ও আচরণ (Methods) অর্জন করে—**শুধুমাত্র প্যারেন্ট ক্লাসের `private` মেম্বারগুলো ছাড়া**। এর জন্য `extends` কিওয়ার্ড ব্যবহৃত হয়।",
+            bullets: [
+              "<b>IS-A Relationship:</b> Inheritance represents an <b>IS-A</b> (parent-child) relationship. Example: <code>Mammal IS-A Animal</code>, <code>Dog IS-A Mammal</code>, hence <code>Dog IS-A Animal</code>; <code>Programmer IS-A Employee</code>.",
+              "<b>Why Use Inheritance?</b> (1) <b>Code Reusability</b> (reuse fields and methods of existing class without rewriting) and (2) <b>Method Overriding</b> (achieve runtime polymorphism).",
+              "<b>Advantages (Slides 16–17):</b> Minimizes duplicate code, better organization of code, flexible to change, reusability, extensibility, data hiding (base class keeps sensitive data <code>private</code>), overriding.",
+              "<b>Disadvantages (Slides 18, 22):</b> (1) <b>Increased execution overhead</b> (if a class has 10 levels of abstraction above it, the program takes 10 jumps to run through functions). (2) <b>Tight Coupling:</b> Base and derived classes become tightly coupled and cannot be used independently; changing or deleting a base class method affects subclasses."
+            ]
+          },
+          {
+            heading: "2. Types of Inheritance & Why Multiple Inheritance Fails (The Diamond Problem)",
+            en: "Java supports **3 types of class inheritance directly**: **(1) Single**, **(2) Multilevel**, and **(3) Hierarchical**. **Multiple** and **Hybrid** inheritance are NOT supported through classes in Java (they are achieved only through **Interfaces**).",
+            bn: "জাভায় ক্লাসের মাধ্যমে সরাসরি ৩ ধরনের ইনহেরিট্যান্স হয়: **Single, Multilevel, এবং Hierarchical**। কিন্তু ক্লাসের মাধ্যমে **Multiple Inheritance** জাভায় সাপোর্ট করে না। কেন করে না (Diamond Problem) তা নিচে চিত্রসহ দেখো:",
+            diagramHtml: `
+              <div class="my-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-2xl bg-slate-950 border border-indigo-500/40 space-y-2">
+                  <div class="text-xs font-bold text-indigo-300 uppercase">📐 3 Supported Class Inheritance Types</div>
+                  <div class="grid grid-cols-3 gap-2 text-center text-xs pt-2">
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                      <div class="font-bold text-amber-300 mb-1">1. Single</div>
+                      <div class="px-2 py-1 rounded bg-slate-800">Class A</div>
+                      <div class="text-indigo-400">↑</div>
+                      <div class="px-2 py-1 rounded bg-indigo-950 border border-indigo-500/40">Class B</div>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                      <div class="font-bold text-emerald-300 mb-1">2. Multilevel</div>
+                      <div class="px-2 py-0.5 rounded bg-slate-800">Class A</div>
+                      <div class="text-emerald-400">↑</div>
+                      <div class="px-2 py-0.5 rounded bg-slate-800">Class B</div>
+                      <div class="text-emerald-400">↑</div>
+                      <div class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/40">Class C</div>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                      <div class="font-bold text-purple-300 mb-1">3. Hierarchical</div>
+                      <div class="px-2 py-1 rounded bg-slate-800">Class A</div>
+                      <div class="text-purple-400">↖ &nbsp; ↗</div>
+                      <div class="flex gap-1 justify-center">
+                        <span class="px-1.5 py-1 rounded bg-purple-950 border border-purple-500/40">B</span>
+                        <span class="px-1.5 py-1 rounded bg-purple-950 border border-purple-500/40">C</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-950 border border-rose-500/40 space-y-2">
+                  <div class="text-xs font-bold text-rose-300 uppercase">💎 The Diamond Problem (Slides 19–21 & Note p. 19)</div>
+                  <div class="flex flex-col items-center text-xs font-semibold py-1">
+                    <div class="px-3 py-1 rounded bg-slate-800 border border-slate-600">Class A (<code>close()</code> / <code>foo()</code>)</div>
+                    <div class="text-rose-400">↙ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↘</div>
+                    <div class="flex gap-6">
+                      <div class="px-3 py-1 rounded bg-slate-800 border border-rose-500/40">Class B (overrides <code>close()</code>)</div>
+                      <div class="px-3 py-1 rounded bg-slate-800 border border-rose-500/40">Class C (overrides <code>close()</code>)</div>
+                    </div>
+                    <div class="text-rose-400">↘ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↙</div>
+                    <div class="px-3 py-1 rounded bg-rose-950 border border-rose-400 text-rose-200">Class D extends B, C (Ambiguity! Which <code>close()</code>?)</div>
+                  </div>
+                  <p class="text-xs text-slate-300 bangla-text">
+                    যদি <code>Class D</code> একই সাথে <code>B</code> এবং <code>C</code>-কে ইনহেরিট করে এবং উভয় প্যারেন্টেই একই নামের মেথড (যেমন <code>msg()</code> বা <code>close()</code>) থাকে, তবে কম্পাইলার বুঝতে পারে না কোন ক্লাসের মেথড কল করবে! এই <b>Ambiguity</b> এড়াতে জাভা একাধিক ক্লাস <code>extends</code> করলেই <b>Compile-Time Error</b> দেয়।
+                  </p>
+                </div>
+              </div>
+            `
+          },
+          {
+            heading: "3. All 3 Contexts of the `super` Keyword (`Super keyword & Dynamic method dispatch.pdf` pp. 1–4)",
+            en: "In Java, the **`super`** keyword is used in **three main contexts** — all related to inheritance:",
+            bn: "ইনহেরিট্যান্সে প্যারেন্ট ক্লাসের মেম্বারদের কল করার জন্য **`super`** কিওয়ার্ড ৩টি কাজে ব্যবহৃত হয় (খাতার পৃষ্ঠা ২১ দেখো: *যদি parent class কে কল করাতে চাই তাহলে `super` keyword use করতে হবে, আর child class কে কল করাতে চাইলে স্বাভাবিকভাবে কল করলেই হবে*):",
+            diagramHtml: `
+              <div class="overflow-x-auto my-3">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm rounded-xl overflow-hidden">
+                  <thead>
+                    <tr class="bg-indigo-950 text-indigo-200">
+                      <th class="p-3 border border-slate-700">Usage</th>
+                      <th class="p-3 border border-slate-700">Syntax</th>
+                      <th class="p-3 border border-slate-700">Purpose & Rule</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-slate-900/90">
+                    <tr><td class="p-2.5 border border-slate-800 font-bold text-amber-300">1. Call Parent Constructor</td><td class="p-2.5 border border-slate-800"><code>super(args);</code></td><td class="p-2.5 border border-slate-800">Initializes parent class fields before child class work. <b>Must be the 1st statement</b> inside the subclass constructor!</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800 font-bold text-emerald-300">2. Call Parent Method</td><td class="p-2.5 border border-slate-800"><code>super.methodName();</code></td><td class="p-2.5 border border-slate-800">Accesses the parent's original method when the child class has overridden it.</td></tr>
+                    <tr><td class="p-2.5 border border-slate-800 font-bold text-purple-300">3. Access Parent Variable</td><td class="p-2.5 border border-slate-800"><code>super.variableName</code></td><td class="p-2.5 border border-slate-800">Resolves <b>variable shadowing</b> when the subclass has a field with the exact same name as the parent class.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: PDF Problem 1 — Demonstrating All 3 Usages of `super` (`Person` & `Employee` — PDF p. 4)",
+            code: `class Person {
+    String name; // Parent variable (stores full name)
+
+    // 1. Parent Constructor
+    Person(String name) {
+        this.name = name;
+        System.out.println("Parent constructor initialized Full Name: " + this.name);
+    }
+
+    // 2. Parent Method
+    void introduce() {
+        System.out.println("Full Name (from Person): " + name);
+    }
+}
+
+class Employee extends Person {
+    String name; // Child variable (stores nickname -> shadows parent's 'name')
+
+    Employee(String fullName, String nickname) {
+        // Usage 1: Call parent constructor (MUST be first statement)
+        super(fullName);
+        this.name = nickname;
+    }
+
+    // Usage 2: Override introduce() and call parent version via super.introduce()
+    @Override
+    void introduce() {
+        super.introduce(); // Calls Person's introduce()
+        System.out.println("Nickname (from Employee): " + this.name);
+    }
+
+    // Usage 3: Access shadowed parent variable via super.name and child via this.name
+    void showNames() {
+        System.out.println("Accessing via super.name (Parent): " + super.name);
+        System.out.println("Accessing via this.name (Child): " + this.name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Employee emp = new Employee("Tasniah Mohiuddin", "Tasniah");
+        emp.introduce();
+        emp.showNames();
+    }
+}`,
+            output: `Parent constructor initialized Full Name: Tasniah Mohiuddin
+Full Name (from Person): Tasniah Mohiuddin
+Nickname (from Employee): Tasniah
+Accessing via super.name (Parent): Tasniah Mohiuddin
+Accessing via this.name (Child): Tasniah`,
+            explanationEn: "Complete solution to **Problem 1** from `Super keyword & Dynamic method dispatch.pdf` (page 4)! It demonstrates all 3 uses of `super` in a single program: `super(fullName)` in the constructor, `super.introduce()` in the overridden method, and `super.name` vs `this.name` in `showNames()`.",
+            explanationBn: "`Super keyword & Dynamic method dispatch.pdf`-এর ৪ নং পৃষ্ঠার **Problem 1**-এর সম্পূর্ণ সমাধান এটি! পরীক্ষায় এই প্রশ্নটি আসার সম্ভাবনা সবচেয়ে বেশি কারণ এতে `super`-এর তিনটি ব্যবহারই (`super(fullName)`, `super.introduce()`, এবং `super.name`) একসাথে দেখানো হয়েছে।"
+          },
+          {
+            title: "Example 2: Shape & Rectangle with `super(color)` + Multilevel Constructor Chaining (Classnote pp. 26–27, 42)",
+            code: `// Part A: Classnote pp. 26-27 (Shape & Rectangle with super(color))
+class Shape {
+    String color;
+
+    Shape(String color) {
+        this.color = color;
+    }
+
+    void displayColor() {
+        System.out.println("Color: " + color);
+    }
+}
+
+class Rectangle extends Shape {
+    double length;
+    double width;
+
+    Rectangle(String color, double length, double width) {
+        super(color); // Passes color to Shape constructor
+        this.length = length;
+        this.width = width;
+    }
+
+    double calculateArea() {
+        return length * width;
+    }
+
+    void display() {
+        displayColor();
+        System.out.println("Length: " + length);
+        System.out.println("Width: " + width);
+        System.out.println("Area: " + calculateArea());
+    }
+}
+
+// Part B: Classnote p. 42 Multilevel Constructor Chaining (Person -> Emp -> Programmer)
+class BasePerson {
+    String name;
+    BasePerson(String name) { this.name = name; }
+}
+class BaseEmployee extends BasePerson {
+    int id; double salary;
+    BaseEmployee(String name, int id, double salary) {
+        super(name);
+        this.id = id;
+        this.salary = salary;
+    }
+}
+class Programmer extends BaseEmployee {
+    double bonus;
+    Programmer(String name, int id, double salary, double bonus) {
+        super(name, id, salary);
+        this.bonus = bonus;
+    }
+    void show() {
+        System.out.println(name + " (ID: " + id + ") | Salary: " + salary + " | Bonus: " + bonus);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Rectangle r = new Rectangle("Blue", 10, 5);
+        r.display();
+
+        System.out.println("--- Multilevel Constructor Chaining ---");
+        Programmer p = new Programmer("Sohan", 101, 40000, 10000);
+        p.show();
+    }
+}`,
+            output: `Color: Blue
+Length: 10.0
+Width: 5.0
+Area: 50.0
+--- Multilevel Constructor Chaining ---
+Sohan (ID: 101) | Salary: 40000.0 | Bonus: 10000.0`,
+            explanationEn: "Combines the `Shape -> Rectangle` problem from Classnote pp. 26–27 (`new Rectangle(\"Blue\", 10, 5)`) and the Multilevel Constructor Chaining diagram from Classnote p. 42 (`Person(name) <- Employee(id, salary) <- Programmer(bonus)`).",
+            explanationBn: "খাতার ২৬-২৭ পৃষ্ঠার `Shape` ও `Rectangle` প্রোগ্রাম এবং ৪২ পৃষ্ঠার `Person -> Employee -> Programmer` কনস্ট্রাক্টর চেইনিং একসাথে দেওয়া হলো।"
+          }
+        ],
+        questions: [
+          {
+            type: "Theory (Midterm Must-Know)",
+            q: "Why is multiple inheritance not supported through classes in Java? Explain the Diamond Problem with code.",
+            qBn: "জাভায় ক্লাসের মাধ্যমে কেন Multiple Inheritance সাপোর্ট করে না? Diamond Problem উদাহরণসহ ব্যাখ্যা করো।",
+            a: `<p class="mb-2"><b>Answer:</b> Multiple inheritance is not supported through classes in Java to <b>reduce complexity, simplify the language, and prevent method/field ambiguity (the Diamond Problem)</b>.</p>
+                <p class="mb-2 text-sm">Consider classes <code>A</code> and <code>B</code> that both define a method with the same signature <code>void msg()</code>. If <code>class C extends A, B</code> were allowed, calling <code>obj.msg()</code> on a <code>C</code> object would create ambiguity because the compiler cannot determine whether to execute <code>A</code>'s <code>msg()</code> or <code>B</code>'s <code>msg()</code>. Since compile-time errors are better than runtime errors, Java produces a <b>Compile-Time Error</b> whenever a class tries to extend more than one class.</p>
+                <pre class="bg-slate-950 p-2.5 rounded-xl text-xs text-rose-300 font-mono">class A { void msg() { System.out.println("Hello"); } }
+class B { void msg() { System.out.println("Welcome"); } }
+class C extends A, B { // Compile Time Error!
+    public static void main(String args[]) {
+        C obj = new C();
+        obj.msg(); // Ambiguity: which msg() would be invoked?
+    }
+}</pre>`,
+            aBn: "পরীক্ষায় অবশ্যই `Ambiguity` এবং `Diamond Problem` শব্দ দুটি উল্লেখ করবে এবং এই ছোট কোডটি দিয়ে দেখিয়ে দেবে।"
+          },
+          {
+            type: "Spot the Error (Hierarchical Inheritance — Slide 12)",
+            q: "In Hierarchical Inheritance (`Dog extends Animal` with `bark()`, `Cat extends Animal` with `meow()`), what happens if we write:\n`Cat c = new Cat(); c.meow(); c.eat(); c.bark();`?",
+            qBn: "`Cat` এবং `Dog` উভয়ই `Animal`-কে extends করেছে। এখন `Cat c = new Cat();` দিয়ে `c.bark();` কল করলে কী হবে?",
+            a: `<p class="mb-2 text-rose-400 font-bold">Compile-Time Error on <code>c.bark();</code>!</p>
+                <p class="text-sm"><b>Explanation:</b> <code>Cat</code> inherits from <code>Animal</code>, NOT from <code>Dog</code>. Sibling subclasses in hierarchical inheritance cannot access each other's methods.</p>`,
+            aBn: "`Cat` এবং `Dog` ভাই-বোন (Sibling) ক্লাস; তাই `Cat` কখনোই `Dog`-এর `bark()` মেথডকে কল করতে পারবে না—এতে Compile Time Error আসবে।"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 6: POLYMORPHISM (OVERLOADING VS OVERRIDING & DYNAMIC DISPATCH)
+      // ========================================================================
+      {
+        id: "mod-6",
+        number: "06",
+        shortTitle: "Polymorphism & Overriding",
+        title: "Polymorphism: Method Overloading (Compile-Time) vs Method Overriding & Dynamic Method Dispatch (Runtime)",
+        badge: "TpointTech + Classnote Core",
+        sources: "TpointTech Polymorphism • Super keyword & Dynamic method dispatch.pdf (pp. 5–6) • Classnote pp. 16–20, 22–25, 31–32",
+        cppBridge: {
+          title: "C++ vs Java: Virtual Functions vs Dynamic Method Dispatch",
+          points: [
+            "In C++, runtime polymorphism requires marking the base class method with the `virtual` keyword (`virtual void sound()`), otherwise early binding happens. In Java, **all non-static, non-final, non-private methods are virtual by default!** Any overridden method called via an upcasted parent reference (`Animal a = new Dog(); a.sound();`) automatically uses **Dynamic Method Dispatch** at runtime."
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. Polymorphism Tree (Classnote p. 31 & TpointTech)",
+            en: "The word **Polymorphism** comes from Greek *poly* (many) + *morphs* (forms) — allowing a single action or method name to behave in different ways. As drawn in your class notebook (page 31), Polymorphism is divided into two branches:",
+            bn: "**Polymorphism** শব্দের অর্থ বহুরূপতা (একই নামের মেথডের বিভিন্ন রূপে কাজ করা)। খাতার ৩১ নং পৃষ্ঠার ছক অনুযায়ী পলিমরফিজম ২ প্রকার:",
+            diagramHtml: `
+              <div class="my-3 p-4 rounded-2xl bg-slate-950 border border-indigo-500/40">
+                <div class="text-xs font-bold uppercase text-indigo-300 text-center mb-3">🌳 Polymorphism Classification (Classnote p. 31)</div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                  <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-400/40 space-y-1.5">
+                    <div class="font-extrabold text-amber-300">1. Compile-Time Polymorphism (Static / Early Binding)</div>
+                    <div>• Achieved by: <b>Method Overloading</b></div>
+                    <div>• <b>Inheritance লাগেনা</b> (Occurs within the <b>same class</b>)</div>
+                    <div>• Same method name, <b>different parameter list</b> (number or data types of parameters).</div>
+                    <div>• Resolved by the <b>Compiler at compile time</b> based on argument types.</div>
+                  </div>
+                  <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-400/40 space-y-1.5">
+                    <div class="font-extrabold text-emerald-300">2. Runtime Polymorphism (Dynamic / Late Binding / Dynamic Method Dispatch)</div>
+                    <div>• Achieved by: <b>Method Overriding</b></div>
+                    <div>• <b>Inheritance লাগে</b> (Requires <b>Parent & Child class</b>)</div>
+                    <div>• Same method name, <b>same parameter list</b> & compatible return type.</div>
+                    <div>• Resolved by the <b>JVM at runtime</b> based on the actual object type (<code>Parent ref = new Child();</code>).</div>
+                  </div>
+                </div>
+              </div>
+            `
+          },
+          {
+            heading: "2. Crucial Theory Questions on Method Overloading (Classnote p. 20)",
+            en: "Your teacher wrote two very important exam questions on page 20 of your class notes:",
+            bn: "খাতার ২০ নং পৃষ্ঠায় স্যার/ম্যাডাম দুটি অত্যন্ত গুরুত্বপূর্ণ প্রশ্ন লেখিয়েছেন যা পরীক্ষায় আসবেই:",
+            bullets: [
+              "<b>Q1: Why is method overloading NOT possible by changing the return type of the method only?</b><br>Because when calling the method (e.g., <code>ob.sum(10, 20);</code>), the compiler cannot tell which version to call based on return type alone! This causes <b>ambiguity</b>, resulting in a <b>Compile-Time Error</b>.",
+              "<b>Q2: Can we overload Java's <code>main()</code> method?</b><br><b>Yes, by method overloading!</b> We can have any number of <code>main</code> methods in a class with different parameter lists (e.g., <code>main(int a)</code>, <code>main(String arg1)</code>), <b>but the JVM always calls only <code>public static void main(String[] args)</code></b> which receives a <code>String</code> array as arguments."
+            ]
+          },
+          {
+            heading: "3. Dynamic Method Dispatch, Upcasting & Data Member Rule (PDF p. 5 & TpointTech)",
+            en: "**Upcasting:** When a reference variable of the Parent class refers to an object of the Child class (`Animal a = new Dog();` or `Bank b = new SBI();`), it is called upcasting. **Dynamic Method Dispatch** is the mechanism by which a call to an overridden method through a superclass reference is resolved at **runtime** based on the **actual object type**, not the reference variable type.",
+            bn: "**Upcasting:** যখন প্যারেন্ট ক্লাসের রেফারেন্স ভ্যারিয়েবলের ভেতর চাইল্ড ক্লাসের অবজেক্ট রাখা হয় (`Animal a = new Dog();`), তাকে Upcasting বলে। আর রানটাইমে JVM অবজেক্টের ধরন দেখে সিদ্ধান্ত নেয় কোন ওভাররাইড করা মেথডটি কল হবে—একেই **Dynamic Method Dispatch** বলে।",
+            bullets: [
+              "<b>CRITICAL TRAP (TpointTech Data Member Rule):</b> <i>Methods are overridden, NOT data members (variables)!</i> So runtime polymorphism <b>cannot be achieved by data members</b>. In <code>Bike obj = new Honda();</code> where <code>Bike</code> has <code>speedlimit = 90</code> and <code>Honda</code> has <code>speedlimit = 150</code>, printing <code>obj.speedlimit</code> outputs <b><code>90</code></b> (the Parent's variable)!"
+            ]
+          },
+          {
+            heading: "4. UML Class Diagram Symbols (Classnote p. 32)",
+            en: "On page 32 of your notebook (the `Bank -> SBI, ICICI, AXIS` diagram), your teacher explained the three UML visibility symbols used in exam question diagrams:",
+            bn: "খাতার ৩২ নং পৃষ্ঠায় ক্লাস ডায়াগ্রামের (UML Class Diagram) ৩টি চিহ্নের অর্থ দেওয়া আছে যা প্রশ্ন দেখে কোড লেখার সময় কাজে লাগবে:",
+            bullets: [
+              "<code class='text-rose-400 font-bold'>- (Minus sign)</code> = <b><code>private</code></b> attribute/method (e.g., <code>- name : String</code> → <code>private String name;</code>)",
+              "<code class='text-emerald-400 font-bold'>+ (Plus sign)</code> = <b><code>public</code></b> attribute/method (e.g., <code>+ getRateOfInterest() : float</code> → <code>public float getRateOfInterest()</code>)",
+              "<code class='text-amber-400 font-bold'># (Hash sign)</code> = <b><code>protected</code></b> attribute/method"
+            ]
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: Product, Electronics (10% Discount) & Clothing (20% Discount) — Classnote pp. 23–25",
+            code: `class Product {
+    String name;
+    double price;
+
+    Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    double calculatePrice() {
+        return price;
+    }
+}
+
+class Electronics extends Product {
+    Electronics(String name, double price) {
+        super(name, price); // Calls Product constructor
+    }
+
+    @Override
+    double calculatePrice() {
+        return price - (price * 0.10); // 10% discount
+    }
+}
+
+class Clothing extends Product {
+    Clothing(String name, double price) {
+        super(name, price);
+    }
+
+    @Override
+    double calculatePrice() {
+        return price - (price * 0.20); // 20% discount
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Electronics e = new Electronics("Laptop", 50000);
+        Clothing c = new Clothing("Shirt", 2000);
+
+        System.out.println("Product: " + e.name);
+        System.out.println("Original Price: " + e.price);
+        System.out.println("After 10% discount: " + e.calculatePrice());
+
+        System.out.println("---------------------------");
+        System.out.println("Product: " + c.name);
+        System.out.println("Original Price: " + c.price);
+        System.out.println("After 20% discount: " + c.calculatePrice());
+    }
+}`,
+            output: `Product: Laptop
+Original Price: 50000.0
+After 10% discount: 45000.0
+---------------------------
+Product: Shirt
+Original Price: 2000.0
+After 20% discount: 1600.0`,
+            explanationEn: "Full lab/classnote problem from pages 23–25! Combines Inheritance (`extends Product`), Constructor Chaining (`super(name, price)`), and Method Overriding (`@Override double calculatePrice()`).",
+            explanationBn: "খাতার ২৩-২৫ পৃষ্ঠার চমৎকার প্রোগ্রাম: এখানে `Product` প্যারেন্ট ক্লাস থেকে `Electronics` (১০% ডিসকাউন্ট) এবং `Clothing` (২০% ডিসকাউন্ট) ক্লাস তৈরি করা হয়েছে। নাম ও দাম ইনিশিয়ালাইজ করতে `super(name, price)` এবং ডিসকাউন্টের পর দাম বের করতে `calculatePrice()` মেথড ওভাররাইড করা হয়েছে।"
+          },
+          {
+            title: "Example 2: Dynamic Method Dispatch with `Bank` & Data Member Trap (TpointTech + Classnote p. 32)",
+            code: `class Bank {
+    int speedlimit = 90; // Data member to show non-polymorphic field behavior
+    float getRateOfInterest() {
+        return 0;
+    }
+}
+
+class SBI extends Bank {
+    int speedlimit = 150;
+    @Override
+    float getRateOfInterest() {
+        return 8.4f;
+    }
+}
+
+class ICICI extends Bank {
+    @Override
+    float getRateOfInterest() {
+        return 7.3f;
+    }
+}
+
+class AXIS extends Bank {
+    @Override
+    float getRateOfInterest() {
+        return 9.7f;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Bank b; // Parent reference variable
+
+        b = new SBI(); // Upcasting
+        System.out.println("SBI Rate of Interest: " + b.getRateOfInterest());
+        // Data member is NOT overridden! Resolved by reference type (Bank):
+        System.out.println("Accessing b.speedlimit on SBI object: " + b.speedlimit);
+
+        b = new ICICI();
+        System.out.println("ICICI Rate of Interest: " + b.getRateOfInterest());
+
+        b = new AXIS();
+        System.out.println("AXIS Rate of Interest: " + b.getRateOfInterest());
+    }
+}`,
+            output: `SBI Rate of Interest: 8.4
+Accessing b.speedlimit on SBI object: 90
+ICICI Rate of Interest: 7.3
+AXIS Rate of Interest: 9.7`,
+            explanationEn: "Shows Runtime Polymorphism (Dynamic Method Dispatch) where `b.getRateOfInterest()` dynamically calls `SBI`, `ICICI`, or `AXIS` at runtime, while `b.speedlimit` prints `90` because fields are bound at compile time to the reference type (`Bank`).",
+            explanationBn: "একই প্যারেন্ট রেফারেন্স `Bank b` দিয়ে একেকবার একেক ব্যাংকের অবজেক্ট ধরা হয়েছে (Upcasting) এবং রানটাইমে সঠিক সুদের হার প্রিন্ট হয়েছে। কিন্তু `b.speedlimit` প্রিন্ট করলে প্যারেন্টের `90` প্রিন্ট হয়, কারণ ভ্যারিয়েবলের ক্ষেত্রে কখনো মেথড ওভাররাইডিং হয় না!"
+          },
+          {
+            title: "Example 3: Employee, Manager & Developer Overriding + Overloading `main()` (Classnote pp. 20, 22)",
+            code: `class Employee {
+    int calculateSalary() { return 30000; }
+}
+class Manager extends Employee {
+    @Override
+    int calculateSalary() { return 60000; }
+}
+class Developer extends Employee {
+    @Override
+    int calculateSalary() { return 50000; }
+}
+
+public class TestPolymorphism {
+    // Overloaded main methods (Classnote p. 20)
+    public static void main(int x) {
+        System.out.println("Overloaded main with int: " + x);
+    }
+
+    // JVM ALWAYS calls this main(String[] args) entry point!
+    public static void main(String[] args) {
+        Manager m = new Manager();
+        Developer d = new Developer();
+        System.out.println("Manager Salary: " + m.calculateSalary());
+        System.out.println("Developer Salary: " + d.calculateSalary());
+
+        // We can manually call our overloaded main(int):
+        main(100);
+    }
+}`,
+            output: `Manager Salary: 60000
+Developer Salary: 50000
+Overloaded main with int: 100`,
+            explanationEn: "Combines Classnote p. 22 (`Employee`, `Manager`, `Developer` salary overriding) and Classnote p. 20 (overloading the `main` method).",
+            explanationBn: "খাতার ২০ ও ২২ পৃষ্ঠার প্রোগ্রাম: `Manager` ও `Developer` ক্লাস প্যারেন্ট `Employee`-এর `calculateSalary()` মেথডকে ওভাররাইড করেছে। পাশাপাশি দেখানো হয়েছে কীভাবে `main()` মেথডকেও ওভারলোড করা যায়!"
+          }
+        ],
+        questions: [
+          {
+            type: "Theory Comparison (Midterm Classic)",
+            q: "Differentiate between Method Overloading and Method Overriding in Java.",
+            qBn: "Method Overloading এবং Method Overriding-এর মধ্যে পার্থক্য লেখো।",
+            a: `<div class="overflow-x-auto"><table class="w-full text-left border-collapse text-xs sm:text-sm my-2">
+                  <thead><tr class="bg-slate-800 text-indigo-300"><th class="p-2 border border-slate-700">Feature</th><th class="p-2 border border-slate-700">Method Overloading</th><th class="p-2 border border-slate-700">Method Overriding</th></tr></thead>
+                  <tbody>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Polymorphism Type</td><td class="p-2 border border-slate-700">Compile-time Polymorphism (Static Binding)</td><td class="p-2 border border-slate-700">Runtime Polymorphism (Dynamic Method Dispatch)</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Inheritance Required?</td><td class="p-2 border border-slate-700">No (happens within the same class)</td><td class="p-2 border border-slate-700">Yes (requires Superclass and Subclass)</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Parameters</td><td class="p-2 border border-slate-700">Must be <b>different</b> (number, type, or order)</td><td class="p-2 border border-slate-700">Must be <b>exact same</b></td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Return Type</td><td class="p-2 border border-slate-700">Can be same or different (but changing return type alone is not enough)</td><td class="p-2 border border-slate-700">Must be same (or covariant type)</td></tr>
+                  </tbody>
+                </table></div>`,
+            aBn: "খাতার ১৭ ও ৩১ পৃষ্ঠা অনুযায়ী সবচেয়ে বড় পয়েন্ট: **Overloading-এ Inheritance লাগে না (প্যারামিটার আলাদা হয়)**, আর **Overriding-এ Inheritance লাগে (প্যারামিটার এক হয়)**।"
+          },
+          {
+            type: "Tricky Output Question (TpointTech Multilevel Polymorphism)",
+            q: "What is the output of this code from TpointTech?\n`class Animal { void eat(){System.out.println(\"animal is eating...\");} }`\n`class Dog extends Animal { void eat(){System.out.println(\"dog is eating...\");} }`\n`class BabyDog extends Dog {}`\n`Animal a = new BabyDog(); a.eat();`",
+            qBn: "উপরে `BabyDog` ক্লাসে কোনো `eat()` মেথড লেখা হয়নি। তাহলে `Animal a = new BabyDog(); a.eat();` লিখলে কী প্রিন্ট হবে?",
+            a: `<p class="mb-2"><b>Output:</b> <code>dog is eating...</code></p>
+                <p class="text-sm"><b>Explanation:</b> Since <code>BabyDog</code> does not override <code>eat()</code>, it inherits the most specific overridden version from its immediate parent class <code>Dog</code>!</p>`,
+            aBn: "`BabyDog`-এর নিজস্ব `eat()` না থাকায় সে তার ইমিডিয়েট প্যারেন্ট `Dog`-এর ওভাররাইড করা `dog is eating...` মেথডটি রান করবে।"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 7: ABSTRACTION & INTERFACES (UML DIAGRAMS & MULTIPLE INHERITANCE)
+      // ========================================================================
+      {
+        id: "mod-7",
+        number: "07",
+        shortTitle: "Abstraction & Interfaces",
+        title: "Abstraction (`abstract class`) & Interfaces (`implements`, Multiple Inheritance, Java 8 `default`/`static`, UML Problems)",
+        badge: "3 PDFs + Classnote Lab",
+        sources: "Abstraction.pdf • Interface.pdf • interface in java.pdf • Classnote pp. 38–41, 44–45",
+        cppBridge: {
+          title: "C++ vs Java: Pure Virtual Functions vs `abstract` & `interface`",
+          points: [
+            "In C++, an abstract method is written as a pure virtual function (`virtual void run() = 0;`). In Java, you explicitly use the **`abstract`** keyword (`abstract void run();`).",
+            "C++ has no separate `interface` keyword (it uses classes with only pure virtual functions). Java has a dedicated **`interface`** construct implemented with **`implements`** to safely support Multiple Inheritance!"
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. Data Abstraction & Abstract Classes (`Abstraction.pdf` Slides 2–5)",
+            en: "**Abstraction** is the process of hiding internal implementation details and showing only essential functionality to the user (e.g., sending an SMS — you type and send without knowing internal telecom processing). It lets you focus on **what** the object does instead of **how** it does it.",
+            bn: "**Abstraction** হলো ভেতরের জটিল ইমপ্লিমেন্টেশন লুকিয়ে রেখে ইউজারকে শুধু প্রয়োজনীয় ফাংশনালিটি দেখানো (যেমন ফোনে SMS পাঠানোর সময় আমরা শুধু মেসেজ টাইপ করে Send চাপি, ভেতরের নেটওয়ার্ক প্রসেসিং আমাদের জানতে হয় না)। জাভায় ২ ভাবে Abstraction অর্জন করা যায়: **(1) Abstract Class** এবং **(2) Interface**।",
+            bullets: [
+              "<b>5 Points to Remember about Abstract Class (Slide 5):</b>",
+              "1. Must be declared with the <code>abstract</code> keyword.",
+              "2. Can have <b>both abstract methods</b> (no body: <code>abstract void run();</code>) <b>and non-abstract (concrete) methods</b> (with body: <code>void changeGear(){...}</code>).",
+              "3. <b>Cannot be instantiated</b> (you cannot create objects of an abstract class directly using <code>new Bike()</code>).",
+              "4. Can have <b>constructors</b> and <b><code>static</code> methods</b> (e.g., <code>Bike()</code> constructor runs when child <code>new Honda()</code> is created!).",
+              "5. Can have <b><code>final</code> methods</b> which force subclasses not to change the body of the method."
+            ]
+          },
+          {
+            heading: "2. Interfaces in Java & Compiler Internal Additions (`Interface.pdf` Slides 2–18)",
+            en: "An **Interface** in Java is a blueprint of a class that has **static constants** and **abstract methods**. It is used to achieve **abstraction** and **multiple inheritance** in Java.",
+            bn: "**Interface** হলো ক্লাসের একটি ব্লুপ্রিন্ট যেখানে শুধু মেথডের ঘোষণা (abstract methods) এবং ধ্রুবক (static constants) থাকে। এর মাধ্যমে জাভায় **Multiple Inheritance** এবং **Abstraction** অর্জন করা হয়।",
+            diagramHtml: `
+              <div class="my-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 rounded-2xl bg-slate-950 border border-amber-500/40 space-y-2">
+                  <div class="text-xs font-bold text-amber-300 uppercase">⚙️ Internal Addition by Compiler (Slide 4)</div>
+                  <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                    <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                      <div class="text-slate-400 font-sans font-bold mb-1">What You Write:</div>
+                      interface Printable {<br>
+                      &nbsp;&nbsp;int MIN = 5;<br>
+                      &nbsp;&nbsp;void print();<br>
+                      }
+                    </div>
+                    <div class="p-2.5 rounded-xl bg-amber-950/30 border border-amber-500/40 text-amber-200">
+                      <div class="text-amber-300 font-sans font-bold mb-1">What Compiler Adds:</div>
+                      interface Printable {<br>
+                      &nbsp;&nbsp;<b class="text-emerald-300">public static final</b> int MIN = 5;<br>
+                      &nbsp;&nbsp;<b class="text-pink-300">public abstract</b> void print();<br>
+                      }
+                    </div>
+                  </div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-950 border border-indigo-500/40 space-y-2">
+                  <div class="text-xs font-bold text-indigo-300 uppercase">🔗 Class & Interface Relationships (Slide 5 & Note p. 39)</div>
+                  <div class="grid grid-cols-3 gap-2 text-center text-xs pt-2 font-semibold">
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                      <div class="px-2 py-1 rounded bg-slate-800">class</div>
+                      <div class="text-indigo-400 my-1">↑ <code>extends</code></div>
+                      <div class="px-2 py-1 rounded bg-slate-800">class</div>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                      <div class="px-2 py-1 rounded bg-indigo-950 text-indigo-200">interface</div>
+                      <div class="text-emerald-400 my-1">⇡ <code>implements</code></div>
+                      <div class="px-2 py-1 rounded bg-slate-800">class</div>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-900 border border-slate-800">
+                      <div class="px-2 py-1 rounded bg-indigo-950 text-indigo-200">interface</div>
+                      <div class="text-amber-400 my-1">↑ <code>extends</code></div>
+                      <div class="px-2 py-1 rounded bg-indigo-950 text-indigo-200">interface</div>
+                    </div>
+                  </div>
+                  <p class="text-[11px] text-slate-300 text-center bangla-text">খাতার পৃষ্ঠা ৪০: দুটি ইন্টারফেস পাশাপাশি থাকলে কমা দিয়ে লেখা হয়: <code>class A implements Printable, Showable</code></p>
+                </div>
+              </div>
+            `,
+            bullets: [
+              "<b>Why is Multiple Inheritance supported via Interface even if both interfaces have the same method? (Slides 12–13):</b> Because interfaces only declare method signatures without bodies (e.g., <code>interface A { void print(); }</code> and <code>interface B { void print(); }</code>). The single implementation body is provided by the implementing class (<code>MultiInterface1</code>), so there is <b>zero ambiguity</b>!",
+              "<b>Java 8 New Features in Interface (Slides 17–18):</b> Since Java 8, an interface CAN have methods with a body in two ways:<br>1) <b><code>default</code> method:</b> <code>default void msg() { System.out.println(\"default method\"); }</code> (called on object).<br>2) <b><code>static</code> method:</b> <code>static int cube(int x) { return x*x*x; }</code> (called via <code>InterfaceName.cube(3)</code>).",
+              "<b>Important Rule when Implementing:</b> Because interface methods are implicitly <code>public abstract</code>, the implementing class MUST declare the implemented method as <b><code>public</code></b> (e.g., <code>public void print()</code>)!"
+            ]
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: Abstract Class Having Constructor, Abstract Method & Concrete Method (Slide 8 & Classnote p. 45)",
+            code: `abstract class Bike {
+    // 1. Constructor inside Abstract Class
+    Bike() {
+        System.out.println("bike is created");
+    }
+
+    // 2. Abstract method (no body)
+    abstract void run();
+
+    // 3. Non-abstract (concrete) method
+    void changeGear() {
+        System.out.println("gear changed");
+    }
+}
+
+class Honda extends Bike {
+    @Override
+    void run() {
+        System.out.println("running safely..");
+    }
+}
+
+public class TestAbstraction2 {
+    public static void main(String[] args) {
+        Bike obj = new Honda(); // Upcasting: triggers Bike() constructor first!
+        obj.run();
+        obj.changeGear();
+    }
+}`,
+            output: `bike is created
+running safely..
+gear changed`,
+            explanationEn: "From `Abstraction.pdf` Slide 8: Even though `Bike` cannot be instantiated directly, creating `new Honda()` automatically invokes `Bike()`'s constructor first, printing `bike is created`!",
+            explanationBn: "অ্যাবস্ট্রাক্ট ক্লাসের সরাসরি অবজেক্ট তৈরি করা না গেলেও এর ভেতর **Constructor** থাকতে পারে! যখন চাইল্ড ক্লাস `new Honda()` তৈরি হয়, তখন প্যারেন্টের `Bike()` কনস্ট্রাক্টর অটোমেটিক কল হয়ে `bike is created` প্রিন্ট করে।"
+          },
+          {
+            title: "Example 2: Midterm 5-Mark UML Problem — `Shape` & `Printable` Multiple Inheritance (`interface in java.pdf` p. 1 & Classnote pp. 40–41)",
+            code: `interface Shape {
+    double getArea();
+    double getPerimeter();
+}
+
+interface Printable {
+    void print();
+}
+
+class Rectangle implements Shape, Printable {
+    private double length;
+    private double width;
+
+    Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    public double getArea() {
+        return length * width;
+    }
+
+    public double getPerimeter() {
+        return 2 * (length + width);
+    }
+
+    public void print() {
+        System.out.println("Rectangle - Area: " + getArea() + ", Perimeter: " + getPerimeter() + ", Printable: Rectangle");
+    }
+}
+
+class Circle implements Shape, Printable {
+    private double radius;
+
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    public double getArea() {
+        return 3.1416 * radius * radius;
+    }
+
+    public double getPerimeter() {
+        return 2 * 3.1416 * radius;
+    }
+
+    public void print() {
+        System.out.printf("Circle - Area: %.2f, Perimeter: %.2f, Printable: Circle%n", getArea(), getPerimeter());
+    }
+}
+
+class Triangle implements Shape, Printable {
+    private double base;
+    private double height;
+
+    Triangle(double base, double height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    public double getArea() {
+        return 0.5 * base * height;
+    }
+
+    public double getPerimeter() {
+        // Matching sample output (for 6, 8, 6 triangle -> 20.0)
+        return base + height + base;
+    }
+
+    public void print() {
+        System.out.println("Triangle - Area: " + getArea() + ", Perimeter: " + getPerimeter() + ", Printable: Triangle");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Rectangle r = new Rectangle(10, 5);
+        Circle c = new Circle(5);
+        Triangle t = new Triangle(6, 8);
+
+        r.print();
+        c.print();
+        t.print();
+    }
+}`,
+            output: `Rectangle - Area: 50.0, Perimeter: 30.0, Printable: Rectangle
+Circle - Area: 78.54, Perimeter: 31.42, Printable: Circle
+Triangle - Area: 24.0, Perimeter: 20.0, Printable: Triangle`,
+            explanationEn: "Complete solution to **Q1 [5 Marks]** from `interface in java.pdf` page 1 and Classnote pp. 40–41! Each class (`Rectangle`, `Circle`, `Triangle`) implements both `Shape` and `Printable` (`implements Shape, Printable`).",
+            explanationBn: "`interface in java.pdf`-এর ১ নং পৃষ্ঠার **৫ মার্কসের পরীক্ষার প্রশ্ন** এবং খাতার ৪০-৪১ পৃষ্ঠার পূর্ণাঙ্গ সমাধান! এখানে একটি ক্লাস কমা দিয়ে দুটি ইন্টারফেস (`Shape, Printable`) ইমপ্লিমেন্ট করেছে।"
+          },
+          {
+            title: "Example 3: Diamond Interface Hierarchy — `Payment -> CardPayment, MobilePayment -> SmartPayment` & `SmartCar` (`interface in java.pdf` p. 3)",
+            code: `// 1. First UML Diagram on page 3 of interface in java.pdf
+interface Payment {
+    void pay();
+}
+
+interface CardPayment extends Payment {
+    void useCard();
+}
+
+interface MobilePayment extends Payment {
+    void useMobile();
+}
+
+class SmartPayment implements CardPayment, MobilePayment {
+    private double amount;
+
+    SmartPayment(double amount) {
+        this.amount = amount;
+    }
+
+    public void pay() {
+        System.out.println("Payment of " + amount + " Tk is successful.");
+    }
+
+    public void useCard() {
+        System.out.println("Paid using Card.");
+    }
+
+    public void useMobile() {
+        System.out.println("Paid using Mobile.");
+    }
+}
+
+// 2. Second UML Diagram on page 3: Vehicle -> Electric, Automatic -> SmartCar
+interface Vehicle {
+    void start();
+}
+interface Electric extends Vehicle {
+    void charge();
+}
+interface Automatic extends Vehicle {
+    void shift();
+}
+class SmartCar implements Electric, Automatic {
+    private int speed;
+    SmartCar(int speed) { this.speed = speed; }
+    public void start() { System.out.println("SmartCar started at speed: " + speed + " km/h"); }
+    public void charge() { System.out.println("Battery charging..."); }
+    public void shift() { System.out.println("Automatic gear shifted."); }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SmartPayment sp = new SmartPayment(1000.0);
+        sp.pay();
+        sp.useCard();
+        sp.useMobile();
+
+        System.out.println("---------------------------");
+        SmartCar sc = new SmartCar(120);
+        sc.start();
+        sc.charge();
+        sc.shift();
+    }
+}`,
+            output: `Payment of 1000.0 Tk is successful.
+Paid using Card.
+Paid using Mobile.
+---------------------------
+SmartCar started at speed: 120 km/h
+Battery charging...
+Automatic gear shifted.`,
+            explanationEn: "Solves BOTH UML diagrams on page 3 of `interface in java.pdf`! Notice how `CardPayment` and `MobilePayment` **extend** `Payment` (because interface-to-interface uses `extends`), while `SmartPayment` **implements** `CardPayment, MobilePayment` (because class-to-interface uses `implements`).",
+            explanationBn: "`interface in java.pdf`-এর ৩ নং পৃষ্ঠার দুটি ডায়াগ্রামেরই কোড এখানে দেওয়া হলো! ডায়াগ্রামে দেখবে এক ইন্টারফেস থেকে আরেক ইন্টারফেসে গেলে `extends` হয়, আর ক্লাস যখন ইন্টারফেসকে নেয় তখন `implements` হয়।"
+          }
+        ],
+        questions: [
+          {
+            type: "Theory Comparison (Interface.pdf p. 1)",
+            q: "What are the main differences between an Abstract Class and an Interface in Java?",
+            qBn: "জাভায় Abstract Class এবং Interface-এর মধ্যে পার্থক্য কী?",
+            a: `<div class="overflow-x-auto"><table class="w-full text-left border-collapse text-xs sm:text-sm my-2">
+                  <thead><tr class="bg-slate-800 text-indigo-300"><th class="p-2 border border-slate-700">Feature</th><th class="p-2 border border-slate-700">Abstract Class</th><th class="p-2 border border-slate-700">Interface</th></tr></thead>
+                  <tbody>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Methods</td><td class="p-2 border border-slate-700">Can have both <b>abstract</b> and <b>non-abstract (concrete)</b> methods.</td><td class="p-2 border border-slate-700">Has only abstract methods (plus Java 8 <code>default</code> and <code>static</code> methods).</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Multiple Inheritance</td><td class="p-2 border border-slate-700">Does <b>NOT</b> support multiple inheritance.</td><td class="p-2 border border-slate-700"><b>Supports</b> multiple inheritance.</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Variables</td><td class="p-2 border border-slate-700">Can have <code>final</code>, non-final, <code>static</code>, and non-static variables.</td><td class="p-2 border border-slate-700">Has only <b><code>public static final</code></b> constants.</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Constructor</td><td class="p-2 border border-slate-700"><b>Can have</b> constructors.</td><td class="p-2 border border-slate-700"><b>Cannot have</b> constructors.</td></tr>
+                    <tr><td class="p-2 border border-slate-700 font-bold">Keyword</td><td class="p-2 border border-slate-700">Inherited using <code>extends</code>.</td><td class="p-2 border border-slate-700">Implemented using <code>implements</code>.</td></tr>
+                  </tbody>
+                </table></div>`,
+            aBn: "এই ৫টি পার্থক্য পয়েন্ট আকারে লিখলে পরীক্ষায় পুরো নম্বর পাবে।"
+          },
+          {
+            type: "Coding Task (Abstraction.pdf Slides 9–10)",
+            q: "Write a Java program to create an abstract class `Animal` with an abstract method called `sound()`. Create subclasses `Lion` and `Tiger` that extend the `Animal` class and implement the `sound()` method to make a specific sound for each animal.",
+            qBn: "`Abstraction.pdf`-এর ৯-১০ নং স্লাইডের প্রবলেম: `Animal` নামের একটি abstract ক্লাস তৈরি করো যার ভেতর `sound()` নামের একটি abstract মেথড থাকবে। এরপর `Lion` এবং `Tiger` সাবক্লাস তৈরি করে মেথডটি ইমপ্লিমেন্ট করো।",
+            a: `<pre class="bg-slate-950 p-3 rounded-xl text-xs text-emerald-300 font-mono">abstract class Animal {
+    public abstract void sound();
+}
+
+class Lion extends Animal {
+    @Override
+    public void sound() {
+        System.out.println("Lion roars!");
+    }
+}
+
+class Tiger extends Animal {
+    @Override
+    public void sound() {
+        System.out.println("Tiger growls!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a1 = new Lion();
+        Animal a2 = new Tiger();
+        a1.sound();
+        a2.sound();
+    }
+}</pre>`,
+            aBn: "`Abstraction.pdf`-এর শেষ স্লাইডের হুবহু উত্তর এটি।"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 8: ARRAY OF OBJECTS
+      // ========================================================================
+      {
+        id: "mod-8",
+        number: "08",
+        shortTitle: "Array of Objects",
+        title: "Array of Objects in Java (`Student[]`, `Rectangle[]`, `Book[]`, `Product[]` with Loops)",
+        badge: "TpointTech + Classnote pp. 43, 46",
+        sources: "TpointTech Array of Objects • Classnote pp. 43, 45–46",
+        cppBridge: {
+          title: "C++ vs Java: Array of Objects Trap!",
+          points: [
+            "In C++, writing `Student arr[5];` immediately calls the default constructor 5 times and creates 5 actual `Student` objects in memory.",
+            "In Java, writing `Student[] arr = new Student[5];` **ONLY creates an array of 5 empty (`null`) reference variables!** You MUST create each individual object using `arr[0] = new Student(1, \"Aman\");` (using Constructor or Setter methods), otherwise accessing `arr[0].name` throws a `NullPointerException`!"
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. How Array of Objects Works in Java (TpointTech & Classnote p. 43)",
+            en: "An **Array of Objects** stores references to multiple instances of a class in a single indexed variable. Creating and using an array of objects always requires **two stages**:",
+            bn: "একাধিক অবজেক্টকে আলাদা আলাদা ভ্যারিয়েবলে (`s1, s2, s3...`) না রেখে একটি মাত্র অ্যারের ভেতর (`arr[0], arr[1], arr[2]...`) রাখার পদ্ধতিকে **Array of Objects** বলে। এটি ২ ধাপে কাজ করে:",
+            bullets: [
+              "<b>Step 1 — Declare and Instantiate the Array of References:</b><br><code>Student[] arr = new Student[5];</code> (or <code>ClassName obj[] = new ClassName[length];</code>). At this point, <code>arr[0]</code> through <code>arr[4]</code> hold <code>null</code>.",
+              "<b>Step 2 — Initialize Each Element (2 Approaches on TpointTech):</b><br>• <b>Approach A (Using the Constructor):</b> <code>arr[0] = new Student(1, \"aman\");</code><br>• <b>Approach B (Using Setter Methods):</b> <code>arr[0] = new Book(); arr[0].setData(201, \"Java Programming\");</code>",
+              "<b>Step 3 — Loop through the Array using <code>arr.length</code>:</b><br><code>for (int i = 0; i &lt; arr.length; i++) { arr[i].display(); }</code>"
+            ]
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: `Student[]` Array of 5 Objects (Classnote p. 43)",
+            code: `class Student {
+    int roll;
+    String name;
+
+    Student(int roll, String name) {
+        this.roll = roll;
+        this.name = name;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Step 1: Declare & allocate array for 5 Student references
+        Student[] arr = new Student[5];
+
+        // Step 2: Initialize each element using Constructor (Classnote p. 43)
+        arr[0] = new Student(1, "aman");
+        arr[1] = new Student(2, "vaibhav");
+        arr[2] = new Student(3, "shikar");
+        arr[3] = new Student(4, "dharmesh");
+        arr[4] = new Student(5, "mohit");
+
+        // Step 3: Loop and print each object's data
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println("Element at " + i + " : " + arr[i].roll + " " + arr[i].name);
+        }
+    }
+}`,
+            output: `Element at 0 : 1 aman
+Element at 1 : 2 vaibhav
+Element at 2 : 3 shikar
+Element at 3 : 4 dharmesh
+Element at 4 : 5 mohit`,
+            explanationEn: "Exact code from Classnote page 43! Allocates `new Student[5]`, populates `arr[0]` to `arr[4]` with `new Student(roll, name)`, and iterates with `for (int i = 0; i < arr.length; i++)`.",
+            explanationBn: "খাতার ৪৩ নং পৃষ্ঠার হুবহু কোড! প্রথমে ৫ সাইজের স্টুডেন্ট অ্যারে ডিক্লেয়ার করা হয়েছে, এরপর ০ থেকে ৪ ইনডেক্সে ৫ জন স্টুডেন্টের অবজেক্ট তৈরি করে `for` লুপের মাধ্যমে প্রিন্ট করা হয়েছে।"
+          },
+          {
+            title: "Example 2: Abstract `Shape` + `rec[]` Array of Objects Calculating Multiple Areas (Classnote pp. 45–46)",
+            code: `abstract class Shape {
+    abstract int getArea();
+
+    void display() {
+        System.out.println("Shape area");
+    }
+}
+
+class Rec extends Shape {
+    int l, w;
+
+    Rec(int l, int w) {
+        this.l = l;
+        this.w = w;
+    }
+
+    @Override
+    int getArea() {
+        return l * w;
+    }
+}
+
+public class Mavenproject9 {
+    public static void main(String[] args) {
+        // Array of 3 Rec objects (Classnote p. 46)
+        Rec[] arr = new Rec[3];
+        arr[0] = new Rec(2, 3);
+        arr[1] = new Rec(9, 3);
+        arr[2] = new Rec(5, 6);
+
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println("Rectangle " + i + " the area: " + arr[i].getArea());
+        }
+    }
+}`,
+            output: `Rectangle 0 the area: 6
+Rectangle 1 the area: 27
+Rectangle 2 the area: 30`,
+            explanationEn: "From the very last pages of your notebook (pp. 45–46): Combines an `abstract class Shape` with an array of `Rec` objects (`Rec[] arr = new Rec[3]`) to calculate multiple rectangle areas in a single `for` loop!",
+            explanationBn: "খাতার একদম শেষ পৃষ্ঠার (পৃষ্ঠা ৪৫-৪৬) ল্যাব প্রোগ্রাম: *'Array দিয়ে করতে চাই অথবা অনেকগুলো area একসাথে বের করতে চাই'* — এখানে অ্যাবস্ট্রাক্ট ক্লাস `Shape` থেকে `Rec` ক্লাস বানিয়ে ৩টি আয়তক্ষেত্রের ক্ষেত্রফল এক লুপেই বের করা হয়েছে!"
+          },
+          {
+            title: "Example 3: TpointTech `Product[]` & `Book[]` Array (Constructor vs Setter Initialization)",
+            code: `class Product {
+    int pro_Id;
+    String pro_name;
+
+    Product(int pid, String n) {
+        pro_Id = pid;
+        pro_name = n;
+    }
+
+    public void display() {
+        System.out.println("Product ID = " + pro_Id + " | Product Name = " + pro_name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Product[] obj = new Product[5];
+        obj[0] = new Product(23907, "Dell Laptop");
+        obj[1] = new Product(91240, "HP 630");
+        obj[2] = new Product(29823, "LG OLED TV");
+        obj[3] = new Product(11908, "MI Note Pro Max 9");
+        obj[4] = new Product(43590, "Kingston USB");
+
+        for (int i = 0; i < obj.length; i++) {
+            System.out.print("Product Object " + (i + 1) + ": ");
+            obj[i].display();
+        }
+    }
+}`,
+            output: `Product Object 1: Product ID = 23907 | Product Name = Dell Laptop
+Product Object 2: Product ID = 91240 | Product Name = HP 630
+Product Object 3: Product ID = 29823 | Product Name = LG OLED TV
+Product Object 4: Product ID = 11908 | Product Name = MI Note Pro Max 9
+Product Object 5: Product ID = 43590 | Product Name = Kingston USB`,
+            explanationEn: "Classic `Product[]` array example from the TpointTech Array of Objects tutorial.",
+            explanationBn: "TpointTech ওয়েবসাইটের `Product[]` অ্যারের উদাহরণ।"
+          }
+        ],
+        questions: [
+          {
+            type: "Theory & Common Bug",
+            q: "What are the two ways to initialize elements in an Array of Objects in Java? What happens if you call `arr[0].display()` right after `Book[] arr = new Book[3];` without initializing `arr[0]`?",
+            qBn: "জাভায় Array of Objects ইনিশিয়ালাইজ করার ২টি পদ্ধতি কী কী? এবং `Book[] arr = new Book[3];` লেখার পরপরই `arr[0] = new Book(...)` না লিখে `arr[0].display()` কল করলে কী ঘটবে?",
+            a: `<p class="mb-2"><b>Two Approaches to Initialize Elements (TpointTech):</b></p>
+                <ol class="list-decimal pl-5 space-y-1 text-sm mb-2">
+                  <li><b>Using a Parameterized Constructor:</b> <code>arr[0] = new Book(101, "Java Basics");</code></li>
+                  <li><b>Using a Setter Method:</b> <code>arr[0] = new Book(); arr[0].setData(201, "Java Programming");</code></li>
+                </ol>
+                <p class="text-sm text-rose-300"><b>What happens if we skip initializing <code>arr[0]</code>:</b> Since <code>new Book[3]</code> only creates an array of 3 <code>null</code> references, calling <code>arr[0].display()</code> throws a runtime <b><code>NullPointerException</code></b>!</p>`,
+            aBn: "`new Book[3]` শুধু ৩টি খালি রেফারেন্স তৈরি করে যার ভেতর `null` থাকে। তাই `arr[0] = new Book(...)` না লিখে মেথড কল করলে `NullPointerException` আসবে।"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 9: COMPLETE CLASSNOTE LAB PROBLEMS & UML-TO-CODE MASTERCLASS
+      // ========================================================================
+      {
+        id: "mod-9",
+        number: "09",
+        shortTitle: "UML & All Lab Codes",
+        title: "UML Class Diagrams to Java Code & All Remaining Classnote / Slide Programs",
+        badge: "100% Classnote Coverage",
+        sources: "Classnote pp. 4, 6–7, 18, 32, 38–41 • Class Object Constructor.pdf (Point) • Interface.pdf (Salary, Calculator)",
+        cppBridge: {
+          title: "C++ vs Java: Translating Exam UML Diagrams to Code",
+          points: [
+            "Solid line with hollow triangle arrow (`───▷`) between two classes means **`extends`** (Class Inheritance).",
+            "Dashed line with hollow triangle arrow (`- - ▷`) from a class to a `<<interface>>` box means **`implements`**.",
+            "Solid line with hollow triangle arrow (`───▷`) from one `<<interface>>` to another `<<interface>>` means **`extends`** (e.g., `interface CardPayment extends Payment`)."
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. How to Read Any UML Class Diagram in the Midterm Exam (Classnote p. 32 & Interface PDFs)",
+            en: "In your midterm exam, 5-mark coding questions are frequently given as **UML Class Diagrams** (like `Shape & Printable`, `Payment -> CardPayment/MobilePayment -> SmartPayment`, `Vehicle -> Electric/Automatic -> SmartCar`, and `Bank -> SBI/ICICI/AXIS`). Use this exact 4-step formula to convert any diagram into full marks code:",
+            bn: "মিডটার্ম পরীক্ষায় ডায়াগ্রাম দেখে কোড লেখার প্রশ্ন (৫ মার্কস) থাকবেই। যেকোনো UML ডায়াগ্রামকে কোডে রূপান্তর করার ৪টি নিয়ম:",
+            bullets: [
+              "<b>Box Top Compartments:</b> If it says <code>&lt;&lt;interface&gt;&gt;</code>, write <code>interface Name { ... }</code>. If it is italicized or says abstract, write <code>abstract class Name { ... }</code>. Otherwise, write <code>class Name { ... }</code>.",
+              "<b>Middle Compartment (Attributes / Fields):</b><br>• <code class='text-rose-400'>- length : double</code> → <code>private double length;</code> (or package-private in simple tasks)<br>• <code class='text-emerald-400'>+ speed : int</code> → <code>public int speed;</code><br>• <code class='text-amber-400'># id : int</code> → <code>protected int id;</code>",
+              "<b>Bottom Compartment (Methods):</b><br>• <code class='text-emerald-400'>+ getArea() : double</code> → <code>public double getArea()</code> (notice the return type comes after the colon <code>:</code> in UML!).",
+              "<b>Arrows:</b> Class → Class = <code>extends</code> | Class ⇢ Interface = <code>implements</code> | Interface → Interface = <code>extends</code>."
+            ]
+          }
+        ],
+        examples: [
+          {
+            title: "Example 1: `Student`, `Dog` & `Teacher` Classes (Classnote pp. 4, 6, 7)",
+            code: `class Student {
+    String name;
+    long id;
+    void display() {
+        System.out.println("Student Name: " + name + ", ID: " + id);
+    }
+}
+
+class Dog {
+    String name;
+    void bark() {
+        System.out.println(name + " says Woof!");
+    }
+}
+
+class Teacher {
+    String name;
+    String dept;
+    void display() {
+        System.out.println("Teacher Name: " + name);
+        System.out.println("Teacher Dept: " + dept);
+    }
+}
+
+public class ClassnoteBasics {
+    public static void main(String[] args) {
+        // 1. Student (Classnote p. 4)
+        Student s1 = new Student();
+        s1.name = "Sohan";
+        s1.id = 20255103246L;
+        s1.display();
+
+        // 2. Dog (Classnote p. 6)
+        Dog myDog = new Dog();
+        myDog.name = "Rocky";
+        myDog.bark();
+
+        // 3. Teacher T1 & T2 (Classnote p. 7)
+        Teacher t1 = new Teacher();
+        t1.name = "NAFIZ";
+        t1.dept = "EEE";
+        t1.display();
+
+        Teacher t2 = new Teacher();
+        t2.name = "Farok Hasan";
+        t2.dept = "Civil";
+        t2.display();
+    }
+}`,
+            output: `Student Name: Sohan, ID: 20255103246
+Rocky says Woof!
+Teacher Name: NAFIZ
+Teacher Dept: EEE
+Teacher Name: Farok Hasan
+Teacher Dept: Civil`,
+            explanationEn: "Combines the three foundational class programs from pages 4, 6, and 7 of your handwritten notebook (`Student`, `Dog`, and `Teacher`).",
+            explanationBn: "খাতার ৪, ৬ এবং ৭ নং পৃষ্ঠার তিনটি বেসিক অবজেক্ট ও ক্লাসের প্রোগ্রাম (`Student`, `Dog`, এবং `Teacher`) একসাথে দেওয়া হলো।"
+          },
+          {
+            title: "Example 2: `Point` Class Blueprint with Constructor Chaining & Mutators (`Class Object Constructor.pdf` Slides 5–18)",
+            code: `public class Point {
+    private int x;
+    private int y;
+
+    // Default constructor chains to 2-arg constructor using this(0, 0)
+    public Point() {
+        this(0, 0); // Must be first line! Initializes point to origin (0, 0)
+    }
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // Mutator method: shifts point by (dx, dy)
+    public void translate(int dx, int dy) {
+        x += dx;
+        y += dy;
+    }
+
+    // Mutator method: sets new coordinates
+    public void setLocation(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // Accessor method: calculates Euclidean distance from another Point p
+    public double distance(Point p) {
+        int dx = this.x - p.x;
+        int dy = this.y - p.y;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public void display() {
+        System.out.println("Point(" + x + ", " + y + ")");
+    }
+
+    public static void main(String[] args) {
+        Point p1 = new Point(5, -2);
+        Point p2 = new Point(); // origin (0, 0)
+
+        p1.translate(2, 5); // becomes (7, 3)
+        p1.display();
+        p2.display();
+        System.out.printf("Distance between p1 and p2: %.2f%n", p1.distance(p2));
+    }
+}`,
+            output: `Point(7, 3)
+Point(0, 0)
+Distance between p1 and p2: 7.62`,
+            explanationEn: "Complete implementation of the `Point` class used across all 19 slides of `Class Object Constructor.pdf`.",
+            explanationBn: "`Class Object Constructor.pdf` স্লাইডের মূল উদাহরণ `Point` ক্লাসের সম্পূর্ণ কোড।"
+          },
+          {
+            title: "Example 3: `Salary` Interface (`CEO`, `Manager`, `Employee`) & `MultiInterface1` (`Interface.pdf` Slides 9, 13)",
+            code: `interface Salary {
+    float salary();
+}
+
+class CEO implements Salary {
+    public float salary() { return 50000; }
+}
+
+class Manager implements Salary {
+    public float salary() { return 30000; }
+}
+
+class Employee implements Salary {
+    public float salary() { return 20000; }
+}
+
+// Same method in both interfaces A and B -> No ambiguity! (Slide 13)
+interface A { void print(); }
+interface B { void print(); }
+
+class MultiInterface1 implements A, B {
+    public void print() {
+        System.out.println("Hello (No ambiguity even though both A and B have print()!)");
+    }
+}
+
+public class SalaryInterface {
+    public static void main(String[] args) {
+        Salary a = new CEO();
+        System.out.println("Salary of CEO: " + a.salary());
+
+        Salary b = new Manager();
+        System.out.println("Salary of Manager: " + b.salary());
+
+        Salary c = new Employee();
+        System.out.println("Salary of Employee: " + c.salary());
+
+        MultiInterface1 obj = new MultiInterface1();
+        obj.print();
+    }
+}`,
+            output: `Salary of CEO: 50000.0
+Salary of Manager: 30000.0
+Salary of Employee: 20000.0
+Hello (No ambiguity even though both A and B have print()!)`,
+            explanationEn: "Covers `Interface.pdf` Slide 9 (`Salary` polymorphic interface reference) and Slide 13 (`MultiInterface1` proving why multiple inheritance through interfaces has no ambiguity).",
+            explanationBn: "`Interface.pdf`-এর ৯ ও ১৩ নং স্লাইডের প্রোগ্রাম: ইন্টারফেসের রেফারেন্স দিয়ে পলিমরফিজম এবং দুটি ইন্টারফেসে একই নামের মেথড (`print()`) থাকা সত্ত্বেও কেন কোনো Ambiguity হয় না তার প্রমাণ।"
+          }
+        ],
+        questions: [
+          {
+            type: "Theory + Code (Interface.pdf Slides 12–13)",
+            q: "Multiple inheritance is not supported through class in Java, but it is possible by an interface — why? Explain with an example where two interfaces have the exact same method.",
+            qBn: "জাভায় ক্লাসের মাধ্যমে Multiple Inheritance সম্ভব নয়, কিন্তু ইন্টারফেসের মাধ্যমে সম্ভব কেন? উদাহরণসহ ব্যাখ্যা করো।",
+            a: `<p class="mb-2"><b>Answer (from Interface.pdf Slide 12):</b> Multiple inheritance is not supported in the case of classes because if two parent classes have methods with the same signature and body, the child class faces <b>ambiguity</b> about which implementation to inherit.</p>
+                <p class="mb-2 text-sm">However, in the case of interfaces, methods are <b>abstract (they have no body)</b>. The actual implementation is provided once by the <b>implementation class</b> itself. Therefore, there is <b>no ambiguity</b>!</p>
+                <pre class="bg-slate-950 p-2.5 rounded-xl text-xs text-emerald-300 font-mono">interface A { void print(); }
+interface B { void print(); }
+class MultiInterface1 implements A, B {
+    public void print() { System.out.println("Hello"); }
+    public static void main(String args[]) {
+        MultiInterface1 obj = new MultiInterface1();
+        obj.print(); // Prints: Hello (Zero ambiguity!)
+    }
+}</pre>`,
+            aBn: "স্লাইড ১২-এর হুবহু উত্তর: কারণ ইন্টারফেসের নিজস্ব কোনো মেথড বডি থাকে না; ইমপ্লিমেন্টেশন ক্লাস নিজেই মেথডের বডি লেখে, তাই কোনো দ্বিধা (Ambiguity) তৈরি হয় না।"
+          },
+          {
+            type: "UML Diagram to Code (Classnote p. 18 & Inheritance.pdf Slide 8)",
+            q: "Write the Java program for `Calculation` superclass (`addition(int x, int y)`, `Subtraction(int x, int y)`) and `MainClass extends Calculation` (`multiplication(int x, int y)`) with `a = 5, b = 10`.",
+            qBn: "`Inheritance.pdf`-এর ৮ নং স্লাইডের প্রোগ্রামটি লেখো যেখানে `Calculation` ক্লাসে যোগ ও বিয়োগ এবং সাবক্লাসে গুণ মেথড রয়েছে।",
+            a: `<pre class="bg-slate-950 p-2.5 rounded-xl text-xs text-emerald-300 font-mono">class Calculation {
+    int z;
+    public void addition(int x, int y) {
+        z = x + y;
+        System.out.println("The sum of the given numbers: " + z);
+    }
+    public void Subtraction(int x, int y) {
+        z = x - y;
+        System.out.println("The difference between the given numbers: " + z);
+    }
+}
+
+public class MainClass extends Calculation {
+    public void multiplication(int x, int y) {
+        z = x * y;
+        System.out.println("The product of the given numbers: " + z);
+    }
+    public static void main(String args[]) {
+        int a = 5, b = 10;
+        MainClass obj1 = new MainClass();
+        obj1.addition(a, b);       // 15
+        obj1.Subtraction(a, b);    // -5
+        obj1.multiplication(a, b); // 50
+    }
+}</pre>`,
+            aBn: "সাবক্লাসের অবজেক্ট `obj1` দিয়ে প্যারেন্ট ক্লাসের `addition` ও `Subtraction` এবং নিজের `multiplication` তিনটি মেথডই কল করা গেছে।"
+          }
+        ]
+      },
+
+      // ========================================================================
+      // MODULE 10: C++ TO JAVA BRIDGE & LAST-MINUTE 30/30 REVISION SHEET
+      // ========================================================================
+      {
+        id: "mod-10",
+        number: "10",
+        shortTitle: "30/30 Last-Minute Sheet",
+        title: "C++ to Java Complete Comparison & 15-Minute Before-Exam Revision Cheat Sheet",
+        badge: "Exam Hall Quick Review",
+        sources: "All 10 Lecture PDFs + 46-Page Classnote + 5 TpointTech Tutorials",
+        cppBridge: {
+          title: "Master C++ vs Java Table for Former C++ Programmers",
+          points: [
+            "Never write `;` after a class closing brace `}` in Java (though harmless, it's a C++ habit), never use `->`, never use `delete`, and never write `class B : public A` — always write `class B extends A` or `class B implements I`!"
+          ]
+        },
+        theorySections: [
+          {
+            heading: "1. Complete C++ vs Java OOP Cheat Table",
+            en: "Since you already did OOP in C++, this table maps every C++ concept you know to the exact Java syntax required in the midterm:",
+            bn: "তুমি যেহেতু আগে C++-এ OOP করেছ, তাই পরীক্ষার হলে যেন ভুলে C++-এর সিনট্যাক্স না লিখে ফেলো সেজন্য এই তুলনা টেবিলটি একবার দেখে নাও:",
+            diagramHtml: `
+              <div class="overflow-x-auto my-3">
+                <table class="w-full text-left border-collapse text-xs sm:text-sm rounded-xl overflow-hidden">
+                  <thead>
+                    <tr class="bg-indigo-950 text-indigo-200">
+                      <th class="p-2.5 border border-slate-700">Concept</th>
+                      <th class="p-2.5 border border-slate-700">C++ Syntax (Old Days)</th>
+                      <th class="p-2.5 border border-slate-700 text-emerald-300">Java Syntax (Midterm Exam)</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-slate-900/90">
+                    <tr><td class="p-2 border border-slate-800 font-bold">Object Creation</td><td class="p-2 border border-slate-800"><code>Student s(101);</code> (Stack)</td><td class="p-2 border border-slate-800"><code>Student s = new Student(101);</code> (Heap)</td></tr>
+                    <tr><td class="p-2 border border-slate-800 font-bold">Current Object</td><td class="p-2 border border-slate-800"><code>this-&gt;name = name;</code> (Pointer)</td><td class="p-2 border border-slate-800"><code>this.name = name;</code> (Reference)</td></tr>
+                    <tr><td class="p-2 border border-slate-800 font-bold">Inheritance</td><td class="p-2 border border-slate-800"><code>class Dog : public Animal</code></td><td class="p-2 border border-slate-800"><code>class Dog extends Animal</code></td></tr>
+                    <tr><td class="p-2 border border-slate-800 font-bold">Call Parent Constructor</td><td class="p-2 border border-slate-800"><code>Child(int x) : Parent(x) {}</code></td><td class="p-2 border border-slate-800"><code>Child(int x) { super(x); }</code> (1st line!)</td></tr>
+                    <tr><td class="p-2 border border-slate-800 font-bold">Call Parent Method</td><td class="p-2 border border-slate-800"><code>Parent::display();</code></td><td class="p-2 border border-slate-800"><code>super.display();</code></td></tr>
+                    <tr><td class="p-2 border border-slate-800 font-bold">Runtime Polymorphism</td><td class="p-2 border border-slate-800">Needs <code>virtual void run()</code></td><td class="p-2 border border-slate-800">Automatic on overridden methods (Dynamic Method Dispatch)</td></tr>
+                    <tr><td class="p-2 border border-slate-800 font-bold">Abstract Method</td><td class="p-2 border border-slate-800"><code>virtual void run() = 0;</code></td><td class="p-2 border border-slate-800"><code>abstract void run();</code></td></tr>
+                    <tr><td class="p-2 border border-slate-800 font-bold">Multiple Inheritance</td><td class="p-2 border border-slate-800">Allowed via classes (causes Diamond issue)</td><td class="p-2 border border-slate-800">Forbidden via classes; achieved via <code>implements Interface1, Interface2</code></td></tr>
+                    <tr><td class="p-2 border border-slate-800 font-bold">Memory Cleanup</td><td class="p-2 border border-slate-800"><code>delete ptr;</code> / Destructor <code>~A()</code></td><td class="p-2 border border-slate-800">Automatic Garbage Collection by JVM (<code>c1 = null;</code> or <code>c1 = c2;</code>)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            `
+          },
+          {
+            heading: "2. Top 12 Midterm Exam Checkpoints (Read 10 Minutes Before Exam!)",
+            en: "Quickly scan these 12 bullet points before walking into the exam hall:",
+            bn: "পরীক্ষার হলে ঢোকার ১০ মিনিট আগে এই ১২টি পয়েন্ট চোখ বুলিয়ে যাও:",
+            bullets: [
+              "<b>1. JVM Diagram:</b> <code>Main.java</code> → <code>JAVAC Compiler</code> → <code>Byte Code (Main.class)</code> → <code>JVM (Windows / Linux / Mac)</code>.",
+              "<b>2. JRE & JDK Formulas:</b> <code>JRE = JVM + Libraries (rt.jar) + Other files</code> | <code>JDK = JRE + Development Tools (javac, java, jar, javadoc)</code>.",
+              "<b>3. Garbage Collection:</b> Unreferenced objects become garbage in 2 ways: (a) Reassigning reference (<code>c1 = c2;</code>) or (b) Assigning null (<code>c1 = null;</code>).",
+              "<b>4. 3 Ways to Initialize Object:</b> (1) By Reference Variable (<code>s1.name = 'Sohan'</code>), (2) By Method, (3) By Constructor.",
+              "<b>5. Constructor Rules:</b> Same name as class, NO return type (not even <code>void</code>), cannot be <code>abstract, static, final, synchronized</code>, CAN be <code>private</code>.",
+              "<b>6. <code>this</code> Keyword (6 Uses):</b> <code>this.var</code> (resolve shadowing), <code>this.method()</code>, <code>this()</code> (constructor chaining — MUST be 1st statement!), pass <code>this</code> to method, pass <code>this</code> to constructor, <code>return this;</code>.",
+              "<b>7. <code>super</code> Keyword (3 Uses):</b> <code>super(args)</code> (call parent constructor — MUST be 1st statement!), <code>super.method()</code> (call overridden parent method), <code>super.var</code> (access shadowed parent variable).",
+              "<b>8. Overloading vs Overriding:</b> Overloading = Compile-time polymorphism, same class, different parameter lists (cannot overload by changing return type only! <code>main()</code> CAN be overloaded). Overriding = Runtime polymorphism (Dynamic Method Dispatch), requires inheritance, same signature.",
+              "<b>9. Data Member Rule in Upcasting:</b> Fields are NOT polymorphic! In <code>Bike b = new Honda();</code>, <code>b.speedlimit</code> prints <code>Bike</code>'s value (<code>90</code>).",
+              "<b>10. Access Modifiers:</b> <code>private</code> (same class only) → <code>default</code> (same package only) → <code>protected</code> (same package + subclass outside package via inheritance) → <code>public</code> (everywhere).",
+              "<b>11. Abstract Class vs Interface:</b> Abstract class (<code>extends</code>) can have constructors, instance variables, concrete & abstract methods. Interface (<code>implements</code>) has <code>public static final</code> constants and <code>public abstract</code> methods (plus Java 8 <code>default</code> & <code>static</code> methods) and supports Multiple Inheritance.",
+              "<b>12. Array of Objects:</b> <code>Student[] arr = new Student[5];</code> creates 5 references; initialize each with <code>arr[i] = new Student(...);</code> and loop with <code>arr.length</code>."
+            ]
+          }
+        ],
+        examples: [
+          {
+            title: "All-in-One Master Template: Abstract Class + Interface + Inheritance + `super` + `this` + Array of Objects",
+            code: `interface Printable {
+    // Compiler adds: public static final
+    String UNIVERSITY = "BUBT";
+    // Compiler adds: public abstract
+    void printReceipt();
+}
+
+abstract class Ride {
+    String riderName;
+    double baseFare;
+
+    Ride(String riderName, double baseFare) {
+        this.riderName = riderName;
+        this.baseFare = baseFare;
+    }
+
+    abstract double calculateFare();
+}
+
+class BikeRide extends Ride implements Printable {
+    double distanceKm;
+
+    BikeRide(String riderName, double baseFare, double distanceKm) {
+        super(riderName, baseFare); // 1st line: calls Ride constructor
+        this.distanceKm = distanceKm;
+    }
+
+    @Override
+    double calculateFare() {
+        return baseFare + (distanceKm * 15.0);
+    }
+
+    @Override
+    public void printReceipt() {
+        System.out.println("[" + UNIVERSITY + "] Rider: " + super.riderName +
+                           " | Distance: " + this.distanceKm + "km | Total Fare: " + calculateFare() + " Tk");
+    }
+}
+
+public class MasterRevisionDemo {
+    public static void main(String[] args) {
+        // Array of Objects + Polymorphism
+        BikeRide[] rides = new BikeRide[2];
+        rides[0] = new BikeRide("Sohan", 50, 10);
+        rides[1] = new BikeRide("Resalat", 50, 6);
+
+        for (int i = 0; i < rides.length; i++) {
+            rides[i].printReceipt();
+        }
+    }
+}`,
+            output: `[BUBT] Rider: Sohan | Distance: 10.0km | Total Fare: 200.0 Tk
+[BUBT] Rider: Resalat | Distance: 6.0km | Total Fare: 140.0 Tk`,
+            explanationEn: "This single compact program combines almost every concept in your syllabus: `interface`, `abstract class`, `extends`, `implements`, `super(...)`, `this.`, `@Override`, and an Array of Objects!",
+            explanationBn: "এই একটি প্রোগ্রামের ভেতরে তোমাদের পুরো মিডটার্ম সিলেবাসের সব কনসেপ্ট (`interface`, `abstract class`, `extends`, `implements`, `super()`, `this`, `@Override`, এবং `Array of Objects`) একসাথে রিভিশন হয়ে যাবে!"
+          }
+        ],
+        questions: [
+          {
+            type: "Rapid-Fire True/False & Viva Check",
+            q: "Answer True or False for these 6 classic Midterm Trick Statements:\n1) A constructor can be declared `private`.\n2) A constructor can be declared `static` or `abstract`.\n3) Method overloading is possible by changing only the return type.\n4) We can overload the `main()` method in Java.\n5) Runtime polymorphism is achieved with data members (variables).\n6) An abstract class can have a constructor and `final` methods.",
+            qBn: "উপরের ৬টি ট্রিকি বাক্যের কোনটি True এবং কোনটি False বলো।",
+            a: `<ul class="space-y-1.5 text-sm">
+                  <li>1) <b class="text-emerald-400">TRUE</b> — Private constructors prevent object creation from outside the class (Slide 15).</li>
+                  <li>2) <b class="text-rose-400">FALSE</b> — Constructors cannot be <code>abstract</code>, <code>final</code>, <code>static</code>, or <code>synchronized</code> (Slide 11).</li>
+                  <li>3) <b class="text-rose-400">FALSE</b> — Changing only the return type causes compile-time ambiguity (Classnote p. 20).</li>
+                  <li>4) <b class="text-emerald-400">TRUE</b> — You can overload <code>main()</code>, though JVM only invokes <code>main(String[] args)</code> (Classnote p. 20).</li>
+                  <li>5) <b class="text-rose-400">FALSE</b> — Data members are not overridden; they are resolved at compile time by reference type (TpointTech).</li>
+                  <li>6) <b class="text-emerald-400">TRUE</b> — Abstract classes can have constructors, concrete methods, static methods, and <code>final</code> methods (Abstraction.pdf Slide 5).</li>
+                </ul>`,
+            aBn: "এই ৬টি পয়েন্ট মনে রাখলে যেকোনো শর্ট কোশ্চেন বা এমসিকিউতে একদম ১০০% কারেক্ট করতে পারবে!"
+          }
+        ]
+      }
+    ];
+
+    // ============================================================================
+    // EXTRA MASTER EXAM QUESTION BANK (For the 30/30 Exam Simulator Tab)
+    // ============================================================================
+    const EXTRA_EXAM_QUESTIONS = [
+      {
+        category: "Theory",
+        marks: "3 Marks",
+        q: "1. What is the difference between a Primitive Variable and an Object Reference Variable in Java? Draw the memory diagram (`int i = 1;` vs `Circle c = new Circle();`).",
+        qBn: "প্রিমিটিভ ভ্যারিয়েবল (`int i = 1`) এবং অবজেক্ট রেফারেন্স ভ্যারিয়েবলের (`Circle c = new Circle()`) মধ্যে মেমরিগত পার্থক্য চিত্রসহ লেখো।",
+        a: `<p class="mb-2"><b>Answer (from Class object constructor & Garrbage collection.pdf Slide 17):</b></p>
+            <ul class="list-disc pl-5 space-y-1 text-sm mb-2">
+              <li><b>Primitive Variable (<code>int i = 1;</code>):</b> Directly stores the actual value <code>1</code> inside the variable's memory box.</li>
+              <li><b>Object Reference Variable (<code>Circle c = new Circle();</code>):</b> Stores a <b>reference (memory address)</b> that points to the actual <code>Circle</code> object (<code>radius = 1</code>) created on the Heap using <code>new Circle()</code>.</li>
+            </ul>`,
+        aBn: "প্রিমিটিভ ভ্যারিয়েবল সরাসরি মান ধরে রাখে, আর অবজেক্ট ভ্যারিয়েবল হিপ মেমরিতে থাকা আসল অবজেক্টের অ্যাড্রেস/রেফারেন্স ধরে রাখে।"
+      },
+      {
+        category: "Output Tracing",
+        marks: "3 Marks",
+        q: "2. Predict the exact output of the following constructor chaining & inheritance code:\n`class Parent { Parent(String n) { System.out.println(\"Parent constructor: \" + n); } }`\n`class Child extends Parent { Child() { super(\"Tasniah\"); System.out.println(\"Child constructor\"); } }`\n`new Child();`",
+        qBn: "`new Child();` কল করলে উপরের কোডটির আউটপুট কী হবে?",
+        a: `<pre class="bg-slate-950 p-2.5 rounded-xl text-xs text-emerald-300 font-mono">Parent constructor: Tasniah
+Child constructor</pre>
+            <p class="text-xs mt-1">Because <code>super("Tasniah")</code> executes first inside <code>Child()</code>, initializing the parent class before printing <code>Child constructor</code>.</p>`,
+        aBn: "আগে প্যারেন্ট কনস্ট্রাক্টর প্রিন্ট হবে, তারপর চাইল্ড কনস্ট্রাক্টর প্রিন্ট হবে।"
+      },
+      {
+        category: "Find Error",
+        marks: "2 Marks",
+        q: "3. Identify all errors in the following code snippet:\n`abstract class Bike { abstract void run() { System.out.println(\"Running\"); } }`\n`Bike b = new Bike();`",
+        qBn: "উপরের কোডটিতে কয়টি ভুল আছে এবং কী কী?",
+        a: `<p class="mb-1 text-rose-400 font-bold">Two Compile-Time Errors:</p>
+            <ol class="list-decimal pl-5 text-sm space-y-1">
+              <li><code>abstract void run()</code> <b>cannot have a method body</b> <code>{ ... }</code>! It must end with a semicolon: <code>abstract void run();</code>.</li>
+              <li><code>Bike b = new Bike();</code> is illegal because an <b>abstract class cannot be instantiated</b> directly using <code>new</code>.</li>
+            </ol>`,
+        aBn: "(১) অ্যাবস্ট্রাক্ট মেথডের কোনো বডি থাকতে পারে না এবং (২) অ্যাবস্ট্রাক্ট ক্লাসের সরাসরি অবজেক্ট (`new Bike()`) তৈরি করা যায় না।"
+      },
+      {
+        category: "Coding / UML",
+        marks: "5 Marks",
+        q: "4. Write a Java program with two interfaces `Calculator` (`min`, `multi`, `div` and constants `x=5, y=6`) and `Summation` (`sum`). Implement both in `InterfaceImplementedClass` and test with user input (`Interface.pdf` Slides 19–23).",
+        qBn: "`Interface.pdf`-এর শেষ উদাহরণ (স্লাইড ১৯-২৩): `Calculator` এবং `Summation` নামের দুটি ইন্টারফেস একটি ক্লাসে ইমপ্লিমেন্ট করে যোগ, বিয়োগ, গুণ ও ভাগ করে দেখাও।",
+        a: `<pre class="bg-slate-950 p-3 rounded-xl text-xs text-emerald-300 font-mono">import java.util.Scanner;
+
+interface Calculator {
+    final static double x = 5, y = 6;
+    abstract double min(double e, double z);
+    abstract double multi(double e, double z);
+    abstract double div(double e, double z);
+}
+
+interface Summation {
+    double sum(double a, double b);
+}
+
+class InterfaceImplementedClass implements Calculator, Summation {
+    double x, y;
+    void hello() {
+        System.out.println("This is Interface Implemented Class");
+    }
+    public double sum(double a, double b) { return a + b; }
+    public double multi(double a, double b) { return a * b; }
+    public double min(double a, double b) { return a - b; }
+    public double div(double a, double b) { return a / b; }
+}
+
+public class InterfaceExam {
+    public static void main(String[] args) {
+        InterfaceImplementedClass c = new InterfaceImplementedClass();
+        Scanner s = new Scanner(System.in);
+        double num1 = s.nextDouble();
+        double num2 = s.nextDouble();
+        c.hello();
+        System.out.println("Summation: " + c.sum(num1, num2));
+        System.out.println("Multiplication: " + c.multi(num1, num2));
+        System.out.println("Minus: " + c.min(num1, num2));
+        System.out.println("Division: " + c.div(num1, num2));
+    }
+}</pre>`,
+        aBn: "`Interface.pdf`-এর ১৯ থেকে ২৩ নং স্লাইডের ফাইনাল এক্সাম্পল।"
+      },
+      {
+        category: "Output Tracing",
+        marks: "3 Marks",
+        q: "5. What is the output of Java 8 Interface `default` and `static` methods (`Interface.pdf` Slides 17–18)?\n`interface A { void draw(); default void msg(){System.out.println(\"default method\");} static int cube(int x){return x*x*x;} }`\n`class B implements A { public void draw(){System.out.println(\"drawing rectangle\");} }`\n`A d = new B(); d.draw(); d.msg(); System.out.println(A.cube(3));`",
+        qBn: "`Interface.pdf`-এর ১৭ ও ১৮ নং স্লাইডের কোডটির আউটপুট কী হবে?",
+        a: `<pre class="bg-slate-950 p-2.5 rounded-xl text-xs text-emerald-300 font-mono">drawing rectangle
+default method
+27</pre>
+            <p class="text-xs mt-1">Notice how <code>d.msg()</code> calls the interface's <code>default</code> method via object reference, while <code>A.cube(3)</code> calls the interface's <code>static</code> method using the interface name <code>A</code>!</p>`,
+        aBn: "`default` মেথড অবজেক্ট দিয়ে (`d.msg()`) এবং `static` মেথড ইন্টারফেসের নাম দিয়ে (`A.cube(3)`) কল হয়।"
+      }
+    ];
+
+    // ============================================================================
+    // APPLICATION STATE & PERSISTENCE
+    // ============================================================================
+    let currentModuleIndex = 0;
+    let viewMode = "single"; // 'single' | 'all' | 'exam'
+    let showBangla = true;
+    let fontScaleIndex = 2; // 0: 15px, 1: 16.5px, 2: 18px (Default XL for phone), 3: 20px (XXL), 4: 22px (MAX)
+    const FONT_SCALES = [
+      { label: "SM", base: "15px", code: "13.5px" },
+      { label: "MD", base: "16.5px", code: "14.5px" },
+      { label: "XL", base: "18px", code: "15.5px" },
+      { label: "2XL", base: "20px", code: "17px" },
+      { label: "MAX", base: "22px", code: "18.5px" }
+    ];
+    let completedModules = {};
+    let openAnswers = {}; // key -> boolean
+    let searchQuery = "";
+    let examCategoryFilter = "ALL";
+
+    try {
+      const saved = localStorage.getItem("kh_java_midterm_completed");
+      if (saved) completedModules = JSON.parse(saved);
+    } catch (e) {}
+
+    function saveCompleted() {
+      try {
+        localStorage.setItem("kh_java_midterm_completed", JSON.stringify(completedModules));
+      } catch (e) {}
+    }
+
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    // Simple Java syntax highlighter for clean readability
+    function highlightJava(rawCode) {
+      let html = escapeHtml(rawCode);
+      // Comments
+      html = html.replace(/(\/\/[^\n]*)/g, '<span class="text-slate-400 italic">$1</span>');
+      // Strings
+      html = html.replace(/(".*?")/g, '<span class="text-amber-300">$1</span>');
+      // Annotations
+      html = html.replace(/(@\w+)/g, '<span class="text-pink-400 font-semibold">$1</span>');
+      // Keywords
+      const kw = /\b(abstract|class|interface|extends|implements|public|private|protected|default|static|final|void|int|double|float|long|char|boolean|new|return|this|super|if|else|for|while|do|import|package)\b/g;
+      html = html.replace(kw, '<span class="text-indigo-300 font-semibold">$1</span>');
+      return html;
+    }
+
+    // ============================================================================
+    // RENDER FUNCTIONS
+    // ============================================================================
+    function applyFontScale() {
+      const scale = FONT_SCALES[fontScaleIndex];
+      document.documentElement.style.setProperty("--base-font", scale.base);
+      document.documentElement.style.setProperty("--code-font", scale.code);
+      document.getElementById("fontLabel").textContent = scale.label;
+    }
+
+    function updateProgressUI() {
+      const total = MODULES.length;
+      const done = MODULES.filter(m => completedModules[m.id]).length;
+      const pct = Math.round((done / total) * 100);
+      document.getElementById("progressText").textContent = `${done} / ${total} Modules (${pct}%)`;
+      document.getElementById("progressBar").style.width = `${pct}%`;
+    }
+
+    function renderNavigation() {
+      const topPills = document.getElementById("topTopicPills");
+      const sideNav = document.getElementById("sidebarNav");
+
+      topPills.innerHTML = MODULES.map((m, idx) => {
+        const isActive = viewMode === "single" && idx === currentModuleIndex;
+        const isDone = !!completedModules[m.id];
+        return `
+          <button type="button" data-idx="${idx}" class="top-pill-btn px-3 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1.5 ${
+            isActive
+              ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
+              : "bg-slate-800/90 text-slate-300 hover:bg-slate-700"
+          }">
+            <span>${isDone ? "✅" : m.number}</span>
+            <span>${m.shortTitle}</span>
+          </button>
+        `;
+      }).join("") + `
+        <button type="button" id="topExamPillBtn" class="px-3 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1 ${
+          viewMode === "exam" ? "bg-amber-500 text-slate-950" : "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+        }">
+          🏆 30/30 Q&A Bank
+        </button>
+      `;
+
+      sideNav.innerHTML = MODULES.map((m, idx) => {
+        const isActive = viewMode === "single" && idx === currentModuleIndex;
+        const isDone = !!completedModules[m.id];
+        return `
+          <button type="button" data-idx="${idx}" class="side-nav-btn w-full text-left px-3.5 py-2.5 rounded-xl transition flex items-center justify-between gap-2 border ${
+            isActive
+              ? "bg-indigo-600/25 border-indigo-500 text-white font-bold shadow"
+              : "bg-slate-900/70 border-slate-800/80 text-slate-300 hover:bg-slate-800/80"
+          }">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-extrabold shrink-0 ${
+                isDone ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" : "bg-slate-800 text-indigo-300"
+              }">${isDone ? "✓" : m.number}</span>
+              <span class="truncate text-xs sm:text-sm">${m.shortTitle}</span>
+            </div>
+            <span class="text-[11px] text-slate-400 shrink-0">${m.questions.length} Qs</span>
+          </button>
+        `;
+      }).join("");
+
+      // Attach listeners
+      document.querySelectorAll(".top-pill-btn, .side-nav-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          currentModuleIndex = parseInt(btn.getAttribute("data-idx"), 10);
+          viewMode = "single";
+          updateViewModeButtons();
+          closeMobileDrawer();
+          renderAll();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+
+      const topExamBtn = document.getElementById("topExamPillBtn");
+      if (topExamBtn) {
+        topExamBtn.addEventListener("click", () => {
+          viewMode = "exam";
+          updateViewModeButtons();
+          renderAll();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+    }
+
+    function renderModuleCard(mod, idx) {
+      const isDone = !!completedModules[mod.id];
+
+      // Filter check if search is active
+      if (searchQuery.trim() !== "") {
+        const q = searchQuery.toLowerCase();
+        const blob = JSON.stringify(mod).toLowerCase();
+        if (!blob.includes(q)) return "";
+      }
+
+      const theoryHtml = mod.theorySections.map(sec => `
+        <div class="p-4 sm:p-6 rounded-2xl bg-slate-900/95 border border-slate-800 space-y-3">
+          <h4 class="text-lg sm:text-xl font-extrabold text-indigo-300">${sec.heading}</h4>
+          <p class="text-slate-200">${sec.en}</p>
+          ${showBangla && sec.bn ? `
+            <div class="p-3.5 rounded-xl bg-indigo-950/40 border-l-4 border-indigo-400 text-indigo-100 bangla-text">
+              <span class="font-bold text-amber-300">🇧🇩 সহজ বাংলা ব্যাখ্যা:</span> ${sec.bn}
+            </div>
+          ` : ""}
+          ${sec.diagramHtml ? sec.diagramHtml : ""}
+          ${sec.bullets ? `
+            <ul class="space-y-2 pt-1 text-slate-200 bangla-text">
+              ${sec.bullets.map(b => `<li class="flex items-start gap-2"><span class="text-indigo-400 font-bold mt-1">▸</span><span>${b}</span></li>`).join("")}
+            </ul>
+          ` : ""}
+        </div>
+      `).join("");
+
+      const examplesHtml = mod.examples.map((ex, exIdx) => {
+        const codeId = `${mod.id}-code-${exIdx}`;
+        return `
+          <div class="rounded-2xl bg-slate-900 border border-emerald-500/30 overflow-hidden shadow-lg">
+            <div class="px-4 sm:px-6 py-3 bg-slate-950 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-500/30">Java Code</span>
+                <h4 class="font-bold text-white text-sm sm:text-base">${ex.title}</h4>
+              </div>
+              <button type="button" data-copy-target="${codeId}" class="copy-code-btn px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-indigo-300 border border-slate-700 transition">
+                📋 Copy Code
+              </button>
+            </div>
+            <div class="p-4 sm:p-5 bg-slate-950/90 overflow-x-auto">
+              <pre id="${codeId}" class="code-block text-slate-100" data-raw="${encodeURIComponent(ex.code)}">${highlightJava(ex.code)}</pre>
+            </div>
+            <div class="p-4 sm:p-5 bg-slate-900 border-t border-slate-800 space-y-3">
+              <div class="p-3 rounded-xl bg-black/60 border border-slate-800">
+                <div class="text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">▶ Console Output:</div>
+                <pre class="text-xs sm:text-sm font-mono text-emerald-300 whitespace-pre-wrap">${escapeHtml(ex.output)}</pre>
+              </div>
+              <p class="text-slate-200 text-sm sm:text-base"><b>How it works:</b> ${ex.explanationEn}</p>
+              ${showBangla ? `
+                <div class="p-3 rounded-xl bg-emerald-950/30 border-l-4 border-emerald-400 text-emerald-100 bangla-text text-sm sm:text-base">
+                  <b>💡 বাংলায় কোডটির কাজ:</b> ${ex.explanationBn}
+                </div>
+              ` : ""}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const questionsHtml = mod.questions.map((qItem, qIdx) => {
+        const qKey = `${mod.id}-q-${qIdx}`;
+        const isOpen = !!openAnswers[qKey];
+        return `
+          <div class="rounded-2xl bg-slate-900/95 border ${isOpen ? "border-amber-500/60" : "border-slate-800"} overflow-hidden transition">
+            <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="space-y-1.5">
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  ❓ ${qItem.type}
+                </span>
+                <h5 class="font-bold text-white whitespace-pre-line">${escapeHtml(qItem.q)}</h5>
+                ${showBangla && qItem.qBn ? `<p class="text-indigo-200 text-sm bangla-text">${escapeHtml(qItem.qBn)}</p>` : ""}
+              </div>
+              <button type="button" data-qkey="${qKey}" class="toggle-answer-btn shrink-0 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition ${
+                isOpen
+                  ? "bg-rose-500/20 text-rose-300 border border-rose-500/40"
+                  : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/20"
+              }">
+                ${isOpen ? "🙈 Hide Answer" : "👁️ Click for Answer / উত্তর দেখুন"}
+              </button>
+            </div>
+            <div id="ans-${qKey}" class="${isOpen ? "block" : "hidden"} px-4 sm:px-5 pb-5 pt-3 bg-slate-950/80 border-t border-slate-800/90 space-y-2.5 animate-fade">
+              <div class="text-slate-100">${qItem.a}</div>
+              ${showBangla && qItem.aBn ? `
+                <div class="p-3 rounded-xl bg-amber-500/10 border-l-4 border-amber-400 text-amber-200 bangla-text text-sm">
+                  <b>🎯 পরীক্ষার টিপস:</b> ${qItem.aBn}
+                </div>
+              ` : ""}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      return `
+        <article id="${mod.id}" class="space-y-6 pb-8 border-b border-slate-800/80">
+          <!-- Module Header -->
+          <div class="p-5 sm:p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950/70 border border-indigo-500/30 shadow-lg space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="px-3 py-1 rounded-xl bg-indigo-600 text-white font-extrabold text-xs">MODULE ${mod.number}</span>
+                <span class="px-3 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-xs">${mod.badge}</span>
+              </div>
+              <span class="text-xs text-slate-400">📄 Sources: ${mod.sources}</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-white">${mod.title}</h3>
+
+            <!-- C++ to Java Bridge Box -->
+            <div class="p-3.5 rounded-2xl bg-purple-950/40 border border-purple-500/40 space-y-1.5">
+              <div class="text-xs font-extrabold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
+                <span>🔄</span> <span>${mod.cppBridge.title} (For Your C++ Background)</span>
+              </div>
+              <ul class="space-y-1 text-xs sm:text-sm text-purple-100">
+                ${mod.cppBridge.points.map(p => `<li>• ${p}</li>`).join("")}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Section 1: Theory & Visual Diagrams -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-2 px-1">
+              <span class="text-lg">📘</span>
+              <h4 class="font-extrabold text-base sm:text-lg uppercase tracking-wider text-indigo-300">Part 1: Complete Theory, Rules & Visual Diagrams</h4>
+            </div>
+            ${theoryHtml}
+          </div>
+
+          <!-- Section 2: Worked Examples & Classnote Task Code -->
+          <div class="space-y-4">
+            <div class="flex items-center gap-2 px-1">
+              <span class="text-lg">💻</span>
+              <h4 class="font-extrabold text-base sm:text-lg uppercase tracking-wider text-emerald-300">Part 2: Example Code & Classnote Lab Tasks (Explained Step-by-Step)</h4>
+            </div>
+            ${examplesHtml}
+          </div>
+
+          <!-- Section 3: Interactive Click-to-Reveal Exam Practice -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between gap-2 px-1">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🎯</span>
+                <h4 class="font-extrabold text-base sm:text-lg uppercase tracking-wider text-amber-300">Part 3: Click-to-Reveal Midterm Practice Questions (${mod.questions.length})</h4>
+              </div>
+            </div>
+            ${questionsHtml}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderExamBankView() {
+      // Combine all module questions + extra exam bank questions
+      const combined = [];
+      MODULES.forEach(m => {
+        m.questions.forEach((q, idx) => {
+          combined.push({
+            key: `${m.id}-q-${idx}`,
+            moduleTitle: `Module ${m.number}: ${m.shortTitle}`,
+            category: q.type.includes("Theory") ? "Theory" : (q.type.includes("Output") || q.type.includes("Tracing") ? "Output Tracing" : (q.type.includes("Error") ? "Find Error" : "Coding / UML")),
+            typeLabel: q.type,
+            q: q.q,
+            qBn: q.qBn,
+            a: q.a,
+            aBn: q.aBn
+          });
+        });
+      });
+      EXTRA_EXAM_QUESTIONS.forEach((eq, idx) => {
+        combined.push({
+          key: `extra-q-${idx}`,
+          moduleTitle: `Midterm 30/30 Special (${eq.marks})`,
+          category: eq.category,
+          typeLabel: `${eq.category} • ${eq.marks}`,
+          q: eq.q,
+          qBn: eq.qBn,
+          a: eq.a,
+          aBn: eq.aBn
+        });
+      });
+
+      const filtered = combined.filter(item => {
+        if (examCategoryFilter !== "ALL" && item.category !== examCategoryFilter) return false;
+        if (searchQuery.trim() !== "") {
+          const sq = searchQuery.toLowerCase();
+          return (item.q + " " + (item.qBn || "") + " " + item.a).toLowerCase().includes(sq);
+        }
+        return true;
+      });
+
+      const categories = ["ALL", "Theory", "Output Tracing", "Find Error", "Coding / UML"];
+
+      return `
+        <section class="space-y-5">
+          <div class="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-amber-950/60 via-slate-900 to-indigo-950/60 border border-amber-500/40 space-y-3">
+            <h3 class="text-xl sm:text-2xl font-extrabold text-amber-300">🏆 Complete Midterm 30/30 Interactive Question Bank (${filtered.length} Questions)</h3>
+            <p class="text-slate-300 text-sm bangla-text">
+              নিচের প্রতিটি প্রশ্ন নিজে আগে মনে মনে উত্তর দেওয়ার চেষ্টা করো, তারপর <b>"Click for Answer"</b> বাটনে ক্লিক করে মিলিয়ে নাও!
+            </p>
+            <div class="flex flex-wrap gap-2 pt-1">
+              ${categories.map(cat => `
+                <button type="button" data-exam-cat="${cat}" class="exam-cat-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition ${
+                  examCategoryFilter === cat
+                    ? "bg-amber-500 text-slate-950 shadow"
+                    : "bg-slate-800 text-slate-300 hover:bg-slate-700"
+                }">
+                  ${cat === "ALL" ? "All Categories" : cat}
+                </button>
+              `).join("")}
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            ${filtered.map(item => {
+              const isOpen = !!openAnswers[item.key];
+              return `
+                <div class="rounded-2xl bg-slate-900 border ${isOpen ? "border-amber-500/60" : "border-slate-800"} overflow-hidden">
+                  <div class="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="space-y-1.5">
+                      <div class="flex items-center gap-2 flex-wrap">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">${item.moduleTitle}</span>
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">${item.typeLabel}</span>
+                      </div>
+                      <h5 class="font-bold text-white whitespace-pre-line">${escapeHtml(item.q)}</h5>
+                      ${showBangla && item.qBn ? `<p class="text-indigo-200 text-sm bangla-text">${escapeHtml(item.qBn)}</p>` : ""}
+                    </div>
+                    <button type="button" data-qkey="${item.key}" class="toggle-answer-btn shrink-0 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition ${
+                      isOpen
+                        ? "bg-rose-500/20 text-rose-300 border border-rose-500/40"
+                        : "bg-indigo-600 hover:bg-indigo-500 text-white"
+                    }">
+                      ${isOpen ? "🙈 Hide Answer" : "👁️ Click for Answer / উত্তর দেখুন"}
+                    </button>
+                  </div>
+                  <div id="ans-${item.key}" class="${isOpen ? "block" : "hidden"} px-4 sm:px-5 pb-5 pt-3 bg-slate-950/90 border-t border-slate-800 space-y-2.5 animate-fade">
+                    <div class="text-slate-100">${item.a}</div>
+                    ${showBangla && item.aBn ? `
+                      <div class="p-3 rounded-xl bg-amber-500/10 border-l-4 border-amber-400 text-amber-200 bangla-text text-sm">
+                        <b>🎯 পরীক্ষার টিপস:</b> ${item.aBn}
+                      </div>
+                    ` : ""}
+                  </div>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        </section>
+      `;
+    }
+
+    function renderContent() {
+      const container = document.getElementById("contentContainer");
+      const footerNav = document.getElementById("chapterFooterNav");
+
+      if (searchQuery.trim() !== "" && viewMode === "single") {
+        // When searching, show all matching modules so user doesn't miss anything
+        const html = MODULES.map((m, i) => renderModuleCard(m, i)).filter(Boolean).join("");
+        container.innerHTML = html || `<div class="p-8 text-center rounded-2xl bg-slate-900 border border-slate-800 text-slate-400">No topics matched "${escapeHtml(searchQuery)}". Try searching for JVM, super, this, interface, diamond, or array.</div>`;
+        footerNav.classList.add("hidden");
+      } else if (viewMode === "single") {
+        const mod = MODULES[currentModuleIndex];
+        container.innerHTML = renderModuleCard(mod, currentModuleIndex);
+        footerNav.classList.remove("hidden");
+
+        // Update footer buttons
+        const prevBtn = document.getElementById("prevChapterBtn");
+        const nextBtn = document.getElementById("nextChapterBtn");
+        const compBtn = document.getElementById("toggleCompleteBtn");
+
+        prevBtn.disabled = currentModuleIndex === 0;
+        prevBtn.classList.toggle("opacity-40", currentModuleIndex === 0);
+
+        nextBtn.textContent = currentModuleIndex === MODULES.length - 1 ? "🏆 Go to 30/30 Exam Bank →" : `Next: ${MODULES[currentModuleIndex + 1].shortTitle} →`;
+
+        const isDone = !!completedModules[mod.id];
+        compBtn.textContent = isDone ? "✅ Completed (Click to Undo)" : "✓ Mark Topic Completed";
+      } else if (viewMode === "all") {
+        container.innerHTML = MODULES.map((m, i) => renderModuleCard(m, i)).join("");
+        footerNav.classList.add("hidden");
+      } else if (viewMode === "exam") {
+        container.innerHTML = renderExamBankView();
+        footerNav.classList.add("hidden");
+      }
+
+      // Bind interactive buttons inside rendered content
+      document.querySelectorAll(".toggle-answer-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const key = btn.getAttribute("data-qkey");
+          openAnswers[key] = !openAnswers[key];
+          renderContent();
+        });
+      });
+
+      document.querySelectorAll(".copy-code-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const targetId = btn.getAttribute("data-copy-target");
+          const pre = document.getElementById(targetId);
+          if (!pre) return;
+          const raw = decodeURIComponent(pre.getAttribute("data-raw") || "");
+          copyTextToClipboard(raw);
+        });
+      });
+
+      document.querySelectorAll(".exam-cat-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          examCategoryFilter = btn.getAttribute("data-exam-cat");
+          renderContent();
+        });
+      });
+    }
+
+    function copyTextToClipboard(text) {
+      const toast = document.getElementById("toastBox");
+      const showToast = () => {
+        toast.classList.remove("hidden");
+        setTimeout(() => toast.classList.add("hidden"), 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showToast).catch(() => fallbackCopy(text, showToast));
+      } else {
+        fallbackCopy(text, showToast);
+      }
+    }
+
+    function fallbackCopy(text, cb) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      cb();
+    }
+
+    function updateViewModeButtons() {
+      document.querySelectorAll(".view-mode-btn").forEach(btn => {
+        const mode = btn.getAttribute("data-view");
+        if (mode === viewMode) {
+          btn.className = "view-mode-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-indigo-600 text-white shadow";
+        } else {
+          btn.className = "view-mode-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-300 hover:bg-slate-800";
+        }
+      });
+    }
+
+    function openMobileDrawer() {
+      document.getElementById("sidebarDrawer").classList.remove("-translate-x-full");
+      document.getElementById("drawerBackdrop").classList.remove("hidden");
+    }
+
+    function closeMobileDrawer() {
+      document.getElementById("sidebarDrawer").classList.add("-translate-x-full");
+      document.getElementById("drawerBackdrop").classList.add("hidden");
+    }
+
+    function renderAll() {
+      applyFontScale();
+      updateProgressUI();
+      renderNavigation();
+      renderContent();
+    }
+
+    // ============================================================================
+    // INITIALIZE EVENT LISTENERS
+    // ============================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      // Mobile drawer
+      document.getElementById("mobileMenuBtn").addEventListener("click", openMobileDrawer);
+      document.getElementById("closeDrawerBtn").addEventListener("click", closeMobileDrawer);
+      document.getElementById("drawerBackdrop").addEventListener("click", closeMobileDrawer);
+
+      // Font size buttons
+      document.getElementById("fontDecBtn").addEventListener("click", () => {
+        if (fontScaleIndex > 0) {
+          fontScaleIndex--;
+          applyFontScale();
+        }
+      });
+      document.getElementById("fontIncBtn").addEventListener("click", () => {
+        if (fontScaleIndex < FONT_SCALES.length - 1) {
+          fontScaleIndex++;
+          applyFontScale();
+        }
+      });
+
+      // Bangla toggle
+      document.getElementById("langToggleBtn").addEventListener("click", () => {
+        showBangla = !showBangla;
+        document.getElementById("langToggleBtn").textContent = showBangla ? "🇧🇩 বাংলা: ON" : "🇧🇩 বাংলা: OFF";
+        renderContent();
+      });
+
+      // High-contrast / Light-Dark toggle
+      let highContrastLight = false;
+      document.getElementById("themeToggleBtn").addEventListener("click", () => {
+        highContrastLight = !highContrastLight;
+        document.body.classList.toggle("invert", highContrastLight);
+        document.body.classList.toggle("hue-rotate-180", highContrastLight);
+        document.getElementById("themeIcon").textContent = highContrastLight ? "🌙" : "☀️";
+      });
+
+      // Search input
+      const searchInput = document.getElementById("globalSearchInput");
+      const clearBtn = document.getElementById("clearSearchBtn");
+      searchInput.addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        clearBtn.classList.toggle("hidden", searchQuery === "");
+        renderContent();
+      });
+      clearBtn.addEventListener("click", () => {
+        searchQuery = "";
+        searchInput.value = "";
+        clearBtn.classList.add("hidden");
+        renderContent();
+      });
+
+      // View mode buttons
+      document.querySelectorAll(".view-mode-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          viewMode = btn.getAttribute("data-view");
+          updateViewModeButtons();
+          renderAll();
+        });
+      });
+
+      // Hero buttons
+      document.getElementById("jumpToQuizBtn").addEventListener("click", () => {
+        viewMode = "exam";
+        updateViewModeButtons();
+        renderAll();
+      });
+
+      let allExpanded = false;
+      document.getElementById("expandAllAnswersBtn").addEventListener("click", () => {
+        allExpanded = !allExpanded;
+        MODULES.forEach(m => {
+          m.questions.forEach((_, idx) => {
+            openAnswers[`${m.id}-q-${idx}`] = allExpanded;
+          });
+        });
+        EXTRA_EXAM_QUESTIONS.forEach((_, idx) => {
+          openAnswers[`extra-q-${idx}`] = allExpanded;
+        });
+        document.getElementById("expandAllAnswersBtn").textContent = allExpanded ? "🙈 Hide All Answers" : "👁️ Show All Answers in View";
+        renderContent();
+      });
+
+      // Footer navigation
+      document.getElementById("prevChapterBtn").addEventListener("click", () => {
+        if (currentModuleIndex > 0) {
+          currentModuleIndex--;
+          renderAll();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+      document.getElementById("nextChapterBtn").addEventListener("click", () => {
+        if (currentModuleIndex < MODULES.length - 1) {
+          currentModuleIndex++;
+          renderAll();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          viewMode = "exam";
+          updateViewModeButtons();
+          renderAll();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      });
+      document.getElementById("toggleCompleteBtn").addEventListener("click", () => {
+        const mod = MODULES[currentModuleIndex];
+        completedModules[mod.id] = !completedModules[mod.id];
+        saveCompleted();
+        renderAll();
+      });
+
+      document.getElementById("resetProgressBtn").addEventListener("click", () => {
+        completedModules = {};
+        saveCompleted();
+        renderAll();
+      });
+
+      renderAll();
+    });
+  </script>
+</body>
+</html>

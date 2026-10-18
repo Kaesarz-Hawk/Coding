@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="bn" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java OOP Midterm Revision Book | 30/30 Target</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Hind Siliguri for ultra-clean English & Bangla reading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Hind Siliguri', 'sans-serif'],
+            bangla: ['Hind Siliguri', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
+            },
+            accent: {
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              rose: '#f43f5e',
+              purple: '#8b5cf6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Mobile font scale system */
+    html {
+      font-size: 17px; /* Default larger base for phone readability */
+    }
+    html.text-sm-mode { font-size: 15px; }
+    html.text-base-mode { font-size: 17px; }
+    html.text-lg-mode { font-size: 19px; }
+    html.text-xl-mode { font-size: 21px; }
+
+    /* Custom Code Styling */
+    pre code {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      line-height: 1.55;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .dark .custom-scroll::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 font-sans transition-colors duration-200 antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- Top Navigation Header -->
+  <header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Mobile Toggle -->
+      <div class="flex items-center gap-3">
+        <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none" aria-label="Open Navigation">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+            <i class="fa-brands fa-java text-2xl"></i>
+          </div>
+          <div>
+            <h1 class="font-extrabold text-lg sm:text-xl tracking-tight leading-none text-slate-900 dark:text-white">Java OOP <span class="text-brand-600 dark:text-brand-400">Midterm Book</span></h1>
+            <p class="text-xs text-slate-500 dark:text-slate-400 font-bangla mt-0.5">30/30 মাস্টার রিভিশন নোটস (By KH)</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Search Bar -->
+      <div class="hidden md:flex flex-1 max-w-md mx-4 relative">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+        <input type="text" id="searchInput" placeholder="Search topic, keyword (e.g. super, dispatch, diamond)..." 
+               class="w-full pl-10 pr-4 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/70 dark:bg-slate-800/70 focus:bg-white dark:focus:bg-slate-900 focus:ring-2 focus:ring-brand-500 focus:outline-none transition-all">
+      </div>
+
+      <!-- Utilities: Font Scale, Dark Mode, Quick Jump -->
+      <div class="flex items-center gap-2">
+        <!-- Font Scaler for Mobile -->
+        <div class="flex items-center bg-slate-100 dark:bg-slate-800 rounded-xl p-1 border border-slate-200 dark:border-slate-700">
+          <button onclick="changeFontSize(-1)" title="Smaller font" class="w-7 h-7 flex items-center justify-center text-xs font-bold rounded-lg hover:bg-white dark:hover:bg-slate-700 transition">A-</button>
+          <button onclick="resetFontSize()" title="Reset font" class="w-7 h-7 flex items-center justify-center text-xs font-bold rounded-lg hover:bg-white dark:hover:bg-slate-700 transition">A</button>
+          <button onclick="changeFontSize(1)" title="Larger font (Mobile Friendly)" class="w-7 h-7 flex items-center justify-center text-sm font-bold text-brand-600 dark:text-brand-400 rounded-lg hover:bg-white dark:hover:bg-slate-700 transition">A+</button>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button id="themeToggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 border border-slate-200 dark:border-slate-700 transition" aria-label="Toggle Theme">
+          <i class="fa-solid fa-moon dark:hidden"></i>
+          <i class="fa-solid fa-sun hidden dark:inline"></i>
+        </button>
+
+        <a href="#exam-practice" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-sm hover:opacity-95 transition">
+          <i class="fa-solid fa-fire text-amber-300"></i> Exam Q&A
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Mobile Floating Search (Visible only on small screens) -->
+  <div class="md:hidden px-4 py-2.5 bg-slate-100/90 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="relative">
+      <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+      <input type="text" id="mobileSearchInput" placeholder="টপিক বা প্রশ্ন খুঁজুন..." 
+             class="w-full pl-9 pr-3 py-1.5 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div class="flex flex-col lg:flex-row gap-8">
+
+      <!-- Sidebar Navigation (Desktop Fixed / Mobile Drawer) -->
+      <aside id="sidebarDrawer" class="fixed inset-y-0 left-0 z-40 w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-5 transform -translate-x-full lg:translate-x-0 lg:static lg:w-72 lg:p-0 lg:bg-transparent lg:border-none transition-transform duration-300 ease-in-out flex flex-col justify-between shrink-0">
+        
+        <div class="space-y-4">
+          <div class="flex items-center justify-between lg:hidden pb-4 border-b border-slate-200 dark:border-slate-800">
+            <span class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-book-bookmark text-brand-600"></i> সিলেবাস টপিক লিস্ট
+            </span>
+            <button id="closeDrawerBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white">
+              <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+          </div>
+
+          <div class="bg-gradient-to-r from-blue-900 to-indigo-950 text-white p-4 rounded-2xl shadow-sm mb-4">
+            <div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-blue-300">
+              <span>Midterm Target</span>
+              <span class="bg-blue-600/50 px-2 py-0.5 rounded-md border border-blue-400/30">30 / 30</span>
+            </div>
+            <p class="text-sm font-bangla mt-1 font-medium">প্রতিটি টপিকের থিওরি, কোড, বাংলা সামারি ও সম্ভাব্য পরীক্ষার প্রশ্ন একসাথে!</p>
+          </div>
+
+          <nav class="space-y-1 font-medium text-sm custom-scroll overflow-y-auto max-h-[calc(100vh-250px)] lg:max-h-[calc(100vh-160px)] pr-1">
+            <a href="#mod-foundations" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-microchip w-5 text-center text-slate-400"></i>
+              <span>1. Java Architecture & JVM</span>
+            </a>
+            <a href="#mod-syntax-scanner" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-terminal w-5 text-center text-slate-400"></i>
+              <span>2. Program Structure & Scanner</span>
+            </a>
+            <a href="#mod-class-object" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-cubes w-5 text-center text-slate-400"></i>
+              <span>3. Class, Object & Memory</span>
+            </a>
+            <a href="#mod-garbage-collection" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-trash-can w-5 text-center text-slate-400"></i>
+              <span>4. Garbage Collection</span>
+            </a>
+            <a href="#mod-constructors" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-wrench w-5 text-center text-slate-400"></i>
+              <span>5. Constructors & <code class="text-xs bg-slate-200 dark:bg-slate-800 px-1 rounded">this</code></span>
+            </a>
+            <a href="#mod-encapsulation" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-shield-halved w-5 text-center text-slate-400"></i>
+              <span>6. Encapsulation & Modifiers</span>
+            </a>
+            <a href="#mod-static-passing" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-share-nodes w-5 text-center text-slate-400"></i>
+              <span>7. Static & Object Passing</span>
+            </a>
+            <a href="#mod-inheritance" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-sitemap w-5 text-center text-slate-400"></i>
+              <span>8. Inheritance & Diamond Issue</span>
+            </a>
+            <a href="#mod-super-keyword" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-arrow-up-right-dots w-5 text-center text-slate-400"></i>
+              <span>9. The <code class="text-xs bg-slate-200 dark:bg-slate-800 px-1 rounded">super</code> Keyword (3 Uses)</span>
+            </a>
+            <a href="#mod-polymorphism" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-shapes w-5 text-center text-slate-400"></i>
+              <span>10. Dynamic Method Dispatch</span>
+            </a>
+            <a href="#mod-abstraction" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-ghost w-5 text-center text-slate-400"></i>
+              <span>11. Abstract Classes</span>
+            </a>
+            <a href="#mod-interface" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-plug w-5 text-center text-slate-400"></i>
+              <span>12. Interfaces & Multiple Inh.</span>
+            </a>
+            <a href="#mod-arrays-inner" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-brand-50 hover:text-brand-600 dark:hover:bg-slate-800 transition">
+              <i class="fa-solid fa-layer-group w-5 text-center text-slate-400"></i>
+              <span>13. Array of Objects & Inner Class</span>
+            </a>
+            
+            <div class="pt-3 border-t border-slate-200 dark:border-slate-800 mt-2">
+              <a href="#exam-practice" class="flex items-center justify-between px-3 py-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 font-bold hover:bg-amber-100 dark:hover:bg-amber-900/40 transition">
+                <span class="flex items-center gap-2">
+                  <i class="fa-solid fa-pen-to-square text-amber-600"></i>
+                  <span>🎯 Exam Hall Q&A</span>
+                </span>
+                <span class="text-xs bg-amber-200 dark:bg-amber-800 px-2 py-0.5 rounded-full">Interactive</span>
+              </a>
+            </div>
+          </nav>
+        </div>
+
+        <div class="pt-4 text-xs text-slate-400 dark:text-slate-500 font-bangla border-t border-slate-200 dark:border-slate-800">
+          Prepared for CSE Midterm 2026. Made with ❤️ by KH.
+        </div>
+      </aside>
+
+      <!-- Backdrop for mobile drawer -->
+      <div id="drawerBackdrop" class="fixed inset-0 bg-black/40 z-30 hidden lg:hidden"></div>
+
+      <!-- Main Content Area -->
+      <main class="flex-1 min-w-0 space-y-12 pb-24">
+
+        <!-- Banner / Hero Summary -->
+        <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white p-6 sm:p-8 shadow-xl border border-indigo-900/50">
+          <div class="relative z-10 max-w-2xl">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/20 text-brand-300 border border-brand-400/30 mb-3">
+              <i class="fa-solid fa-star text-amber-400"></i> 100% Comprehensive Midterm Kit
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Java OOP Revision Master Book</h2>
+            <p class="mt-2 text-slate-300 text-sm sm:text-base font-bangla leading-relaxed">
+              ক্লাসনোট ও স্লাইডের প্রতিটি টপিক একদম গোড়া থেকে ক্রিস্টাল ক্লিয়ার করে সাজানো হয়েছে। প্রতিটি টপিকের সাথে <strong>সহজ বাংলা ব্যাখ্যা</strong>, <strong>প্র্যাক্টিক্যাল কোড</strong>, এবং <strong>পরীক্ষার সম্ভাব্য প্রশ্ন ও ক্লিক করলেই উত্তর</strong> যুক্ত আছে।
+            </p>
+            <div class="mt-5 flex flex-wrap items-center gap-3">
+              <a href="#exam-practice" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+                <i class="fa-solid fa-circle-question"></i> সরাসরি প্রশ্ন ও উত্তর প্র্যাকটিস
+              </a>
+              <a href="#mod-foundations" class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium text-sm backdrop-blur transition">
+                টপিক ১ থেকে শুরু করুন
+              </a>
+            </div>
+          </div>
+          <div class="absolute -right-8 -bottom-10 opacity-10 text-white text-[180px] pointer-events-none font-bold">
+            JAVA
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 1: JAVA FOUNDATIONS & ARCHITECTURE -->
+        <!-- ========================================================================= -->
+        <section id="mod-foundations" class="topic-section space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">01</span>
+              Java Architecture & Platform Independence
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">Must For Exam</span>
+          </div>
+
+          <!-- Bangla Concept Card -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/40">
+            <h4 class="font-bold text-amber-900 dark:text-amber-300 font-bangla flex items-center gap-2">
+              <i class="fa-solid fa-lightbulb text-amber-500"></i> সহজ বাংলা সামারি (Concept Clarification):
+            </h4>
+            <p class="text-sm font-bangla text-amber-950 dark:text-amber-200/90 mt-1.5 leading-relaxed">
+              জাভাকে বলা হয় <strong>Platform Independent ("Write Once, Run Anywhere - WORA")</strong>। কারণ <code class="bg-amber-100 dark:bg-amber-900/60 px-1 rounded">javac</code> কম্পাইলার জাভা কোডকে কোনো নির্দিষ্ট মেশিনের মেশিন কোডে রূপান্তর না করে <strong>Bytecode (.class file)</strong> এ রূপান্তর করে। এই বাইটকোড যেকোনো অপারেটিং সিস্টেমের (Windows, Mac, Linux) নিজস্ব <strong>JVM (Java Virtual Machine)</strong> চালাতে পারে।
+            </p>
+          </div>
+
+          <!-- Architecture Visual Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-1">1. JVM (Java Virtual Machine)</div>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-bangla">
+                একটি ভার্চুয়াল ইঞ্জিন যা বাইটকোডকে পড়ে মেশিনের নিজস্ব ইন্সট্রাকশনে রান করে। এটি সফটওয়্যার ভিত্তিক এবং <strong>Platform Dependent</strong> (উইন্ডোজের জন্য আলাদা JVM, ম্যাকের জন্য আলাদা)।
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-1">2. JRE (Java Runtime Env.)</div>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-bangla">
+                <strong>JRE = JVM + Class Libraries (যেমন: rt.jar) + Other Files</strong>। এটি জাভা কোড রান করার পরিবেশ দেয়। এটি ফিজিক্যালি এক্সিস্ট করে।
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+              <div class="font-bold text-brand-600 dark:text-brand-400 text-sm mb-1">3. JDK (Java Dev. Kit)</div>
+              <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-bangla">
+                <strong>JDK = JRE + Development Tools (javac, java, jar, javadoc)</strong>। জাভা সফটওয়্যার বানানোর পূর্ণ প্যাকেজ হলো JDK।
+              </p>
+            </div>
+          </div>
+
+          <!-- Compilation Flow Diagram Box -->
+          <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 font-mono text-xs overflow-x-auto text-slate-800 dark:text-slate-200">
+            <div class="text-center font-bold text-brand-600 dark:text-brand-400 mb-2 font-sans">[ Compilation & Execution Pipeline ]</div>
+<pre>
+ [ Source Code: Main.java ]
+             │
+             ▼ (JAVAC Compiler)
+   [ Bytecode: Main.class ]  <─── "Architecture Neutral / Portable"
+             │
+   ┌─────────┼─────────┐
+   ▼         ▼         ▼
+[JVM Win] [JVM Mac] [JVM Linux]
+   │         │         │
+[Hardware][Hardware][Hardware]
+</pre>
+          </div>
+
+          <!-- Java Key Features Summary Table -->
+          <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+            <table class="w-full text-left text-xs sm:text-sm">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold">
+                <tr>
+                  <th class="p-3">Feature Name</th>
+                  <th class="p-3">Technical Explanation</th>
+                  <th class="p-3">পরীক্ষায় লেখার পয়েন্ট (Bangla)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">Platform Independent</td>
+                  <td class="p-3">Bytecode runs on any platform via JVM.</td>
+                  <td class="p-3 font-bangla">বাইটকোড হওয়ার কারণে ওএস নির্বিশেষে চালানো যায়।</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">Robust</td>
+                  <td class="p-3">Strong memory management, automatic garbage collection, exception handling.</td>
+                  <td class="p-3 font-bangla">পয়েন্টার না থাকা, অটো গারবেজ কালেকশন ও রানটাইম চেকিং থাকায় এরর কমে যায়।</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">Secure</td>
+                  <td class="p-3">No explicit pointers, runs inside JVM sandbox, public-key encryption.</td>
+                  <td class="p-3 font-bangla">সরাসরি মেমোরি পয়েন্টার এক্সেস নেই, তাই ভাইরাস-ফ্রি।</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">High Performance</td>
+                  <td class="p-3">Just-In-Time (JIT) compiler compiles bytecode to native code on demand.</td>
+                  <td class="p-3 font-bangla">JIT কম্পাইলারের মাধ্যমে দ্রুত নেটিভ কোডে রান হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- In-Topic Quick Interactive Practice -->
+          <div class="mt-4 p-4 rounded-xl bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/40">
+            <div class="flex items-center justify-between cursor-pointer" onclick="toggleAnswer('qa-1')">
+              <span class="font-semibold text-sm text-blue-900 dark:text-blue-300 flex items-center gap-2">
+                <i class="fa-solid fa-circle-question text-brand-600"></i>
+                <span>Q1: Why is Java platform independent but JVM is platform dependent?</span>
+              </span>
+              <button class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-brand-600 text-white hover:bg-brand-700 transition">
+                <span id="qa-1-btn">Show Answer</span>
+              </button>
+            </div>
+            <div id="qa-1" class="hidden mt-3 pt-3 border-t border-blue-200/60 dark:border-blue-900/60 text-sm font-bangla text-slate-700 dark:text-slate-300 leading-relaxed">
+              <strong>উত্তর:</strong> জাভা সোর্স কোড কম্পাইল হয়ে তৈরি করে <code class="text-xs font-mono bg-white dark:bg-slate-800 px-1 py-0.5 rounded">.class</code> বাইটকোড—যা সব প্ল্যাটফর্মের জন্য হুবহু একই (Platform Independent)। কিন্তু উইন্ডোজ ও লিনাক্সের হার্ডওয়্যার আর্কিটেকচার ভিন্ন, তাই উইন্ডোজের জন্য তৈরিকৃত JVM সরাসরি লিনাক্সে চলতে পারে না। প্রতিটি ওএস-এর বাইটকোডকে নিজের মেশিনের ভাষায় অনুবাদের জন্য নিজস্ব কাস্টমাইজড JVM লাগে, তাই <strong>JVM হলো Platform Dependent</strong>।
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 2: PROGRAM STRUCTURE & SCANNER INPUT -->
+        <!-- ========================================================================= -->
+        <section id="mod-syntax-scanner" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">02</span>
+              Java Program Structure, Keywords & Scanner
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">Lab & Midterm</span>
+          </div>
+
+          <!-- Deep Breakdown of public static void main -->
+          <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+            <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+              <i class="fa-solid fa-code text-brand-600"></i>
+              Dissecting: <code class="text-brand-600 font-mono text-xs sm:text-sm">public static void main(String[] args)</code>
+            </div>
+            <ul class="text-xs sm:text-sm space-y-1.5 text-slate-600 dark:text-slate-300 font-bangla pl-2">
+              <li><strong class="font-mono text-slate-900 dark:text-white">public:</strong> এক্সেস মডিফায়ার; JVM যেন ক্লাসের বাহির থেকে যেকোনো সময় এই মেথড কল করতে পারে।</li>
+              <li><strong class="font-mono text-slate-900 dark:text-white">static:</strong> JVM যাতে ক্লাসের কোনো অবজেক্ট (Object) ইনস্ট্যানশিয়েট না করেই সরাসরি <code class="font-mono text-xs">ClassName.main()</code> কল করতে পারে।</li>
+              <li><strong class="font-mono text-slate-900 dark:text-white">void:</strong> মেথডটি সম্পন্ন হওয়ার পর কলারকে (JVM) কোনো ভ্যালু রিটার্ন করে না।</li>
+              <li><strong class="font-mono text-slate-900 dark:text-white">main:</strong> জাভা প্রোগ্রামের এন্ট্রি পয়েন্ট আইডেন্টিফায়ার যা JVM হার্ডকোডভাবে খুঁজে নেয়।</li>
+              <li><strong class="font-mono text-slate-900 dark:text-white">String[] args:</strong> কমান্ড লাইন আর্গুমেন্ট গ্রহণ করার জন্য স্ট্রিং অ্যারে।</li>
+            </ul>
+          </div>
+
+          <!-- Scanner & Input Methods Reference Table -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+              <span class="font-bold text-brand-600 dark:text-brand-400 font-mono">sc.nextInt()</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400 mt-0.5">পূর্ণসংখ্যা (Integer) ইনপুট নেওয়ার জন্য।</p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+              <span class="font-bold text-brand-600 dark:text-brand-400 font-mono">sc.nextDouble()</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400 mt-0.5">ভগ্নাংশযুক্ত সংখ্যা (Double) ইনপুট নেওয়ার জন্য।</p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+              <span class="font-bold text-brand-600 dark:text-brand-400 font-mono">sc.next()</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400 mt-0.5">স্পেস ছাড়া শুধু একটি সিঙ্গেল শব্দ ইনপুট নিতে।</p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+              <span class="font-bold text-brand-600 dark:text-brand-400 font-mono">sc.nextLine()</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400 mt-0.5">স্পেস সহ পুরো একটি বাক্য/লাইন ইনপুট নেওয়ার জন্য।</p>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 sm:col-span-2">
+              <span class="font-bold text-brand-600 dark:text-brand-400 font-mono">sc.next().charAt(0)</span>
+              <p class="font-bangla text-slate-600 dark:text-slate-400 mt-0.5"><strong>[ভেরি ইম্পর্ট্যান্ট ট্রিক]</strong> ক্যারেক্টার (char) ইনপুট নিতে কোনো সরাসরি <code class="font-mono">nextChar()</code> নেই; তাই প্রথম ইনপুটের ০তম ইনডেক্স ক্যারেক্টার নিতে এটি ব্যবহার করা হয়।</p>
+            </div>
+          </div>
+
+          <!-- Code Box -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400"><i class="fa-brands fa-java text-amber-500 mr-1.5"></i>DemoInput.java</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>import java.util.Scanner;
+
+public class DemoInput {
+    public static void main(String[] args) {
+        // Scanner অবজেক্ট তৈরি
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter your ID: ");
+        int id = input.nextInt();
+
+        System.out.print("Enter your Name: ");
+        input.nextLine(); // Clear buffer newline
+        String name = input.nextLine();
+
+        System.out.print("Enter first letter of section (Char): ");
+        char sec = input.next().charAt(0);
+
+        System.out.println("\n--- Student Details ---");
+        System.out.println("ID: " + id + " | Name: " + name + " | Sec: " + sec);
+        input.close();
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 3: CLASSES, OBJECTS & MEMORY MODEL -->
+        <!-- ========================================================================= -->
+        <section id="mod-class-object" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">03</span>
+              Class, Object, and Memory Architecture
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Core OOP</span>
+          </div>
+
+          <!-- Theory Box with Bangla Breakdown -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-compass-drafting text-brand-600"></i> Class (Blueprint / Template)
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-bangla mt-1.5 leading-relaxed">
+                ক্লাস হলো একটি লজিক্যাল ব্লু-প্রিন্ট বা নকশা। এটি নিজে মেমোরি দখল করে না। ক্লাসে দুটি প্রধান জিনিস থাকে:
+                <br>1. <strong>State (Fields / Instance Variables):</strong> অবজেক্টের তথ্য বা ডেটা ধারণ করে।
+                <br>2. <strong>Behavior (Methods):</strong> অবজেক্ট কী কী কাজ সম্পন্ন করতে পারবে তা ডিফাইন করে।
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-cube text-brand-600"></i> Object (Real Instance in Memory)
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-bangla mt-1.5 leading-relaxed">
+                অবজেক্ট হলো একটি ক্লাসের ফিজিক্যাল বাস্তবায়ন (Instance)। যখন <code class="font-mono text-xs bg-slate-100 dark:bg-slate-800 px-1 py-0.5 rounded">new</code> কি-ওয়ার্ড দিয়ে অবজেক্ট তৈরি হয়, তখনই <strong>Heap Memory</strong>-তে এর জন্য জায়গা বরাদ্দ করা হয়।
+              </p>
+            </div>
+          </div>
+
+          <!-- Primitive vs Reference Object Memory Concept -->
+          <div class="p-4 rounded-xl bg-slate-900 text-slate-200 border border-slate-800 font-mono text-xs overflow-x-auto">
+            <div class="text-amber-400 font-bold mb-2 font-sans text-sm">[ Primitive Variable vs Reference Variable Memory Diagram ]</div>
+<pre>
+1. Primitive: int x = 10;
+   [ Stack Memory: Variable 'x' সরাসরি মান ধারণ করে -> (10) ]
+
+2. Object Reference: Circle c1 = new Circle(5.0);
+   [ Stack Memory ]                          [ Heap Memory (Actual Object) ]
+   c1 (Reference Pointer: 0x4A1)  ───────>   ┌───────────────────────────────┐
+                                             │ radius: 5.0                   │
+                                             │ findArea() { ... }            │
+                                             └───────────────────────────────┘
+
+3. Reference Assignment: Circle c2 = c1;
+   c2 ও c1 উভয়ই এখন একই মেমোরি এড্রেস (0x4A1) নির্দেশ করবে!
+   যদি c2.radius পরিবর্তন করা হয়, তবে c1.radius ও স্বয়ংক্রিয়ভাবে পরিবর্তিত হবে!
+</pre>
+          </div>
+
+          <!-- Code Example: Student Class from Classnote -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400">StudentTest.java (From Handnote Page 4)</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>class Student {
+    // Instance variables (State)
+    String name;
+    int id;
+
+    // Instance method (Behavior)
+    void display() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Student ID  : " + id);
+    }
+}
+
+public class StudentTest {
+    public static void main(String[] args) {
+        // অবজেক্ট ক্রিয়েশন (Heap এ মেমোরি এলোকেট হচ্ছে)
+        Student s1 = new Student();
+        s1.name = "Sohan";
+        s1.id = 20255103;
+        s1.display();
+
+        // রেফারেন্স কপি এক্সপেরিমেন্ট
+        Student s2 = s1; // s2 এখন s1 এর একই মেমোরি অবজেক্টকে নির্দেশ করে
+        s2.name = "Resalat";
+        System.out.println("s1 Name after s2 change: " + s1.name); // Prints Resalat!
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 4: GARBAGE COLLECTION -->
+        <!-- ========================================================================= -->
+        <section id="mod-garbage-collection" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">04</span>
+              Garbage Collection in Java
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800">Tricky Theory</span>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-3">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla">
+              গারবেজ কালেকশন কী এবং কখন একটি অবজেক্ট গারবেজ হিসেবে গণ্য হয়?
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla leading-relaxed">
+              জাভাতে C++ এর মতো ডেভেলপারকে নিজে হাতে <code class="font-mono text-xs">free()</code> বা <code class="font-mono text-xs">delete</code> কল করতে হয় না। হিপ মেমোরিতে যদি কোনো অবজেক্টের কোনো বৈধ রেফারেন্স ভেরিয়েবল না থাকে (Unreachable Object), তবে JVM স্বয়ংক্রিয়ভাবে একটি ব্যাকগ্রাউন্ড ডিমন্ড থ্রেডের মাধ্যমে সেই মেমোরি রিলিজ করে দেয়। এটিই <strong>Automatic Garbage Collection</strong>।
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs">
+                <span class="font-bold text-rose-600 dark:text-rose-400">Way 1: By Reassigning Reference</span>
+                <p class="font-mono mt-1 text-slate-800 dark:text-slate-200">
+                  Circle c1 = new Circle();<br>
+                  Circle c2 = new Circle();<br>
+                  <strong>c1 = c2;</strong>
+                </p>
+                <p class="font-bangla text-slate-500 dark:text-slate-400 mt-1">c1 এর আগের প্রথম অবজেক্টটি আনরিচেবল হয়ে যায় এবং গারবেজ হয়।</p>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 text-xs">
+                <span class="font-bold text-rose-600 dark:text-rose-400">Way 2: By Nulling Reference</span>
+                <p class="font-mono mt-1 text-slate-800 dark:text-slate-200">
+                  Circle c1 = new Circle();<br>
+                  <strong>c1 = null;</strong>
+                </p>
+                <p class="font-bangla text-slate-500 dark:text-slate-400 mt-1">রেফারেন্স নাল করে দিলে হিপের মেমোরিটি সরাসরি গারবেজ কালেকশনের যোগ্য হয়।</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 5: CONSTRUCTORS & 'this' KEYWORD -->
+        <!-- ========================================================================= -->
+        <section id="mod-constructors" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">05</span>
+              Constructors, <code class="text-brand-600 text-lg">this</code> Keyword & Chaining
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">100% Exam Common</span>
+          </div>
+
+          <!-- Rules Card -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-list-check text-brand-600"></i> Rules for Writing Constructor
+              </h4>
+              <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla mt-2 space-y-1.5 list-disc pl-4">
+                <li>কনস্ট্রাক্টরের নাম এবং ক্লাসের নাম অবশ্যই <strong>হুবহু একই (Same Name)</strong> হতে হবে।</li>
+                <li>এর কোনো <strong>Return Type থাকে না</strong> (এমনকি <code class="font-mono text-xs">void</code> ও না)।</li>
+                <li>কনস্ট্রাক্টর কখনো <code class="font-mono text-xs">abstract</code>, <code class="font-mono text-xs">final</code>, <code class="font-mono text-xs">static</code> হতে পারে না।</li>
+                <li>আমরা যদি ক্লাসে কোনো কনস্ট্রাক্টর না লিখি, জাভা নিজে একটি অদৃশ্য <strong>Default No-arg Constructor</strong> যুক্ত করে দেয়।</li>
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-circle-question text-brand-600"></i> Why Constructor has No Return Type?
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla mt-2 leading-relaxed">
+                <strong>পরীক্ষার জনপ্রিয় প্রশ্ন:</strong> কনস্ট্রাক্টর সরাসরি আমাদের কোড দিয়ে কল হয় না; এটি রানটাইমে মেমোরি এলোকেশনের পর স্বয়ংক্রিয়ভাবে নতুন অবজেক্টের প্রাথমিক ভ্যালু সেট (Initialize) করতে এক্সিকিউট হয় এবং ইমপ্লিসিটভাবে নতুন তৈরিকৃত অবজেক্টটিকেই রিটার্ন করে। তাই ইউজার নিজে কোনো রিটার্ন টাইপ ডিফাইন করতে পারে না।
+              </p>
+            </div>
+          </div>
+
+          <!-- 3 Usages of this keyword -->
+          <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
+            <div class="font-bold text-sm text-slate-900 dark:text-white">Three Crucial Uses of the <code class="text-brand-600 font-mono">this</code> Keyword:</div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                <strong class="text-brand-600 block mb-1">1. Shadowing Resolve:</strong>
+                <code class="font-mono block bg-slate-50 dark:bg-slate-900 p-1 rounded">this.name = name;</code>
+                <span class="font-bangla text-slate-600 dark:text-slate-400 mt-1 block">প্যারামিটার ও ইন্সট্যান্স ভ্যারিয়েবলের নাম একই হলে কনফিউশন দূর করে।</span>
+              </div>
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                <strong class="text-brand-600 block mb-1">2. Constructor Chaining:</strong>
+                <code class="font-mono block bg-slate-50 dark:bg-slate-900 p-1 rounded">this(0, 0);</code>
+                <span class="font-bangla text-slate-600 dark:text-slate-400 mt-1 block">একই ক্লাসের এক কনস্ট্রাক্টর থেকে আরেক কনস্ট্রাক্টর কল করে <strong>(অবশ্যই প্রথম লাইনে হতে হবে)</strong>।</span>
+              </div>
+              <div class="p-3 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                <strong class="text-brand-600 block mb-1">3. Return Current Object:</strong>
+                <code class="font-mono block bg-slate-50 dark:bg-slate-900 p-1 rounded">return this;</code>
+                <span class="font-bangla text-slate-600 dark:text-slate-400 mt-1 block">মেথড চেইনিং করার জন্য নিজের অবজেক্টকে মেথড থেকে রিটার্ন করা যায়।</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Code Box: Full Constructor & Chaining -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400">PointChaining.java (From Slide Example)</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>public class Point {
+    private int x;
+    private int y;
+
+    // Default No-argument Constructor
+    public Point() {
+        this(0, 0); // Constructor Chaining: Calls 2-parameter constructor! (Must be line 1)
+        System.out.println("Default origin point initialized.");
+    }
+
+    // Parameterized Constructor
+    public Point(int x, int y) {
+        this.x = x; // this.x নির্দেশ করছে ক্লাসের ফিল্ড, আর ডানপাশের x হলো প্যারামিটার
+        this.y = y;
+    }
+
+    public void display() {
+        System.out.println("Point Coordinates: (" + this.x + ", " + this.y + ")");
+    }
+
+    public static void main(String[] args) {
+        Point p1 = new Point();       // Calls no-arg which chains to parameterized
+        Point p2 = new Point(15, 25); // Directly calls parameterized
+        p1.display();
+        p2.display();
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 6: ENCAPSULATION & ACCESS MODIFIERS -->
+        <!-- ========================================================================= -->
+        <section id="mod-encapsulation" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">06</span>
+              Encapsulation & Master Access Modifier Table
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">Guaranteed 4-5 Marks</span>
+          </div>
+
+          <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla">
+              এনক্যাপসুলেশন (Encapsulation) কী এবং কেন ব্যবহার করা হয়?
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla mt-1 leading-relaxed">
+              ডেটা (ভ্যারিয়েবল) এবং সেই ডেটার ওপর কাজ করা মেথডগুলোকে একটি একক ক্যাপসুলে (ক্লাস) আবদ্ধ রাখার প্রক্রিয়াকে <strong>Encapsulation</strong> বলে। এর প্রধান উদ্দেশ্য হলো <strong>Data Hiding</strong>। ক্লাসের ভ্যারিয়েবলগুলোকে <code class="font-mono text-xs">private</code> রেখে পাবলিক Getter এবং Setter মেথডের মাধ্যমে শর্তযুক্ত সুরক্ষিত এক্সেস দেওয়া হয়।
+            </p>
+          </div>
+
+          <!-- Master Access Modifier Table -->
+          <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+            <table class="w-full text-center text-xs sm:text-sm">
+              <thead class="bg-slate-900 text-white font-semibold">
+                <tr>
+                  <th class="p-3 text-left">Access Modifier</th>
+                  <th class="p-3">Same Class</th>
+                  <th class="p-3">Same Package Class</th>
+                  <th class="p-3">Other Package Subclass (Inherited)</th>
+                  <th class="p-3">Other Package Non-Subclass</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-800 bg-white dark:bg-slate-900 font-mono">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 text-left font-bold text-rose-600">private</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                  <td class="p-3 text-rose-500 font-bold"><i class="fa-solid fa-xmark"></i> NO</td>
+                  <td class="p-3 text-rose-500 font-bold"><i class="fa-solid fa-xmark"></i> NO</td>
+                  <td class="p-3 text-rose-500 font-bold"><i class="fa-solid fa-xmark"></i> NO</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 text-left font-bold text-slate-600 dark:text-slate-400">default (no keyword)</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                  <td class="p-3 text-rose-500 font-bold"><i class="fa-solid fa-xmark"></i> NO</td>
+                  <td class="p-3 text-rose-500 font-bold"><i class="fa-solid fa-xmark"></i> NO</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 text-left font-bold text-amber-600">protected</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES (via extends)</td>
+                  <td class="p-3 text-rose-500 font-bold"><i class="fa-solid fa-xmark"></i> NO</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 text-left font-bold text-emerald-600">public</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                  <td class="p-3 text-emerald-600 font-bold"><i class="fa-solid fa-check"></i> YES</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- UML Symbols Recall -->
+          <div class="p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/40 text-xs font-bangla flex flex-wrap gap-4 items-center justify-around">
+            <span><strong>UML সিম্বল:</strong></span>
+            <span><code class="font-mono font-bold text-rose-600">-</code> = Private</span>
+            <span><code class="font-mono font-bold text-emerald-600">+</code> = Public</span>
+            <span><code class="font-mono font-bold text-amber-600">#</code> = Protected</span>
+            <span><code class="font-mono font-bold text-slate-600">~</code> = Default/Package</span>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 7: STATIC & OBJECT PASSING -->
+        <!-- ========================================================================= -->
+        <section id="mod-static-passing" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">07</span>
+              Static Keyword & Object Passing in Methods
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-teal-50 dark:bg-teal-950 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">Handnote Favorite</span>
+          </div>
+
+          <!-- Concept Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla">
+                <i class="fa-solid fa-bolt text-amber-500 mr-1.5"></i> The <code class="text-brand-600 font-mono">static</code> Keyword
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla mt-1.5 leading-relaxed">
+                স্ট্যাটিক মেম্বার ক্লাসের নিজস্ব প্রপার্টি, কোনো একক অবজেক্টের নয়। 
+                <br>• মেমোরিতে ক্লাস লোড হওয়ার সময় মাত্র একবার জায়গা নেয়।
+                <br>• অবজেক্ট না বানিয়ে সরাসরি ক্লাসের নাম দিয়ে কল করা যায়: <code class="font-mono text-xs">ClassName.methodName()</code>।
+                <br>• সকল অবজেক্টের মাঝে স্ট্যাটিক ভ্যারিয়েবলের মান শেয়ার্ড (Shared) থাকে।
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla">
+                <i class="fa-solid fa-arrows-turn-to-dots text-emerald-500 mr-1.5"></i> Passing Objects to Methods
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla mt-1.5 leading-relaxed">
+                জাভাতে একটি অবজেক্টকে মেথডের প্যারামিটার হিসেবে পাঠানো যায়। যেমন ক্লাসনোটের EBook এবং Rectangle তুলনা:
+                <code class="font-mono text-xs block bg-slate-100 dark:bg-slate-800 p-1.5 rounded mt-1">r1.compareArea(r2); // r1 হলো this, r2 হলো প্যারামিটার ob</code>
+              </p>
+            </div>
+          </div>
+
+          <!-- Code Box: Rectangle compareArea from Handnote -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400">ObjectPassingDemo.java (Page 34-35 of Handnote)</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>class Rectangle {
+    double width, length;
+
+    Rectangle(double width, double length) {
+        this.width = width;
+        this.length = length;
+    }
+
+    double area() {
+        return length * width;
+    }
+
+    // Object passing: প্যারামিটার হিসেবে অন্য একটি Rectangle অবজেক্ট গ্রহণ করছে
+    void compareArea(Rectangle r) {
+        if (this.area() > r.area()) {
+            System.out.println("Rectangle 1 (Caller) has greater area.");
+        } else if (this.area() < r.area()) {
+            System.out.println("Rectangle 2 (Passed Object) has greater area.");
+        } else {
+            System.out.println("Both rectangles have identical area.");
+        }
+    }
+}
+
+public class ObjectPassingDemo {
+    public static void main(String[] args) {
+        Rectangle r1 = new Rectangle(10.0, 5.0); // Area = 50.0
+        Rectangle r2 = new Rectangle(20.0, 5.0); // Area = 100.0
+
+        r1.compareArea(r2); // r1 হলো this, r2 হলো r
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 8: INHERITANCE & DIAMOND PROBLEM -->
+        <!-- ========================================================================= -->
+        <section id="mod-inheritance" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">08</span>
+              Inheritance, IS-A vs HAS-A, & The Diamond Problem
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-purple-50 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">Major Theoretical Question</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla">
+                <i class="fa-solid fa-code-branch text-brand-600 mr-1.5"></i> IS-A vs HAS-A Relationship
+              </h4>
+              <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla mt-2 space-y-1.5">
+                <li><strong>IS-A (Inheritance):</strong> <code class="font-mono text-xs">extends</code> কি-ওয়ার্ড দিয়ে অর্জন করা হয়। যেমন: <em>Programmer IS-A Employee</em>, <em>Dog IS-A Animal</em>।</li>
+                <li><strong>HAS-A (Aggregation/Composition):</strong> ক্লাসের ভেতরে অন্য ক্লাসের অবজেক্ট রেফারেন্স রাখা। যেমন: <em>Car HAS-A Engine</em>, <em>Employee HAS-A Address</em>।</li>
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <h4 class="font-bold text-sm text-slate-900 dark:text-white font-bangla">
+                <i class="fa-solid fa-layer-group text-brand-600 mr-1.5"></i> 3 Supported Types in Java (Classes)
+              </h4>
+              <ol class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-bangla mt-2 space-y-1 list-decimal pl-4">
+                <li><strong>Single Inheritance:</strong> A ➔ B (একটি প্যারেন্ট, একটি চাইল্ড)।</li>
+                <li><strong>Multilevel Inheritance:</strong> A ➔ B ➔ C (গ্র্যান্ডপ্যারেন্ট ➔ প্যারেন্ট ➔ চাইল্ড)।</li>
+                <li><strong>Hierarchical Inheritance:</strong> A ➔ B এবং A ➔ C (এক প্যারেন্টের একাধিক চাইল্ড)।</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Diamond Problem Deep Dive Card -->
+          <div class="p-5 rounded-2xl bg-rose-50/70 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/40 space-y-3">
+            <div class="flex items-center gap-2 text-rose-800 dark:text-rose-300 font-bold text-base">
+              <i class="fa-solid fa-gem text-rose-500"></i> Why Java DOES NOT Support Multiple Inheritance with Classes? (The Diamond Problem)
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-bangla leading-relaxed">
+              মনে করুন, ক্লাস <code class="font-mono text-xs font-bold">A</code> এবং ক্লাস <code class="font-mono text-xs font-bold">B</code> উভয়ের মাঝেই হুবহু একই নামের মেথড <code class="font-mono text-xs bg-white dark:bg-slate-800 px-1 py-0.5 rounded">void msg()</code> আছে। এখন যদি ক্লাস <code class="font-mono text-xs font-bold">C</code> একই সাথে <code class="font-mono text-xs font-bold">A</code> ও <code class="font-mono text-xs font-bold">B</code> কে ইনহেরিট করতো (<code class="font-mono text-xs">class C extends A, B</code>), তবে <code class="font-mono text-xs">new C().msg();</code> কল করলে কম্পাইলার কনফিউজড হয়ে যেত যে সে কোন প্যারেন্টের মেথড রান করবে! একেই বলা হয় <strong>Ambiguity / The Diamond Problem</strong>। কোড যাতে জটিলতামুক্ত থাকে তাই জাভায় ক্লাসের মাধ্যমে Multiple Inheritance নিষিদ্ধ করা হয়েছে।
+            </p>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 9: THE 'super' KEYWORD (3 USAGES) -->
+        <!-- ========================================================================= -->
+        <section id="mod-super-keyword" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">09</span>
+              The <code class="text-brand-600 font-mono text-lg sm:text-xl">super</code> Keyword (All 3 Uses)
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Direct Slide Problem</span>
+          </div>
+
+          <!-- 3 Uses Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Usage 1</span>
+              <h4 class="font-mono text-sm font-bold text-slate-900 dark:text-white mt-0.5">super(args);</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-400 font-bangla mt-1">প্যারেন্ট ক্লাসের কনস্ট্রাক্টর কল করতে। চাইল্ড কনস্ট্রাক্টরের <strong>অবশ্যই প্রথম স্টেটমেন্ট</strong> হতে হবে।</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Usage 2</span>
+              <h4 class="font-mono text-sm font-bold text-slate-900 dark:text-white mt-0.5">super.methodName();</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-400 font-bangla mt-1">মেথড ওভাররাইড হলেও প্যারেন্ট ক্লাসের অরিজিনাল মেথডটি এক্সিকিউট করতে ব্যবহৃত হয়।</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+              <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Usage 3</span>
+              <h4 class="font-mono text-sm font-bold text-slate-900 dark:text-white mt-0.5">super.variableName;</h4>
+              <p class="text-xs text-slate-600 dark:text-slate-400 font-bangla mt-1">ভ্যারিয়েবল শ্যাডোয়িং (Variable Shadowing) হলে প্যারেন্ট ক্লাসের ভ্যারিয়েবল স্পষ্টভাবে এক্সেস করতে।</p>
+            </div>
+          </div>
+
+          <!-- Complete Problem Solving Code: Person & Employee (Shadowing) -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400"><i class="fa-solid fa-star text-amber-400 mr-1"></i>Exam Task: SuperMasterDemo.java</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>// Parent Class
+class Person {
+    String name; // Parent's variable
+
+    Person(String name) {
+        this.name = name;
+    }
+
+    void introduce() {
+        System.out.println("Full Name: " + this.name);
+    }
+}
+
+// Child Class extending Person
+class Employee extends Person {
+    String name; // Shadows parent's 'name' variable (stores nickname)
+
+    Employee(String fullName, String nickName) {
+        super(fullName);       // [USE 1]: Parent Constructor call (Must be first statement)
+        this.name = nickName;  // Child's own variable
+    }
+
+    @Override
+    void introduce() {
+        super.introduce();     // [USE 2]: Calls overridden parent method
+        System.out.println("Nickname: " + this.name);
+    }
+
+    void showNames() {
+        // [USE 3]: Distinguishing shadowed variables
+        System.out.println("Parent Name (via super.name): " + super.name);
+        System.out.println("Child Name (via this.name)  : " + this.name);
+    }
+}
+
+public class SuperMasterDemo {
+    public static void main(String[] args) {
+        Employee emp = new Employee("Tasniah Mohiuddin", "Tas");
+        emp.introduce();
+        System.out.println("--------------------");
+        emp.showNames();
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 10: POLYMORPHISM & DYNAMIC METHOD DISPATCH -->
+        <!-- ========================================================================= -->
+        <section id="mod-polymorphism" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">10</span>
+              Polymorphism & Dynamic Method Dispatch
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Highest Weightage</span>
+          </div>
+
+          <!-- Comparison Table: Overloading vs Overriding -->
+          <div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
+            <table class="w-full text-left text-xs sm:text-sm">
+              <thead class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold">
+                <tr>
+                  <th class="p-3">Feature</th>
+                  <th class="p-3">Method Overloading</th>
+                  <th class="p-3">Method Overriding</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">Binding Time</td>
+                  <td class="p-3">Compile-time / Early / Static binding</td>
+                  <td class="p-3">Runtime / Late / Dynamic binding</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">Inheritance?</td>
+                  <td class="p-3">একই ক্লাসে সম্ভব (Inheritance দরকার নেই)</td>
+                  <td class="p-3">অবশ্যই Inheritance থাকতে হবে (Parent-Child)</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">Method Signature</td>
+                  <td class="p-3">নাম একই কিন্তু প্যারামিটার (সংখ্যা/টাইপ) ভিন্ন হতে হবে</td>
+                  <td class="p-3">নাম, প্যারামিটার, রিটার্ন টাইপ হুবহু এক হতে হবে</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">Return Type Only Change?</td>
+                  <td class="p-3 text-rose-500 font-semibold">সম্ভব না! এরর দিবে (Ambiguity)</td>
+                  <td class="p-3 text-emerald-600 font-semibold">Covariant রিটার্ন টাইপ হতে পারে</td>
+                </tr>
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                  <td class="p-3 font-semibold text-brand-600">Main Method Overload?</td>
+                  <td class="p-3 text-emerald-600 font-semibold">হ্যাঁ, সম্ভব! (JVM কেবল String[] args চালাবে)</td>
+                  <td class="p-3 text-rose-500 font-semibold">না (Static method override হয় না, hide হয়)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Dynamic Method Dispatch Visual -->
+          <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/20 border border-indigo-200 dark:border-indigo-900/40">
+            <h4 class="font-bold text-sm text-indigo-950 dark:text-indigo-300 font-bangla flex items-center gap-2">
+              <i class="fa-solid fa-bolt text-indigo-500"></i> Dynamic Method Dispatch কী? (How JVM Decides)
+            </h4>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-bangla mt-1.5 leading-relaxed">
+              যখন <strong>প্যারেন্ট ক্লাসের রেফারেন্স ভেরিয়েবল চাইল্ড ক্লাসের অবজেক্টকে পয়েন্ট করে</strong> (<code class="font-mono text-xs bg-white dark:bg-slate-800 px-1 py-0.5 rounded">Parent p = new Child();</code>), তখন কোন ওভাররাইডেড মেথডটি রান হবে তা কম্পাইল টাইমে নয়, বরং <strong>রানটাইমে নির্ধারিত হয় অবজেক্টের ধরণের উপর ভিত্তি করে</strong>। একেই Dynamic Method Dispatch বা Runtime Polymorphism বলে।
+            </p>
+          </div>
+
+          <!-- Code Box -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400">DynamicDispatchTest.java</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>class Animal {
+    void sound() {
+        System.out.println("Animal makes a generic sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog says: Woof Woof!");
+    }
+}
+
+class Cat extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Cat says: Meow Meow!");
+    }
+}
+
+public class DynamicDispatchTest {
+    public static void main(String[] args) {
+        // Parent class reference variable
+        Animal myAnimal;
+
+        // Points to Dog object at runtime
+        myAnimal = new Dog();
+        myAnimal.sound(); // Output: Dog says: Woof Woof!
+
+        // Same reference points to Cat object at runtime
+        myAnimal = new Cat();
+        myAnimal.sound(); // Output: Cat says: Meow Meow!
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 11: ABSTRACTION & ABSTRACT CLASSES -->
+        <!-- ========================================================================= -->
+        <section id="mod-abstraction" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">11</span>
+              Abstraction & Abstract Classes
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-teal-50 dark:bg-teal-950 text-teal-700 dark:text-teal-300 border border-teal-200 dark:border-teal-800">Bank & Bike Problems</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div class="font-bold text-slate-900 dark:text-white font-bangla">কী পয়েন্ট মনে রাখতে হবে:</div>
+              <ul class="font-bangla text-slate-600 dark:text-slate-300 space-y-1.5 list-disc pl-4">
+                <li><code class="font-mono text-xs">abstract</code> কি-ওয়ার্ড দিয়ে ক্লাস এবং মেথড ডিক্লেয়ার করা হয়।</li>
+                <li><strong>কখনো সরাসরি অবজেক্ট বানানো যায় না</strong> (<code class="font-mono text-xs">new AbstractClass()</code> দিলে কম্পাইল এরর হবে)।</li>
+                <li>অ্যাবস্ট্রাক্ট ক্লাসে Abstract মেথড (বডি ছাড়া) এবং Concrete মেথড (বডি সহ) উভয়ই থাকতে পারে।</li>
+                <li>এর ভেতরে কনস্ট্রাক্টর, স্ট্যাটিক মেথড এবং <code class="font-mono text-xs">final</code> মেথড থাকতে পারে।</li>
+              </ul>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+              <div class="font-bold text-slate-900 dark:text-white font-bangla">কেন ব্যবহার করা হয়?</div>
+              <p class="font-bangla text-slate-600 dark:text-slate-300 leading-relaxed">
+                বাস্তব জীবনের জটিল প্রসেসিং বা ইমপ্লিমেন্টেশন লুকিয়ে রেখে ব্যবহারকারীকে কেবল প্রয়োজনীয় ফিচার প্রদর্শনের প্রক্রিয়া হলো Abstraction। যেমন ব্যাংক সিস্টেমে সুদের হার (<code class="font-mono text-xs">getRateOfInterest()</code>) গণনা একেক ব্যাংকে একেক রকম, তাই জেনেরিক ব্যাংক ক্লাসে এর বডি থাকে না।
+              </p>
+            </div>
+          </div>
+
+          <!-- Code Box: Bank Problem from Slide -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400">TestBankAbstraction.java</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>abstract class Bank {
+    // Abstract Method: কোনো বডি নেই
+    abstract int getRateOfInterest();
+
+    // Concrete Method
+    void displayWelcome() {
+        System.out.println("Welcome to Central Banking Network");
+    }
+}
+
+class SBI extends Bank {
+    @Override
+    int getRateOfInterest() {
+        return 7;
+    }
+}
+
+class PNB extends Bank {
+    @Override
+    int getRateOfInterest() {
+        return 8;
+    }
+}
+
+public class TestBankAbstraction {
+    public static void main(String[] args) {
+        Bank b; // Reference of abstract class
+        
+        b = new SBI();
+        System.out.println("SBI Interest: " + b.getRateOfInterest() + " %");
+
+        b = new PNB();
+        System.out.println("PNB Interest: " + b.getRateOfInterest() + " %");
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 12: INTERFACES & MULTIPLE INHERITANCE -->
+        <!-- ========================================================================= -->
+        <section id="mod-interface" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">12</span>
+              Interfaces, Multiple Inheritance & Default Methods
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Exact Exam Question (Shape & Printable)</span>
+          </div>
+
+          <!-- Compiler Automatic Addition Box -->
+          <div class="p-4 rounded-xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40">
+            <h4 class="font-bold text-sm text-amber-900 dark:text-amber-300 font-bangla flex items-center gap-2">
+              <i class="fa-solid fa-wand-magic-sparkles text-amber-500"></i> কম্পাইলার ইন্টারফেসে স্বয়ংক্রিয়ভাবে কী কী যোগ করে?
+            </h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2 text-xs font-mono">
+              <div class="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-900/50">
+                <span class="text-slate-400">// আপনি যা লিখেন:</span><br>
+                int MIN = 5;<br>
+                void print();
+              </div>
+              <div class="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-900/50 text-brand-600 dark:text-brand-400 font-semibold">
+                <span class="text-slate-400">// কম্পাইলার যা বানিয়ে নেয়:</span><br>
+                <strong>public static final</strong> int MIN = 5;<br>
+                <strong>public abstract</strong> void print();
+              </div>
+            </div>
+          </div>
+
+          <!-- Relationship Cheat Sheet -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-center font-bold">
+            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              Class <span class="text-brand-600">extends</span> Class
+            </div>
+            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              Interface <span class="text-brand-600">extends</span> Interface
+            </div>
+            <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+              Class <span class="text-emerald-600">implements</span> Interface1, Interface2
+            </div>
+          </div>
+
+          <!-- Exam Assignment Code: Shape, Printable, Rectangle, Circle, Triangle -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400"><i class="fa-solid fa-code text-brand-500 mr-1.5"></i>Midterm Question Q1: MultipleInterfaceApp.java</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>// 1st Interface
+interface Shape {
+    double getArea();
+    double getPerimeter();
+}
+
+// 2nd Interface
+interface Printable {
+    void print();
+}
+
+// Rectangle implementing both interfaces (Multiple Inheritance via Interface)
+class Rectangle implements Shape, Printable {
+    private double length;
+    private double width;
+
+    Rectangle(double length, double width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    @Override
+    public double getArea() {
+        return length * width;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * (length + width);
+    }
+
+    @Override
+    public void print() {
+        System.out.println("Rectangle -> Area: " + getArea() + ", Perimeter: " + getPerimeter() + ", Printable: Rectangle");
+    }
+}
+
+// Circle class
+class Circle implements Shape, Printable {
+    private double radius;
+
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public double getArea() {
+        return 3.14159 * radius * radius;
+    }
+
+    @Override
+    public double getPerimeter() {
+        return 2 * 3.14159 * radius;
+    }
+
+    @Override
+    public void print() {
+        System.out.printf("Circle -> Area: %.2f, Perimeter: %.2f, Printable: Circle\n", getArea(), getPerimeter());
+    }
+}
+
+// Main Test Execution
+public class MultipleInterfaceApp {
+    public static void main(String[] args) {
+        Rectangle rect = new Rectangle(10.0, 5.0);
+        Circle circ = new Circle(5.0);
+
+        rect.print();
+        circ.print();
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MODULE 13: ARRAY OF OBJECTS & INNER CLASS -->
+        <!-- ========================================================================= -->
+        <section id="mod-arrays-inner" class="topic-section space-y-4 pt-8">
+          <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+            <h3 class="text-xl sm:text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+              <span class="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-sm font-bold">13</span>
+              Array of Objects & Inner Classes
+            </h3>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">Lab Problem</span>
+          </div>
+
+          <!-- Bangla Summary -->
+          <div class="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-bangla leading-relaxed">
+              <strong>Array of Objects ট্রিক:</strong> <code class="font-mono text-xs">Student[] arr = new Student[5];</code> লিখলে কিন্তু স্টুডেন্ট অবজেক্ট তৈরি হয় না! শুধু ৫টি রেফারেন্স ভেরিয়েবলের জন্য নাল (<code class="font-mono text-xs">null</code>) অ্যারে মেমোরি তৈরি হয়। এরপর প্রতিটি ইনডেক্সে আলাদা করে <code class="font-mono text-xs">arr[i] = new Student(...)</code> কল করতে হয়।
+            </p>
+          </div>
+
+          <!-- Code Box -->
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 text-slate-100">
+            <div class="flex items-center justify-between px-4 py-2 bg-slate-950 border-b border-slate-800 text-xs">
+              <span class="font-mono text-slate-400">ArrayOfObjectsDemo.java</span>
+              <button onclick="copyCode(this)" class="hover:text-white transition flex items-center gap-1 text-slate-400">
+                <i class="fa-regular fa-copy"></i> <span>Copy</span>
+              </button>
+            </div>
+            <pre class="p-4 overflow-x-auto text-xs sm:text-sm"><code>class Student {
+    int roll;
+    String name;
+
+    Student(int roll, String name) {
+        this.roll = roll;
+        this.name = name;
+    }
+}
+
+public class ArrayOfObjectsDemo {
+    public static void main(String[] args) {
+        // Step 1: Allocate array of references
+        Student[] students = new Student[3];
+
+        // Step 2: Instantiate individual objects for each index
+        students[0] = new Student(101, "Aman");
+        students[1] = new Student(102, "Vaibhav");
+        students[2] = new Student(103, "Sohan");
+
+        // Step 3: Loop and access
+        for (int i = 0; i < students.length; i++) {
+            System.out.println("Element at " + i + ": Roll " + students[i].roll + ", Name " + students[i].name);
+        }
+    }
+}</code></pre>
+          </div>
+        </section>
+
+
+        <!-- ========================================================================= -->
+        <!-- MIDTERM 30/30 INTERACTIVE EXAM PRACTICE HALL -->
+        <!-- ========================================================================= -->
+        <section id="exam-practice" class="topic-section space-y-6 pt-12 border-t-2 border-brand-500">
+          
+          <div class="bg-gradient-to-r from-brand-900 via-indigo-900 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                  <i class="fa-solid fa-trophy mr-1"></i> Interactive Exam Hall
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold mt-2">মিডটার্মের নিশ্চিত ৩০ এ ৩০ প্র্যাকটিস প্রশ্ন</h3>
+                <p class="text-slate-300 text-sm font-bangla mt-1">
+                  প্রশ্নটি নিজে সমাধান করার চেষ্টা করুন, এরপর <strong>"উত্তর দেখুন"</strong> বাটনে ক্লিক করে ফুল স্টেপ-বাই-স্টেপ সমাধান মিলিয়ে নিন!
+                </p>
+              </div>
+              <button onclick="revealAllAnswers()" class="self-start sm:self-center px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold border border-white/20 transition flex items-center gap-2">
+                <i class="fa-solid fa-eye"></i> সবগুলো উত্তর উন্মোচন করুন
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter Badges for Exam Questions -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2 text-xs font-semibold custom-scroll">
+            <button onclick="filterQuestions('all')" class="q-filter-btn active px-3.5 py-1.5 rounded-xl bg-brand-600 text-white shadow-sm">All Topics</button>
+            <button onclick="filterQuestions('super')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">super & this</button>
+            <button onclick="filterQuestions('polymorphism')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">Dynamic Dispatch</button>
+            <button onclick="filterQuestions('interface')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">Interface & Abstraction</button>
+            <button onclick="filterQuestions('theory')" class="q-filter-btn px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200">Core Theory Traps</button>
+          </div>
+
+          <!-- QUESTION CARDS CONTAINER -->
+          <div class="space-y-4" id="questionsContainer">
+
+            <!-- EXAM Q1 -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="super">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-800">5 Marks Question</span>
+                    <span class="text-xs font-mono text-slate-400">Classnote Page 4 & Super PDF</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q1. Write a Java program demonstrating all THREE usages of the <code class="text-brand-600 font-mono">super</code> keyword using Person and Employee classes.
+                  </h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 font-bangla">
+                    প্যারেন্ট Person এর <code class="font-mono">name</code> ভ্যারিয়েবল থাকবে। চাইল্ড Employee ক্লাসেও <code class="font-mono">name</code> থাকবে (ডাকনাম হিসেবে)। super এর ৩টি ব্যবহার স্পষ্ট দেখাতে হবে।
+                  </p>
+                </div>
+                <button onclick="toggleAnswer('ans-1')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-1-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-1" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
+                <div class="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-xl text-xs font-bangla text-amber-900 dark:text-amber-200">
+                  <strong>💡 খাতার মূল পয়েন্ট:</strong> (১) <code class="font-mono">super(fullName);</code> কনস্ট্রাক্টরের প্রথম লাইনে প্যারেন্ট কনস্ট্রাক্টর কল করে। (২) <code class="font-mono">super.introduce();</code> ওভাররাইডেড প্যারেন্ট মেথড কল করে। (৩) <code class="font-mono">super.name</code> দিয়ে শ্যাডো হওয়া প্যারেন্টের নাম প্রিন্ট হয় এবং <code class="font-mono">this.name</code> দিয়ে চাইল্ডের ডাকনাম প্রিন্ট হয়।
+                </div>
+                <pre class="p-3.5 rounded-xl bg-slate-950 text-slate-100 text-xs font-mono overflow-x-auto"><code>class Person {
+    String name;
+    Person(String name) { this.name = name; }
+    void introduce() { System.out.println("Person Name: " + name); }
+}
+
+class Employee extends Person {
+    String name; // Shadowing parent variable
+
+    Employee(String fullName, String nickName) {
+        super(fullName);      // [Usage 1]: Call Parent Constructor
+        this.name = nickName;
+    }
+
+    @Override
+    void introduce() {
+        super.introduce();    // [Usage 2]: Call Overridden Parent Method
+        System.out.println("Employee Nickname: " + this.name);
+    }
+
+    void showNames() {
+        // [Usage 3]: Access Shadowed Parent Field
+        System.out.println("Parent Name: " + super.name);
+        System.out.println("Child Name : " + this.name);
+    }
+}</code></pre>
+              </div>
+            </div>
+
+            <!-- EXAM Q2 -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="polymorphism">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-300 dark:border-purple-800">Output Trace Question</span>
+                    <span class="text-xs font-mono text-slate-400">Dynamic Dispatch</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q2. Predict the output of the following Java program and explain why.
+                  </h4>
+                  <pre class="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-mono text-slate-800 dark:text-slate-200 mt-2"><code>class A { void show() { System.out.print("A "); } }
+class B extends A { void show() { System.out.print("B "); } }
+class C extends B { void show() { System.out.print("C "); } }
+
+public class Test {
+    public static void main(String[] args) {
+        A obj1 = new B();
+        B obj2 = new C();
+        A obj3 = new C();
+        obj1.show(); obj2.show(); obj3.show();
+    }
+}</code></pre>
+                </div>
+                <button onclick="toggleAnswer('ans-2')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-2-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-2" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+                <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl text-xs sm:text-sm font-bangla text-emerald-900 dark:text-emerald-200">
+                  <strong>আউটপুট:</strong> <code class="font-mono font-bold bg-white dark:bg-slate-800 px-2 py-0.5 rounded">B C C</code>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-bangla leading-relaxed">
+                  <strong>ব্যাখ্যা:</strong> এটি <strong>Dynamic Method Dispatch</strong> এর বাস্তব উদাহরণ। জাভাতে ওভাররাইডেড মেথডের ক্ষেত্রে রেফারেন্স ভেরিয়েবলের টাইপ (<code class="font-mono text-xs">A</code> বা <code class="font-mono text-xs">B</code>) যাই হোক না কেন, রানটাইমে যে ক্লাসের অবজেক্ট তৈরি হয় (<code class="font-mono text-xs">new B()</code> বা <code class="font-mono text-xs">new C()</code>) ঠিক সেই ক্লাসের ওভাররাইডেড মেথড এক্সিকিউট হয়। তাই আউটপুট হবে <code class="font-mono font-bold">B C C</code>।
+                </p>
+              </div>
+            </div>
+
+            <!-- EXAM Q3 -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="interface">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-300 dark:border-blue-800">Midterm Sheet Question</span>
+                    <span class="text-xs font-mono text-slate-400">CardPayment & SmartPayment</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q3. Design the Payment Hierarchy using Interfaces: Payment, CardPayment, MobilePayment, and SmartPayment.
+                  </h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 font-bangla">
+                    Payment ইন্টারফেসকে CardPayment এবং MobilePayment এক্সটেন্ড করবে। SmartPayment উভয় ইন্টারফেস ইমপ্লিমেন্ট করবে।
+                  </p>
+                </div>
+                <button onclick="toggleAnswer('ans-3')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-3-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-3" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
+                <pre class="p-3.5 rounded-xl bg-slate-950 text-slate-100 text-xs font-mono overflow-x-auto"><code>interface Payment {
+    void pay();
+}
+
+interface CardPayment extends Payment {
+    void useCard();
+}
+
+interface MobilePayment extends Payment {
+    void useMobile();
+}
+
+class SmartPayment implements CardPayment, MobilePayment {
+    double amount;
+
+    SmartPayment(double amount) {
+        this.amount = amount;
+    }
+
+    public void pay() {
+        System.out.println("Payment of " + amount + " Tk is successful.");
+    }
+
+    public void useCard() {
+        System.out.println("Paid using Card.");
+    }
+
+    public void useMobile() {
+        System.out.println("Paid using Mobile.");
+    }
+}
+
+public class MainPayment {
+    public static void main(String[] args) {
+        SmartPayment sp = new SmartPayment(1000.0);
+        sp.pay();
+        sp.useCard();
+        sp.useMobile();
+    }
+}</code></pre>
+              </div>
+            </div>
+
+            <!-- EXAM Q4 -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="theory">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-800">Viva & Short Note</span>
+                    <span class="text-xs font-mono text-slate-400">Classnote Page 20</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q4. Can we overload the <code class="font-mono text-brand-600">main()</code> method in Java? Why does JVM only call <code class="font-mono text-brand-600">main(String[] args)</code>?
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-4')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-4-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-4" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+                <div class="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-xl text-xs sm:text-sm font-bangla text-blue-950 dark:text-blue-200 leading-relaxed">
+                  <strong>হ্যাঁ, অবশ্যই ওভারলোড করা সম্ভব!</strong> একটি ক্লাসে ভিন্ন ভিন্ন প্যারামিটার দিয়ে একাধিক <code class="font-mono text-xs">main(int a)</code>, <code class="font-mono text-xs">main(String a, String b)</code> লেখা যায়। 
+                  <br><br>
+                  <strong>কিন্তু JVM কেন কেবল String[] args কেই কল করে?</strong> কারণ জাভা প্রোগ্রাম এক্সিকিউট করার জন্য JVM-এর আর্কিটেকচারে এন্ট্রি পয়েন্ট হিসেবে নির্দিষ্ট সিগনেচার হার্ডকোড করা আছে যাতে করে ব্যবহারকারী অপারেটিং সিস্টেম কনসোল থেকে পাস করা যেকোনো কমান্ড লাইন আর্গুমেন্ট (String অ্যারে হিসেবে) প্রোগ্রাম গ্রহণ করতে পারে। অন্যান্য ওভারলোডেড main মেথডগুলোকে রান করতে হলে মূল main মেথডের ভেতর থেকে ম্যানুয়ালি কল করতে হয়।
+                </div>
+              </div>
+            </div>
+
+            <!-- EXAM Q5 -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="theory">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-800">Critical Concept</span>
+                    <span class="text-xs font-mono text-slate-400">Classnote Page 16</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q5. Why is Method Overloading NOT possible simply by changing the return type of a method?
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-5')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-5-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-5" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2">
+                <div class="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-xl text-xs sm:text-sm font-bangla text-amber-950 dark:text-amber-200 leading-relaxed">
+                  <strong>ব্যাখ্যা:</strong> মনে করুন ক্লাসে দুটি মেথড আছে:
+                  <br><code class="font-mono text-xs">int sum(int a, int b) { return a+b; }</code>
+                  <br><code class="font-mono text-xs">double sum(int a, int b) { return a+b; }</code>
+                  <br><br>
+                  এখন যদি কেউ মেথডটিকে কোনো ভ্যারিয়েবলে স্টোর না করে সরাসরি কল করে: <code class="font-mono text-xs">obj.sum(10, 20);</code> তখন কম্পাইলার বুঝতে পারবে না যে সে ইনটিজার রিটার্ন টাইপ ওয়ালা মেথড চালাবে নাকি ডাবল ওয়ালা মেথড চালাবে! এই মারাত্মক <strong>Ambiguity</strong> তৈরি হওয়ার কারণে জাভাতে শুধুমাত্র রিটার্ন টাইপ পরিবর্তন করে মেথড ওভারলোডিং করা নিষিদ্ধ (Compile Time Error)।
+                </div>
+              </div>
+            </div>
+
+            <!-- EXAM Q6 -->
+            <div class="q-card p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm transition hover:border-brand-500/50" data-cat="super">
+              <div class="flex items-start justify-between gap-3">
+                <div class="space-y-1">
+                  <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-teal-100 dark:bg-teal-950 text-teal-700 dark:text-teal-300 border border-teal-300 dark:border-teal-800">Discount Problem</span>
+                    <span class="text-xs font-mono text-slate-400">Classnote Page 23-25</span>
+                  </div>
+                  <h4 class="font-bold text-base text-slate-900 dark:text-white">
+                    Q6. Implement Product hierarchy with Electronics (10% discount) and Clothing (20% discount) using super constructor.
+                  </h4>
+                </div>
+                <button onclick="toggleAnswer('ans-6')" class="shrink-0 px-3 py-1.5 rounded-xl bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 font-bold text-xs border border-brand-200 dark:border-brand-800 hover:bg-brand-600 hover:text-white transition flex items-center gap-1.5">
+                  <span id="ans-6-btn">উত্তর দেখুন</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+
+              <!-- Answer Reveal Block -->
+              <div id="ans-6" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
+                <pre class="p-3.5 rounded-xl bg-slate-950 text-slate-100 text-xs font-mono overflow-x-auto"><code>class Product {
+    String name;
+    double price;
+
+    Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    double calculatePrice() {
+        return price;
+    }
+}
+
+class Electronics extends Product {
+    Electronics(String name, double price) {
+        super(name, price);
+    }
+
+    @Override
+    double calculatePrice() {
+        return price - (price * 0.10); // 10% discount
+    }
+}
+
+class Clothing extends Product {
+    Clothing(String name, double price) {
+        super(name, price);
+    }
+
+    @Override
+    double calculatePrice() {
+        return price - (price * 0.20); // 20% discount
+    }
+}
+
+public class StoreMain {
+    public static void main(String[] args) {
+        Electronics lap = new Electronics("Laptop", 50000);
+        Clothing shirt = new Clothing("Shirt", 2000);
+
+        System.out.println(lap.name + " after 10% disc: " + lap.calculatePrice());
+        System.out.println(shirt.name + " after 20% disc: " + shirt.calculatePrice());
+    }
+}</code></pre>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="copyToast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs font-semibold flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <i class="fa-solid fa-check text-emerald-400"></i>
+    <span>কোড সফলভাবে কপি হয়েছে!</span>
+  </div>
+
+  <!-- Client-side Interactive Logic -->
+  <script>
+    // Theme Management
+    const themeToggleBtn = document.getElementById('themeToggle');
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    });
+
+    // Mobile Drawer Navigation
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeDrawerBtn = document.getElementById('closeDrawerBtn');
+    const sidebarDrawer = document.getElementById('sidebarDrawer');
+    const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+    function openDrawer() {
+      sidebarDrawer.classList.remove('-translate-x-full');
+      drawerBackdrop.classList.remove('hidden');
+    }
+    function closeDrawer() {
+      sidebarDrawer.classList.add('-translate-x-full');
+      drawerBackdrop.classList.add('hidden');
+    }
+
+    mobileMenuBtn.addEventListener('click', openDrawer);
+    closeDrawerBtn.addEventListener('click', closeDrawer);
+    drawerBackdrop.addEventListener('click', closeDrawer);
+
+    // Close drawer when clicking nav link on mobile
+    document.querySelectorAll('.nav-item').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 1024) closeDrawer();
+      });
+    });
+
+    // Font Size Adjuster for Mobile
+    let fontSizes = ['text-sm-mode', 'text-base-mode', 'text-lg-mode', 'text-xl-mode'];
+    let currentFontIndex = 1; // Default text-base-mode (17px)
+
+    function updateFontClass() {
+      const html = document.documentElement;
+      fontSizes.forEach(cls => html.classList.remove(cls));
+      html.classList.add(fontSizes[currentFontIndex]);
+    }
+
+    function changeFontSize(direction) {
+      currentFontIndex = Math.max(0, Math.min(fontSizes.length - 1, currentFontIndex + direction));
+      updateFontClass();
+    }
+
+    function resetFontSize() {
+      currentFontIndex = 1;
+      updateFontClass();
+    }
+
+    // Toggle Single Answer
+    function toggleAnswer(id) {
+      const el = document.getElementById(id);
+      const btn = document.getElementById(id + '-btn');
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        if (btn) btn.textContent = 'লুকান';
+      } else {
+        el.classList.add('hidden');
+        if (btn) btn.textContent = 'উত্তর দেখুন';
+      }
+    }
+
+    // Reveal all answers in exam practice
+    let allRevealed = false;
+    function revealAllAnswers() {
+      const answers = document.querySelectorAll('#questionsContainer [id^="ans-"]');
+      allRevealed = !allRevealed;
+      answers.forEach(ans => {
+        const btn = document.getElementById(ans.id + '-btn');
+        if (allRevealed) {
+          ans.classList.remove('hidden');
+          if (btn) btn.textContent = 'লুকান';
+        } else {
+          ans.classList.add('hidden');
+          if (btn) btn.textContent = 'উত্তর দেখুন';
+        }
+      });
+    }
+
+    // Filter Exam Questions
+    function filterQuestions(category) {
+      document.querySelectorAll('.q-filter-btn').forEach(b => {
+        b.classList.remove('bg-brand-600', 'text-white');
+        b.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+      });
+      event.target.classList.add('bg-brand-600', 'text-white');
+      event.target.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+
+      const cards = document.querySelectorAll('.q-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-cat') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Copy Code snippet to Clipboard
+    function copyCode(btn) {
+      const codeBlock = btn.closest('.rounded-2xl').querySelector('code');
+      navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+        const toast = document.getElementById('copyToast');
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => {
+          toast.classList.add('translate-y-20', 'opacity-0');
+        }, 2200);
+      });
+    }
+
+    // Search Filter for all topics and questions
+    function setupSearch(inputId) {
+      const input = document.getElementById(inputId);
+      input.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const sections = document.querySelectorAll('.topic-section');
+        sections.forEach(sec => {
+          const text = sec.innerText.toLowerCase();
+          if (text.includes(query)) {
+            sec.style.display = 'block';
+          } else {
+            sec.style.display = 'none';
+          }
+        });
+      });
+    }
+    setupSearch('searchInput');
+    setupSearch('mobileSearchInput');
+  </script>
+</body>
+</html>

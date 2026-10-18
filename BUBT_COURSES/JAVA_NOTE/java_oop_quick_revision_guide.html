@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java OOP Revision Book - 9 Core Topics | Made by kaesarz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #2563eb;
+            --primary-soft: #eff6ff;
+            --accent: #f59e0b;
+            --accent-soft: #fffbeb;
+            --bg-dark: #0f172a;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --code-bg: #1e1e2e;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --success-soft: #f0fdf4;
+            --warning: #ef4444;
+            --warning-soft: #fef2f2;
+            --purple: #8b5cf6;
+            --purple-soft: #f5f3ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            line-height: 1.75;
+            font-size: 18px;
+            padding-bottom: 50px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styling */
+        .header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%);
+            color: white;
+            padding: 40px 25px;
+            border-radius: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 12px 30px -5px rgba(37, 99, 235, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .header h1 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            margin-bottom: 18px;
+        }
+
+        .author-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(8px);
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Search Bar & Toolbar */
+        .toolbar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 20px 14px 45px;
+            border-radius: 14px;
+            border: 2px solid var(--border);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* Table of Contents */
+        .toc-box {
+            background: #ffffff;
+            border: 2px solid #e0e7ff;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.04);
+        }
+
+        .toc-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 12px;
+        }
+
+        .toc-item {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: #334155;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-item:hover {
+            background: var(--primary-light);
+            color: white;
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .toc-number {
+            background: rgba(37, 99, 235, 0.12);
+            color: var(--primary-light);
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .toc-item:hover .toc-number {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+        }
+
+        /* Chapter Cards */
+        .chapter-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 32px;
+            margin-bottom: 40px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .chapter-card:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .chapter-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .chapter-badge {
+            background: var(--primary-soft);
+            color: var(--primary-light);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 5px 14px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chapter-title {
+            font-size: 1.85rem;
+            color: var(--primary);
+            font-weight: 700;
+            width: 100%;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+
+        /* Content Elements */
+        .theory-box {
+            margin-bottom: 22px;
+        }
+
+        .theory-box p {
+            margin-bottom: 12px;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 16px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+        }
+
+        .bullet-list li::before {
+            content: "👉";
+            position: absolute;
+            left: 0;
+            top: 1px;
+        }
+
+        /* Highlight Boxes */
+        .exam-tip {
+            background: var(--accent-soft);
+            border-left: 5px solid var(--accent);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-size: 0.98rem;
+        }
+
+        .exam-tip strong {
+            color: #b45309;
+        }
+
+        .pitfall {
+            background: var(--warning-soft);
+            border-left: 5px solid var(--warning);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-size: 0.98rem;
+        }
+
+        .pitfall strong {
+            color: #991b1b;
+        }
+
+        .concept-card {
+            background: var(--purple-soft);
+            border-left: 5px solid var(--purple);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 20px 0;
+            font-size: 0.98rem;
+        }
+
+        .concept-card strong {
+            color: #6b21a8;
+        }
+
+        /* Code Block Styling */
+        .code-container {
+            background: var(--code-bg);
+            border-radius: 14px;
+            overflow: hidden;
+            margin: 22px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            border: 1px solid #313244;
+        }
+
+        .code-header {
+            background: #181825;
+            color: #cdd6f4;
+            padding: 10px 18px;
+            font-size: 0.88rem;
+            font-family: 'Fira Code', monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #313244;
+        }
+
+        .code-lang-tag {
+            background: #fab387;
+            color: #11111b;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        pre {
+            padding: 20px;
+            overflow-x: auto;
+            color: #cdd6f4;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+
+        .inline-code {
+            background: #e2e8f0;
+            color: #0f172a;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.88em;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+        }
+
+        /* Output Box */
+        .output-box {
+            background: #0f172a;
+            color: #38bdf8;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-top: -12px;
+            margin-bottom: 24px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .output-title {
+            color: #94a3b8;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        /* Task Box */
+        .task-card {
+            background: var(--success-soft);
+            border: 1.5px solid #a7f3d0;
+            border-radius: 14px;
+            padding: 22px;
+            margin-top: 28px;
+        }
+
+        .task-title {
+            color: #065f46;
+            font-weight: 700;
+            font-size: 1.12rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .solution-toggle {
+            margin-top: 14px;
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+
+        .solution-toggle:hover {
+            background: #047857;
+        }
+
+        .solution-content {
+            display: none;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px dashed #a7f3d0;
+        }
+
+        .solution-content.active {
+            display: block;
+        }
+
+        /* Comparison Tables */
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 22px 0;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .comp-table th, .comp-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comp-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .comp-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 35px 20px;
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            border-top: 1px solid var(--border);
+            margin-top: 50px;
+        }
+
+        /* Back to Top Floating Button */
+        .top-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--primary-light);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.4rem;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+            transition: all 0.2s;
+            z-index: 100;
+        }
+
+        .top-btn:hover {
+            transform: translateY(-4px);
+            background: var(--primary);
+        }
+
+        /* Print Optimization */
+        @media print {
+            body { background: white; font-size: 11pt; }
+            .container { max-width: 100%; padding: 0; }
+            .chapter-card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+            .header { background: var(--primary) !important; color: white !important; }
+            .top-btn, .toolbar, .solution-toggle { display: none !important; }
+            .solution-content { display: block !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header Section -->
+    <header class="header">
+        <h1>Java OOP Ultimate Revision Guide</h1>
+        <div class="subtitle">Complete 9-Topic Master Book for Exams & CT Prep</div>
+        <div class="author-badge">✨ Made by kaesarz</div>
+    </header>
+
+    <!-- Toolbar & Search Bar -->
+    <div class="toolbar">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" onkeyup="filterTopics()" placeholder="টপিক বা কিওয়ার্ড দিয়ে খুঁজুন (e.g. static, overriding, super)...">
+        </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc-box">
+        <div class="toc-title">
+            <span>📚 সিলেবাসের ৯টি মূল টপিক (Quick Index)</span>
+            <span style="font-size:0.85rem; font-weight:normal; color:var(--text-muted)">Click to jump</span>
+        </div>
+        <div class="toc-grid">
+            <a href="#topic1" class="toc-item"><span class="toc-number">1</span> Class, Object & Access Modifiers</a>
+            <a href="#topic2" class="toc-item"><span class="toc-number">2</span> Constructors & Overloading</a>
+            <a href="#topic3" class="toc-item"><span class="toc-number">3</span> static Keyword & Static Block</a>
+            <a href="#topic4" class="toc-item"><span class="toc-number">4</span> this Keyword & Chaining</a>
+            <a href="#topic5" class="toc-item"><span class="toc-number">5</span> Inheritance & Relationships</a>
+            <a href="#topic6" class="toc-item"><span class="toc-number">6</span> Method Overloading & Rules</a>
+            <a href="#topic7" class="toc-item"><span class="toc-number">7</span> Overriding & Dynamic Dispatch</a>
+            <a href="#topic8" class="toc-item"><span class="toc-number">8</span> super Keyword Mechanics</a>
+            <a href="#topic9" class="toc-item"><span class="toc-number">9</span> Abstract Class & Interface</a>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 1: CLASS, OBJECT & ACCESS MODIFIERS -->
+    <div class="chapter-card" id="topic1">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 01</span>
+        </div>
+        <h2 class="chapter-title">Class, Object & Access Modifiers (Encapsulation)</h2>
+
+        <div class="theory-box">
+            <p><strong>১. Class ও Object কী?</strong></p>
+            <p>Class হলো অবজেক্ট তৈরির একটি <strong>ব্লুপ্রিন্ট (Blueprint) বা টেমপ্লেট</strong>। আর Object হলো সেই ক্লাসের ওপর ভিত্তি করে মেমোরিতে তৈরি হওয়া বাস্তব সত্তা (Instance)।</p>
+
+            <ul class="bullet-list">
+                <li><strong>Encapsulation (এনক্যাপসুলেশন):</strong> ডাটা/ফিল্ড এবং সেগুলোর মেথডকে একটি একক ক্লাসে গুটিয়ে রাখা এবং ডাটা গোপনীয়তা নিশ্চিত করা।</li>
+                <li><strong>Data Hiding:</strong> ক্লাসের ফিল্ডগুলোকে <span class="inline-code">private</span> করে বাহিরে থেকে মেথড (Getter/Setter) দিয়ে সুরক্ষিতভাবে এক্সেস করা।</li>
+            </ul>
+
+            <p><strong>২. Java Access Modifiers Table:</strong></p>
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Modifier</th>
+                        <th>Same Class</th>
+                        <th>Same Package</th>
+                        <th>Subclass (Diff Pkg)</th>
+                        <th>World (Anywhere)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="inline-code">private</span></td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td>❌ No</td>
+                        <td>❌ No</td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">default</span> (no modifier)</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                        <td>❌ No</td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">protected</span></td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>❌ No</td>
+                    </tr>
+                    <tr>
+                        <td><span class="inline-code">public</span></td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                        <td>✅ Yes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="exam-tip">
+                💡 <strong>Exam Favorite Question:</strong> "Encapsulation কীভাবে অর্জন করা হয়?"<br>
+                <strong>উত্তর:</strong> ১. Instance variable গুলোকে <span class="inline-code">private</span> ঘোষণা করে।<br>
+                ২. ডাটা রিড/রাইট করার জন্য public <span class="inline-code">getter</span> এবং <span class="inline-code">setter</span> মেথড প্রদান করে।
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>BankAccount.java (Class & Encapsulation)</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>class BankAccount {
+    // Private variables (Data Hiding)
+    private String accountNumber;
+    private double balance;
+
+    // Constructor
+    public BankAccount(String accountNumber, double initialBalance) {
+        this.accountNumber = accountNumber;
+        if (initialBalance >= 0) {
+            this.balance = initialBalance;
+        } else {
+            this.balance = 0;
+        }
+    }
+
+    // Getter for Balance
+    public double getBalance() {
+        return balance;
+    }
+
+    // Deposit method with validation
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: $" + amount);
+        } else {
+            System.out.println("Invalid amount!");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        BankAccount acc = new BankAccount("ACC-101", 500.0);
+        
+        // System.out.println(acc.balance); ❌ COMPILE ERROR! Direct access not allowed
+        
+        acc.deposit(200.0);
+        System.out.println("Current Balance: $" + acc.getBalance());
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            Deposited: $200.0<br>
+            Current Balance: $700.0
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 1</div>
+            <p>একটি <span class="inline-code">Student</span> ক্লাস তৈরি করো যেখানে <span class="inline-code">cgpa</span> ভ্যারিয়েবলটি private থাকবে। Setter মেথডে শর্ত দাও যে CGPA 0.0 থেকে 4.0 এর মধ্যে না হলে আপডেট হবে না।</p>
+            <button class="solution-toggle" onclick="toggleSolution('sol1')">💡 সমাধান দেখুন</button>
+            <div class="solution-content" id="sol1">
+                <div class="code-container">
+                    <pre><code>public void setCgpa(double cgpa) {
+    if (cgpa >= 0.0 && cgpa <= 4.0) {
+        this.cgpa = cgpa;
+    } else {
+        System.out.println("Invalid CGPA!");
+    }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 2: CONSTRUCTOR & OVERLOADING -->
+    <div class="chapter-card" id="topic2">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 02</span>
+        </div>
+        <h2 class="chapter-title">Constructors & Constructor Overloading</h2>
+
+        <div class="theory-box">
+            <p><strong>কনস্ট্রাক্টর কী?</strong></p>
+            <p>কনস্ট্রাক্টর হলো একটি বিশেষ ধরণের মেথড যা নতুন অবজেক্ট তৈরির সময় (মেমোরি অ্যালকেশনের ঠিক পরপরই) ফিল্ডসমূহ ইনিশিওলাইজ করতে ব্যবহৃত হয়।</p>
+
+            <ul class="bullet-list">
+                <li><strong>নামকরণ:</strong> কনস্ট্রাক্টরের নাম অবশ্যই তার ক্লাসের নামের অবিকল একই হতে হবে।</li>
+                <li><strong>No Return Type:</strong> এর কোনো <span class="inline-code">void</span> সহ রিটার্ন টাইপ থাকে না।</li>
+                <li><strong>Automatic Invocation:</strong> <span class="inline-code">new</span> কিওয়ার্ড দিয়ে অবজেক্ট তৈরি হলেই এটি রান করে।</li>
+            </ul>
+
+            <div class="exam-tip">
+                💡 <strong>Exam Question:</strong> "আমরা কোনো Constructor না লিখলে কী ঘটে?"<br>
+                <strong>উত্তর:</strong> Java Compiler নিজে থেকেই একটি <strong>Default No-arg Constructor</strong> ক্লাসে যোগ করে দেয়। কিন্তু আপনি যদি নিজের হাতে কোনো Parameterized Constructor লেখেন, তখন কম্পাইলার আর Default Constructor যোগ করে না!
+            </div>
+
+            <div class="pitfall">
+                ⚠️ <strong>Private Constructor:</strong> কনস্ট্রাক্টর <span class="inline-code">private</span> করা হলে বাইরের কোনো ক্লাস থেকে <span class="inline-code">new</span> দিয়ে অবজেক্ট তৈরি সম্ভব নয়। এটি Singleton Pattern এবং Utility Class এর জন্য ব্যবহৃত হয়।
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>Book.java (Constructor Overloading Example)</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>class Book {
+    String title;
+    double price;
+
+    // 1. Default Constructor
+    Book() {
+        title = "Untitled";
+        price = 0.0;
+    }
+
+    // 2. Parameterized Constructor
+    Book(String t, double p) {
+        title = t;
+        price = p;
+    }
+
+    void displayInfo() {
+        System.out.println("Book: " + title + " | Price: $" + price);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Book b1 = new Book();                  // Calls Default
+        Book b2 = new Book("Java OOP", 45.0);  // Calls Parameterized
+
+        b1.displayInfo();
+        b2.displayInfo();
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            Book: Untitled | Price: $0.0<br>
+            Book: Java OOP | Price: $45.0
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 2</div>
+            <p>নিচের কোডে কোনো ভুল আছে কি?<br>
+            <span class="inline-code">class Laptop { Laptop(int ram) {} }</span><br>
+            <span class="inline-code">Laptop l = new Laptop();</span></p>
+            <button class="solution-toggle" onclick="toggleSolution('sol2')">💡 ব্যাখ্যা দেখুন</button>
+            <div class="solution-content" id="sol2">
+                <p><strong>হ্যাঁ, Compile Error আসবে!</strong> কারণ ব্যবহারকারী একটি Parameterized constructor লিখে ফেলেছে, ফলে কম্পাইলার default no-arg constructor তৈরি করেনি। তাই <span class="inline-code">new Laptop()</span> কল করলে ম্যাচিং কনস্ট্রাক্টর পাবে না।</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 3: STATIC KEYWORD -->
+    <div class="chapter-card" id="topic3">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 03</span>
+        </div>
+        <h2 class="chapter-title">static Keyword & Static Blocks</h2>
+
+        <div class="theory-box">
+            <p><strong>static কিওয়ার্ডের মূল ধারণা:</strong></p>
+            <p><span class="inline-code">static</span> সদস্যগুলো (Variable, Method, Block) কোনো নির্দিষ্ট অবজেক্টের অংশ নয়; তারা সরাসরি **Class Level** সদস্য।</p>
+
+            <ul class="bullet-list">
+                <li><strong>Static Variable:</strong> ক্লাসের সব অবজেক্টের জন্য একটি মাত্র শেয়ার্ড মেমোরি কপি তৈরি হয়।</li>
+                <li><strong>Static Method:</strong> অবজেক্ট ক্রিয়েট না করেই সরাসরি <span class="inline-code">ClassName.methodName()</span> দিয়ে কল করা যায়।</li>
+                <li><strong>Static Block:</strong> ক্লাসটি যখন JVM এ লোড হয় (main method রান হওয়ার আগেই) একদম প্রথমবার এটি অটোমেটিক এক্সিকিউট হয়।</li>
+            </ul>
+
+            <div class="pitfall">
+                🚨 <strong>Static Limitations (পরীক্ষায় খুব জনপ্রিয় প্রশ্ন):</strong><br>
+                ১. Static Method সরাসরি কোনো <strong>Non-static (Instance) Variable বা Method</strong> কে ব্যবহার করতে পারে না।<br>
+                ২. Static context-এ <span class="inline-code">this</span> এবং <span class="inline-code">super</span> কিওয়ার্ড ব্যবহার করা সম্পূর্ণ নিষিদ্ধ!
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>StaticDemo.java</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>class Student {
+    String name;                   // Instance variable
+    static String university = "UIU"; // Shared static variable
+    static int studentCount = 0;   // Counter
+
+    // Static Block
+    static {
+        System.out.println(">>> Static Block Executed (Class Loaded) <<<");
+        studentCount = 100; // Initial setup
+    }
+
+    Student(String n) {
+        this.name = n;
+        studentCount++;
+    }
+
+    static void showTotal() {
+        System.out.println("Total Students registered: " + studentCount);
+        // System.out.println(name); ❌ ERROR! Static method cannot access non-static 'name'
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Main method started execution.");
+        Student s1 = new Student("Kaesar");
+        Student s2 = new Student("Arafat");
+
+        Student.showTotal();
+        System.out.println(s1.name + " studies at " + Student.university);
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            >>> Static Block Executed (Class Loaded) <<<<br>
+            Main method started execution.<br>
+            Total Students registered: 102<br>
+            Kaesar studies at UIU
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 3</div>
+            <p>প্রোগ্রামে multiple static blocks থাকলে সেগুলো কোন ক্রমানুসারে এক্সিকিউট হয়?</p>
+            <button class="solution-toggle" onclick="toggleSolution('sol3')">💡 উত্তর দেখুন</button>
+            <div class="solution-content" id="sol3">
+                <p>Multiple static blocks কোডে যেভাবে উপর থেকে নিচে (Top-to-Bottom order) ডিফাইন করা থাকে, ঠিক সেই ক্রমানুসারেই ক্লাস লোড হওয়ার সময় এক্সিকিউট হয়।</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 4: THIS KEYWORD -->
+    <div class="chapter-card" id="topic4">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 04</span>
+        </div>
+        <h2 class="chapter-title">this Keyword & Constructor Chaining</h2>
+
+        <div class="theory-box">
+            <p><strong>this কী?</strong></p>
+            <p><span class="inline-code">this</span> হলো একটি রেফারেন্স ভ্যারিয়েবল যা বর্তমান মেমোরি অবজেক্টের (Current Instance) অ্যাড্রেস ধারণ করে।</p>
+
+            <p><strong>this এর ৩টি প্রধান ব্যবহার:</strong></p>
+            <ol style="margin-left: 20px; margin-bottom: 15px;">
+                <li><strong>Variable Shadowing সমাধান:</strong> Instance variable এবং Parameter এর নাম একই হলে <span class="inline-code">this.variableName</span> দিয়ে পার্থক্য করা হয়।</li>
+                <li><strong>Current Method Invocation:</strong> বর্তমান ক্লাসের কোনো মেথডকে স্পষ্ট করার জন্য call করা।</li>
+                <li><strong>Constructor Chaining (<span class="inline-code">this()</span>):</strong> একই ক্লাসের এক কনস্ট্রাক্টর থেকে অন্য কনস্ট্রাক্টরকে ইনভোক করা।</li>
+            </ol>
+
+            <div class="exam-tip">
+                📌 <strong>Golden Rule for <span class="inline-code">this()</span>:</strong><br>
+                কনস্ট্রাক্টর চেইনিংয়ের জন্য <span class="inline-code">this(...)</span> ব্যবহার করলে সেই স্টেটমেন্টকে অবশ্যই কনস্ট্রাক্টরের **একদম প্রথম লাইনে (First Statement)** হতে হবে!
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>Circle.java (this & Constructor Chaining)</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>class Circle {
+    double radius;
+    String color;
+
+    // 1. No-arg Constructor
+    Circle() {
+        this(1.0, "Red"); // Calls the 2-arg constructor (Chaining)
+        System.out.println("Default constructor finished.");
+    }
+
+    // 2. Parameterized Constructor
+    Circle(double radius, String color) {
+        this.radius = radius; // Shadowing resolved
+        this.color = color;
+    }
+
+    void display() {
+        System.out.println("Circle Radius: " + this.radius + ", Color: " + this.color);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Circle c1 = new Circle(); // Uses chaining
+        c1.display();
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            Default constructor finished.<br>
+            Circle Radius: 1.0, Color: Red
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 4</div>
+            <p>যদি একই কনস্ট্রাক্টরে <span class="inline-code">this()</span> এবং <span class="inline-code">super()</span> দুটিকেই একসাথে প্রথম লাইনে লিখতে যাই, তবে কী ঘটবে?</p>
+            <button class="solution-toggle" onclick="toggleSolution('sol4')">💡 ব্যাখ্যা দেখুন</button>
+            <div class="solution-content" id="sol4">
+                <p><strong>Compile Error আসবে!</strong> কারণ <span class="inline-code">this()</span> এবং <span class="inline-code">super()</span> দুটি নিয়ম দ্বারাই বাধ্য যে তাদের যেকোনো একটিকে সবসময় ১ম লাইনে থাকতে হবে। তাই দুটিকে একসাথে একই কনস্ট্রাক্টরে ব্যবহার করা সম্ভব নয়।</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 5: INHERITANCE -->
+    <div class="chapter-card" id="topic5">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 05</span>
+        </div>
+        <h2 class="chapter-title">Inheritance & Class Relationships (IS-A vs HAS-A)</h2>
+
+        <div class="theory-box">
+            <p><strong>ইনহেরিটেন্স (Inheritance) কী?</strong></p>
+            <p>একটি ক্লাস (Child / Subclass) যখন অন্য ক্লাসের (Parent / Superclass) প্রপার্টি ও মেথডগুলো গ্রহণ করে, তাকে Inheritance বলে। Java-তে <span class="inline-code">extends</span> কিওয়ার্ড ব্যবহার করা হয়।</p>
+
+            <ul class="bullet-list">
+                <li><strong>IS-A Relationship (Inheritance):</strong> Dog <em>IS-A</em> Animal, Car <em>IS-A</em> Vehicle.</li>
+                <li><strong>HAS-A Relationship (Aggregation/Composition):</strong> Car <em>HAS-A</em> Engine. (একটি ক্লাসের ফিল্ড হিসেবে অন্য ক্লাসের অবজেক্ট থাকা)।</li>
+            </ul>
+
+            <div class="pitfall">
+                ❌ <strong>Why Java doesn't support Multiple Inheritance with Classes:</strong><br>
+                যদি ক্লাস A এবং B উভয়েই <span class="inline-code">display()</span> মেথড রাখে, এবং C যদি A, B উভয়কে ইনহেরিট করে, তবে C এর অবজেক্ট <span class="inline-code">display()</span> কল করলে কোনটির মেথড রান হবে তা নিয়ে দ্বিধা তৈরি হয়। একে <strong>Diamond Problem</strong> বলে।
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>InheritanceCompositionDemo.java</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>// HAS-A Relationship Component
+class Engine {
+    void start() {
+        System.out.println("Engine is roaring...");
+    }
+}
+
+// Superclass
+class Vehicle {
+    int maxSpeed = 120;
+}
+
+// Subclass (IS-A Vehicle) + HAS-A Engine
+class Car extends Vehicle {
+    Engine engine = new Engine(); // HAS-A Relationship
+
+    void drive() {
+        engine.start(); // Using engine
+        System.out.println("Car driving at speed up to: " + maxSpeed + " km/h");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car myCar = new Car();
+        myCar.drive();
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            Engine is roaring...<br>
+            Car driving at speed up to: 120 km/h
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 5</div>
+            <p>Java-তে সমস্ত ক্লাসের একদম মূল রুট Parent Class কোনটি?</p>
+            <button class="solution-toggle" onclick="toggleSolution('sol5')">💡 উত্তর দেখুন</button>
+            <div class="solution-content" id="sol5">
+                <p>Java-র একদম রুট ক্লাস হলো <span class="inline-code">java.lang.Object</span>। আপনি যদি এক্সপ্লিসিটলি কোনো ক্লাস ইনহেরিট না-ও করেন, তবুও সব ক্লাস ইমপ্লিসিটলি <span class="inline-code">Object</span> ক্লাসকে ইনহেরিট করে।</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 6: METHOD OVERLOADING -->
+    <div class="chapter-card" id="topic6">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 06</span>
+        </div>
+        <h2 class="chapter-title">Method Overloading & Automatic Type Promotion</h2>
+
+        <div class="theory-box">
+            <p><strong>মেথড ওভারলোডিং কী?</strong></p>
+            <p>একই ক্লাসে যদি একই নামের একাধিক মেথড থাকে, কিন্তু তাদের **প্যারামিটার লিস্ট** (Parameter Count বা Parameter Data Types) ভিন্ন হয়, তাকে Method Overloading বলে। এটি <strong>Compile-time Polymorphism</strong> (Static Binding)।</p>
+
+            <p><strong>Automatic Type Promotion Rules:</strong></p>
+            <p>ম্যাচিং ডেটা টাইপ না পাওয়া গেলে Java ছোট টাইপকে বড় টাইপে অটোমেটিক প্রমোট করে:</p>
+            <p><span class="inline-code">byte → short → int → long → float → double</span>, এবং <span class="inline-code">char → int</span>.</p>
+
+            <div class="pitfall">
+                🚨 <strong>Ambiguity in Overloading:</strong><br>
+                যদি কোনো ওভারলোডেড মেথড থাকে <span class="inline-code">add(int, double)</span> এবং <span class="inline-code">add(double, int)</span>, আর আপনি কল করেন <span class="inline-code">add(10, 20)</span>, তবে Java Ambiguity Error দিবে কারণ দুটি মেথডই সমানে সম্ভাব্য!
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>TypePromotion.java</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>class MathUtil {
+    void show(int a, double b) {
+        System.out.println("int, double version called");
+    }
+
+    void show(double a, double b) {
+        System.out.println("double, double version called");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MathUtil util = new MathUtil();
+        
+        // 10 is int, 5.5 is double -> Matches 1st
+        util.show(10, 5.5); 
+        
+        // Both integers (10, 20) -> 20 is promoted to double to match 1st!
+        util.show(10, 20); 
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            int, double version called<br>
+            int, double version called
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 6</div>
+            <p>শুধু Return Type পরিবর্তন করে কি দুটি মেথড ওভারলোড করা যায়? কেন?</p>
+            <button class="solution-toggle" onclick="toggleSolution('sol6')">💡 উত্তর দেখুন</button>
+            <div class="solution-content" id="sol6">
+                <p><strong>না, কখনই সম্ভব নয়!</strong> কারণ প্রোগ্রাম যখন মেথড কল করে (যেমন: <span class="inline-code">calculator.add(5, 10)</span>), তখন রিটার্ন টাইপ দেখে বোঝার কোনো উপায় থাকে না যে কোন মেথডকে কল করা হয়েছে। তাই কম্পাইল এরর হবে।</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 7: METHOD OVERRIDING & DYNAMIC DISPATCH -->
+    <div class="chapter-card" id="topic7">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 07</span>
+        </div>
+        <h2 class="chapter-title">Method Overriding & Dynamic Method Dispatch</h2>
+
+        <div class="theory-box">
+            <p><strong>মেথড ওভাররাইডিং কী?</strong></p>
+            <p>Subclass যদি Superclass-এর কোনো মেথডকে **একই নাম, একই প্যারামিটার এবং একই/Covariant রিটার্ন টাইপ** দিয়ে পুনরায় নিজের মতো ডিফাইন করে, তাকে Overriding বলে। এটি <strong>Runtime Polymorphism</strong> (Dynamic Binding)।</p>
+
+            <p><strong>Dynamic Method Dispatch (Upcasting):</strong></p>
+            <p>প্যারেন্ট ক্লাসের রেফারেন্স দিয়ে চাইল্ড ক্লাসের অবজেক্ট ধরে রাখলে, Runtime-এ আসল অবজেক্টের মেথডই এক্সিকিউট হবে:</p>
+            <p><span class="inline-code">Parent obj = new Child();</span> → <span class="inline-code">obj.speak();</span> (Calls Child's speak!)</p>
+
+            <div class="exam-tip">
+                💡 <strong>Non-overrideable Methods:</strong><br>
+                ১. <span class="inline-code">static</span> methods (মেথড হাইডিং ঘটে, ওভাররাইডিং নয়)।<br>
+                ২. <span class="inline-code">final</span> methods (পরিবর্তন নিষিদ্ধ)।<br>
+                ৩. <span class="inline-code">private</span> methods (চাইল্ড ক্লাস থেকে অদৃশ্য)।
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>PolymorphismDemo.java</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>class Bank {
+    double getRateOfInterest() {
+        return 0.0;
+    }
+}
+
+class BRACBank extends Bank {
+    @Override
+    double getRateOfInterest() {
+        return 8.5;
+    }
+}
+
+class DBBLBank extends Bank {
+    @Override
+    double getRateOfInterest() {
+        return 9.0;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Dynamic Method Dispatch
+        Bank myBank;
+
+        myBank = new BRACBank();
+        System.out.println("BRAC Interest: " + myBank.getRateOfInterest() + "%");
+
+        myBank = new DBBLBank();
+        System.out.println("DBBL Interest: " + myBank.getRateOfInterest() + "%");
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            BRAC Interest: 8.5%<br>
+            DBBL Interest: 9.0%
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 7</div>
+            <p>চাইল্ড ক্লাসে মেথড ওভাররাইড করার সময় Access Modifier কি সংকুচিত (Narrow) করা সম্ভব? (যেমন Parent এ public কিন্তু Child এ private)?</p>
+            <button class="solution-toggle" onclick="toggleSolution('sol7')">💡 উত্তর দেখুন</button>
+            <div class="solution-content" id="sol7">
+                <p><strong>না!</strong> Overriding-এর নিয়ম হলো চাইল্ড ক্লাসের মেথডের Access Level কখনো কম নো বা সংকুচিত করা যাবে না (You cannot reduce the visibility of the inherited method)। বড়জোর এক্সেস লেভেল বাড়ানো বা সমান রাখা যাবে।</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 8: SUPER KEYWORD MECHANICS -->
+    <div class="chapter-card" id="topic8">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 08</span>
+        </div>
+        <h2 class="chapter-title">super Keyword & Parent Class Execution Flow</h2>
+
+        <div class="theory-box">
+            <p><strong>super কী?</strong></p>
+            <p><span class="inline-code">super</span> হলো একটি রেফারেন্স ভ্যারিয়েবল যা ইমিডিয়েট প্যারেন্ট ক্লাসের (Immediate Parent Class) অবজেক্টকে পয়েন্ট করে।</p>
+
+            <p><strong>super এর ৩টি প্রধান কাজ:</strong></p>
+            <ol style="margin-left: 20px; margin-bottom: 15px;">
+                <li><strong>Parent Instance Variable Access:</strong> Shadowed প্যারেন্ট ভ্যারিয়েবল ব্যবহার করতে (<span class="inline-code">super.variable</span>)।</li>
+                <li><strong>Parent Overridden Method Invoke:</strong> প্যারেন্ট ক্লাসের ওভাররাইড হওয়া মেথড কল করতে (<span class="inline-code">super.method()</span>)।</li>
+                <li><strong>Parent Constructor Call (<span class="inline-code">super()</span>):</strong> প্যারেন্ট কনস্ট্রাক্টর কল করতে (চাইল্ড কনস্ট্রাক্টরের ১ম লাইনে)।</li>
+            </ol>
+
+            <div class="exam-tip">
+                💡 <strong>Constructor Execution Sequence:</strong><br>
+                যখন চাইল্ড ক্লাসের অবজেক্ট তৈরি করা হয়, প্রথমে প্যারেন্ট ক্লাসের কনস্ট্রাক্টর এক্সিকিউট হয়, তারপর চাইল্ড ক্লাসের কনস্ট্রাক্টর সম্পন্ন হয়!
+            </div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>SuperMechanics.java</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>class Employee {
+    String name = "General Employee";
+
+    Employee(String name) {
+        this.name = name;
+        System.out.println("1. Employee Parent Constructor Executed.");
+    }
+
+    void work() {
+        System.out.println("Employee is working on general tasks.");
+    }
+}
+
+class Manager extends Employee {
+    String name = "Manager Spec"; // Variable shadowing
+
+    Manager(String fullName) {
+        super(fullName); // Calling parent constructor (Must be 1st line)
+        System.out.println("2. Manager Child Constructor Executed.");
+    }
+
+    @Override
+    void work() {
+        super.work(); // Invoke parent method
+        System.out.println("Manager is managing team projects.");
+    }
+
+    void printNames() {
+        System.out.println("Parent Name (super.name): " + super.name);
+        System.out.println("Child Name (this.name): " + this.name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Manager m = new Manager("Kaesar Zulkarnain");
+        System.out.println("--- Method Execution ---");
+        m.work();
+        System.out.println("--- Variable Access ---");
+        m.printNames();
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            1. Employee Parent Constructor Executed.<br>
+            2. Manager Child Constructor Executed.<br>
+            --- Method Execution ---<br>
+            Employee is working on general tasks.<br>
+            Manager is managing team projects.<br>
+            --- Variable Access ---<br>
+            Parent Name (super.name): Kaesar Zulkarnain<br>
+            Child Name (this.name): Manager Spec
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 8</div>
+            <p>প্যারেন্ট ক্লাসে যদি শুধু Parameterized Constructor থাকে এবং কোনো Default Constructor না থাকে, তবে চাইল্ড ক্লাসের কনস্ট্রাক্টরে কী বাধ্যবাধকতা তৈরি হয়?</p>
+            <button class="solution-toggle" onclick="toggleSolution('sol8')">💡 উত্তর দেখুন</button>
+            <div class="solution-content" id="sol8">
+                <p>চাইল্ড ক্লাসের কনস্ট্রাক্টরের প্রথম লাইনে অবশ্যই ম্যানুয়ালি <span class="inline-code">super(args...)</span> লিখে প্যারেন্ট ক্লাসের সেই Parameterized Constructor-কে কল করতেই হবে! তা না হলে কম্পাইল এরর হবে।</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHAPTER 9: ABSTRACT CLASS & INTERFACE -->
+    <div class="chapter-card" id="topic9">
+        <div class="chapter-header">
+            <span class="chapter-badge">Topic 09</span>
+        </div>
+        <h2 class="chapter-title">Abstract Class vs Interface (Abstraction)</h2>
+
+        <div class="theory-box">
+            <p><strong>অ্যাবস্ট্রাকশন (Abstraction) কী?</strong></p>
+            <p>প্রয়োজনীয় ফিচারসমূহ দেখিয়ে ভেতরের জটিল বাস্তবায়নের বিস্তারিত আড়াল করার প্রক্রিয়াকেই Abstraction বলে।</p>
+
+            <ul class="bullet-list">
+                <li><strong>Abstract Class:</strong> আংশিক অ্যাবস্ট্রাকশন (0 to 100%)। এতে abstract এবং concrete (normal) উভয় মেথডই থাকতে পারে। <span class="inline-code">new</span> দিয়ে অবজেক্ট তৈরি করা যায় না।</li>
+                <li><strong>Interface:</strong> শতভাগ অ্যাবস্ট্রাকশন (Java 8 এর আগে)। ফিল্ডগুলো ডিফল্টভাবে <span class="inline-code">public static final</span> এবং মেথডগুলো <span class="inline-code">public abstract</span> হয়। (Java 8+ এ <span class="inline-code">default</span> ও <span class="inline-code">static</span> মেথডও যোগ হয়েছে)।</li>
+            </ul>
+
+            <p><strong>Abstract Class vs Interface (Master Comparison Table):</strong></p>
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>বৈশিষ্ট্য</th>
+                        <th>Abstract Class</th>
+                        <th>Interface</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Multiple Inheritance</strong></td>
+                        <td>❌ অর্জিত হয় না (extends 1 class)</td>
+                        <td>✅ একাধিক ইন্টারফেস implements করা যায়</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Variables Type</strong></td>
+                        <td>Final, Non-final, Static, Non-static হতে পারে</td>
+                        <td>শুধুমাত্র <span class="inline-code">public static final</span> (Constants)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Methods</strong></td>
+                        <td>Abstract & Concrete মেথড দুটিই থাকে</td>
+                        <td>Abstract, Default, and Static Methods</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Speed/Performance</strong></td>
+                        <td>দ্রুততর (Fast)</td>
+                        <td>সামান্য ধীরগতির (Indirection এর কারণে)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="code-container">
+            <div class="code-header">
+                <span>AbstractionDemo.java</span>
+                <span class="code-lang-tag">JAVA</span>
+            </div>
+            <pre><code>// Interface
+interface Drawable {
+    void draw(); // Automatically public abstract
+}
+
+// Abstract Class
+abstract class Shape implements Drawable {
+    String color;
+
+    Shape(String color) {
+        this.color = color;
+    }
+
+    // Concrete method
+    void showColor() {
+        System.out.println("Shape color: " + color);
+    }
+}
+
+// Concrete Class
+class Rectangle extends Shape {
+    Rectangle(String color) {
+        super(color);
+    }
+
+    @Override
+    public void draw() {
+        System.out.println("Drawing a colored Rectangle.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Shape shape = new Rectangle("Blue");
+        shape.showColor();
+        shape.draw();
+    }
+}</code></pre>
+        </div>
+
+        <div class="output-box">
+            <div class="output-title">Expected Output:</div>
+            Shape color: Blue<br>
+            Drawing a colored Rectangle.
+        </div>
+
+        <div class="task-card">
+            <div class="task-title">📝 Practice Task 9</div>
+            <p>Abstract Class এর কি Constructor থাকতে পারে? যদি অবজেক্টই না বানানো যায়, তবে এর কনস্ট্রাক্টরের কাজ কী?</p>
+            <button class="solution-toggle" onclick="toggleSolution('sol9')">💡 উত্তর দেখুন</button>
+            <div class="solution-content" id="sol9">
+                <p><strong>হ্যাঁ, Abstract Class এর অবশ্যই Constructor থাকতে পারে!</strong> যদিও এর সরাসরি অবজেক্ট বানানো যায় না, তবে যখন চাইল্ড ক্লাসের অবজেক্ট তৈরি করা হয়, তখন চাইল্ড কনস্ট্রাক্টরের মাধ্যমে <span class="inline-code">super()</span> দিয়ে Abstract class-এর ভ্যারিয়েবলসমূহ ইনিশিওলাইজ করার জন্য এর কনস্ট্রাক্টর প্রয়োজন হয়।</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- BONUS: MASTER CHEAT SHEET -->
+    <div class="chapter-card" style="background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);">
+        <span class="chapter-badge" style="background: #fef3c7; color: #b45309;">Quick Revision</span>
+        <h2 class="chapter-title">⚡ Overloading vs Overriding Master Difference</h2>
+
+        <table class="comp-table">
+            <thead>
+                <tr>
+                    <th>বৈশিষ্ট্য</th>
+                    <th>Method Overloading</th>
+                    <th>Method Overriding</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Polymorphism</strong></td>
+                    <td>Compile-time (Static) Polymorphism</td>
+                    <td>Runtime (Dynamic) Polymorphism</td>
+                </tr>
+                <tr>
+                    <td><strong>Scope / Location</strong></td>
+                    <td>একই ক্লাসের ভেতর ঘটে</td>
+                    <td>প্যারেন্ট ও চাইল্ড ক্লাসের মাঝে ঘটে (Inheritance)</td>
+                </tr>
+                <tr>
+                    <td><strong>Parameters</strong></td>
+                    <td>অবশ্যই ভিন্ন (Count or Type) হতে হবে</td>
+                    <td>অবশ্যই অবিকল একই হতে হবে</td>
+                </tr>
+                <tr>
+                    <td><strong>Private/Static/Final</strong></td>
+                    <td>ওভারলোড করা সম্ভব</td>
+                    <td>ওভাররাইড করা সম্ভব নয়</td>
+                </tr>
+                <tr>
+                    <td><strong>Private Access</strong></td>
+                    <td>একই ক্লাসে সম্ভব</td>
+                    <td>চাইল্ড ক্লাস থেকে এক্সেস না থাকায় সম্ভব নয়</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>Java OOP Ultimate Revision Book • 9 Core Topics</strong></p>
+        <p style="margin-top: 6px;">Specially prepared for university exams and quick concepts revision.</p>
+        <p style="margin-top: 10px; font-weight: bold; color: var(--primary-light);">Designed & Authored by kaesarz ✨</p>
+    </footer>
+
+</div>
+
+<!-- Back to top floating button -->
+<a href="#" class="top-btn" title="Go to top">⬆</a>
+
+<script>
+    // Search Filter Logic
+    function filterTopics() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let cards = document.getElementsByClassName('chapter-card');
+
+        for (let card of cards) {
+            let text = card.innerText.toLowerCase();
+            if (text.includes(input)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        }
+    }
+
+    // Toggle Solution Content
+    function toggleSolution(id) {
+        let content = document.getElementById(id);
+        if (content.classList.contains('active')) {
+            content.classList.remove('active');
+        } else {
+            content.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>
